@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form'; // add reduxForm to component export statement and tell it about different field names, then we can use the field component inside of the component itself
+import { compose } from 'redux'; // allows us to write out multiple higher order components in a better formatted way
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
 class Register extends Component {
     onSubmit = (formProps) => { // arrow function makes it so we don't have to worry about binding the context of onSubmit
-        console.log(formProps); // when we use reduxForm we get a function on our props object called handleSubmit. Use this function to take email and password out of the form and provide it to the onSubmit callback
+        this.props.signup(formProps);// call the signup action creator
+        // when we use reduxForm we get a function on our props object called handleSubmit. Use this function to take email and password out of the form and provide it to the onSubmit callback
     };
 
     render() {
@@ -36,4 +40,7 @@ class Register extends Component {
     }
 }
 
-export default reduxForm({ form: 'register' })(Register); // now that we've wired up the form, we can make use of the inputs we'll need for email and password
+export default compose ( // allows us to apply multiple hoc's in series to a single component (Register in this case) in an easier to read way
+    connect(null, actions), //apply action creators to Register component
+    reduxForm({ form: 'register'})
+)(Register);
