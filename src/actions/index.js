@@ -1,3 +1,6 @@
+const API_SERVER = "http://localhost:8080";
+
+
 import axios from 'axios';
 import { AUTH_USER } from './types';
 
@@ -24,6 +27,8 @@ export const signup = formProps => (dispatch) => { // typical redux thunk action
     // making a request, signing up, and calling dispatch with our action will occur inside the function body here
 // action creator is returning a single value
 
-    axios.post('http://localhost:8080/signup', formProps);
+    axios.post(`${API_SERVER}/signup`, formProps);
 };
+
+
 
