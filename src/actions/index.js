@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AUTH_USER } from './types';
-const API_SERVER = "http://localhost:8080";
+// const API_SERVER = "http://localhost:8080";
 // export const signup  = ({ email, password }) => { // creating an action creator called signup
 //     return { // inside action creator we always return an object that has a type property and a payload
 //         type: auth_user, // action creators usually return an action that is sent to redux thunk middleware, is then sent to the reducers, and reducers produce our news state that flows back into our components
@@ -24,7 +24,7 @@ export const signup = formProps => (dispatch) => { // typical redux thunk action
     // making a request, signing up, and calling dispatch with our action will occur inside the function body here
 // action creator is returning a single value
 
-    axios.post(`${API_SERVER}/signup`, formProps);
+    axios.post('http://localhost:8080/signup', formProps);
 };
 
 
