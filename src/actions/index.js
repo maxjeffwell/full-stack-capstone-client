@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER } from './types';
+// import { AUTH_USER } from './types';
 // const API_SERVER = "http://localhost:8080";
 // export const signup  = ({ email, password }) => { // creating an action creator called signup
 //     return { // inside action creator we always return an object that has a type property and a payload
