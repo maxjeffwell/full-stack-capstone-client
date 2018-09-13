@@ -6,7 +6,9 @@ import * as actions from '../../actions';
 
 class Register extends Component {
     onSubmit = (formProps) => { // arrow function makes it so we don't have to worry about binding the context of onSubmit
-        this.props.signup(formProps);// call the signup action creator
+        this.props.signup(formProps, () => {
+            this.props.history.push('/feature');
+        });// call the signup action creator
         // when we use reduxForm we get a function on our props object called handleSubmit. Use this function to take email and password out of the form and provide it to the onSubmit callback
     };
 
@@ -34,13 +36,20 @@ class Register extends Component {
                 autoComplete="none"
             />
             </fieldset>
-            <button>Register</button>
+            <div>
+                {this.props.errorMessage}
+            </div>
+                <button>Register</button>
         </form>
         );
     }
 }
 
+function mapStateToProps(state) {
+    return { errorMessage: state.auth.errorMessage };
+}
+
 export default compose ( // allows us to apply multiple hoc's in series to a single component (Register in this case) in an easier to read way
-    connect(null, actions), //apply action creators to Register component
+    connect(mapStateToProps, actions), //apply action creators to Register component
     reduxForm({ form: 'register'})
 )(Register);

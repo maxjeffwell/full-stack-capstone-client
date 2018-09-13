@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { AUTH_USER } from './types';
-// const API_SERVER = "http://localhost:8080";
+import { AUTH_USER, AUTH_ERROR } from './types';
+
 // export const signup  = ({ email, password }) => { // creating an action creator called signup
 //     return { // inside action creator we always return an object that has a type property and a payload
 //         type: auth_user, // action creators usually return an action that is sent to redux thunk middleware, is then sent to the reducers, and reducers produce our news state that flows back into our components
@@ -20,12 +20,32 @@ import { AUTH_USER } from './types';
 //     }
 // };
 
-export const signup = formProps => (dispatch) => { // typical redux thunk action creator format
-    // making a request, signing up, and calling dispatch with our action will occur inside the function body here
-// action creator is returning a single value
-
-    axios.post('http://localhost:8080/signup', formProps);
+export const signup = (formProps, callback) => dispatch => async dispatch => {
+    try {
+        const response = await axios.post('http://localhost:8080/signup', formProps);
+        dispatch({type: AUTH_USER, payload: response.data.token});
+        callback();
+    } catch(e) {
+        dispatch({ type: AUTH_ERROR, payload: 'Email is in use' });
+    }
 };
 
+export const signin = (formProps, callback) => dispatch => async dispatch => { // typical redux
+    try {
+        const response = await axios.post('http://localhost:8080/signin', formProps);
+        dispatch({type: AUTH_USER, payload: response.data.token});
+        callback();
+    } catch(e) {
+        dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
+    }
+};
+
+export const signout = () => {
+    return {
+        type: AUTH_USER, // re-use same type we used to sign up user
+        payload: '' // clear authenticated piece of state
+
+    }
+};
 
 
