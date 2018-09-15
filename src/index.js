@@ -15,7 +15,10 @@ import Signout from './components/auth/Signout';
 
 const store = createStore(
     reducers,
-    {},
+    // use starting state object to get initializing state inside redux store, pass to store the key of auth piece of state and then value to be initalized when redux store  is created (authenticated) and assign to it whatever is returns from localStorage
+    {
+        auth: { authenticated: localStorage.getItem('jwtToken') }
+    },
     applyMiddleware(reduxThunk)
 );
 

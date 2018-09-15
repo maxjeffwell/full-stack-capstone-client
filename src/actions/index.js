@@ -24,6 +24,8 @@ export const signup = (formProps, callback) => async dispatch => {
     try {
         const response = await axios.post('http://localhost:8080/signup', formProps);
         dispatch({type: AUTH_USER, payload: response.data.token});
+        // store JWT token
+        localStorage.setItem('jwtToken', response.data.token);
         callback();
     } catch(e) {
         dispatch({ type: AUTH_ERROR, payload: 'Email is in use' });
@@ -36,16 +38,16 @@ export const signin = (formProps, callback) => async dispatch => { // typical re
         dispatch({type: AUTH_USER, payload: response.data.token});
         callback();
     } catch(e) {
-        dispatch({ type: AUTH_ERROR, payload: 'Invalid login credentials' });
+        dispatch({ type: AUTH_ERROR, payload: 'Invalid login email or password' });
     }
 };
 
 export const signout = () => {
+    localStorage.removeItem('jwtToken');
     return {
         type: AUTH_USER, // re-use same type we used to sign up user
         payload: '' // clear authenticated piece of state
-
-    }
+    };
 };
 
 
