@@ -32,7 +32,7 @@ export const signup = (formProps, callback) => async dispatch => {
     }
 };
 
-export const signin = (formProps, callback) => async dispatch => { // typical redux
+export const signin = (formProps, callback) => async dispatch => {
     try {
         const response = await axios.post('http://localhost:8080/signin', formProps);
         dispatch({type: AUTH_USER, payload: response.data.token});
