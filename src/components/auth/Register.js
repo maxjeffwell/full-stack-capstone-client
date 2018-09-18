@@ -9,11 +9,11 @@ class Register extends Component {
         this.props.signup(formProps, () => {
             this.props.history.push('/feature');
         });// call the signup action creator
-        // when we use reduxForm we get a function on our props object called handleSubmit. Use this function to take email and password out of the form and provide it to the onSubmit callback
+        // when using reduxForm we get a function on our props object called handleSubmit. Use this function to take email and password out of the form and provide it to the onSubmit callback
     };
 
     render() {
-        const { handleSubmit } = this.props; // can't just add onSubmit as a callback directly to form tag. we have to destructure handleSubmit function from our props object
+        const { handleSubmit } = this.props; // can't just add onSubmit as a callback directly to form tag - have to destructure handleSubmit function from our props object
 
 
         return (
