@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { reduxForm, Field } from 'redux-form'; // add reduxForm to component export statement and tell it about different field names, then we can use the field component inside of the component itself
-import { compose } from 'redux'; // allows us to write out multiple higher order components in a better formatted way
+import { reduxForm, Field } from 'redux-form'; // add reduxForm to component export statement and tell it about different field names, then use the field component inside of the component itself
+import { compose } from 'redux'; // write out multiple higher order components in a better formatted way
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
