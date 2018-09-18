@@ -8,14 +8,16 @@ class Header extends Component {
         // check to see if user is signed in - if they are, show Log Out and Feature components. If not, show Sign Up and Sign In components
     if (this.props.authenticated) {
         return (
-            <div>
+            <div className="nav-wrapper">
+                <a className="brand-logo center">educationELLy</a>
                 <Link to="/signout">Log Out</Link>
                 <Link to="/students">Students</Link>
             </div>
         );
     } else {
         return (
-            <div>
+            <div className="nav-wrapper">
+                <a className="brand-logo center">educationELLy</a>
                 <Link to="/signup">Register</Link>
                 <Link to="/signin">Sign In</Link>
             </div>
