@@ -1,5 +1,4 @@
-// HOC
-// exporting by default a function
+// Higher Order Component
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -22,7 +21,7 @@ export default ChildComponent => {
         }
     }
     function mapStateToProps(state) {
-        return { auth: state.auth.authenticated }; //reference authenticated property to check if user is logged in
+        return { auth: state.auth.authenticated }; // auth piece of state is a boolean saying yes signed in or no. Here, it references an object with an authenticated property to check if user is logged in
     }
     return connect(mapStateToProps)(ComposedComponent);
 };
