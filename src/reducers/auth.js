@@ -1,3 +1,5 @@
+// this reducer records whether user is logged in
+
 import { AUTH_USER, AUTH_ERROR } from '../actions/types';
 
 // By default user is not authenticated and by default there is no error message
