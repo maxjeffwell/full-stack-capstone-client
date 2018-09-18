@@ -1,8 +1,8 @@
 // Write function to retrieve lots of json
-// Make an ajax request - somehow
+// Make an ajax request
 
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, FETCH_STUDENT } from './types';
+import { AUTH_USER, AUTH_ERROR, FETCH_STUDENTS } from './types';
 
 export const signup = (formProps, callback) => async dispatch => {
     try {
@@ -21,17 +21,19 @@ export const signup = (formProps, callback) => async dispatch => {
 export const signin = (formProps, callback) => async dispatch => {
     try {
         const response = await axios.post('http://localhost:8080/signin', formProps);
-        dispatch({type: AUTH_USER, payload: response.data.token});
+        dispatch({ type: AUTH_USER, payload: response.data.token });
         callback();
     } catch(e) {
         dispatch({ type: AUTH_ERROR, payload: 'Invalid login email or password' });
     }
 };
 
-const fetchStudent = async () => {
-    const res = await axios.get('http://localhost:8080/students');
-    const json = await res.json();
-    return json;
+export const fetchStudents = () => async dispatch => {
+    let token = localStorage.getItem('jwtToken');
+    var config = { headers: {'Authorization': "bearer " + token} };
+    const res = await axios.get('http://localhost:8080/students', config);
+
+    dispatch({ type: FETCH_STUDENTS, payload: res.data });
 };
 
 export const signout = () => {

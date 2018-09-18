@@ -7,7 +7,7 @@ import * as actions from '../../actions';
 class Register extends Component {
     onSubmit = (formProps) => { // arrow function makes it so we don't have to worry about binding the context of onSubmit
         this.props.signup(formProps, () => {
-            this.props.history.push('/students');
+            this.props.history.push('/dashboard');
         });// call the signup action creator
         // when using reduxForm we get a function on our props object called handleSubmit. Use this function to take email and password out of the form and provide it to the onSubmit callback
     };

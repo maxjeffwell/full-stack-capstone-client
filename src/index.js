@@ -20,6 +20,7 @@ import Students from './components/auth/Students';
 import Signin from './components/auth/Signin';
 import Signout from './components/auth/Signout';
 import Header from "./components/Header";
+import Dashboard from "./components/Dashboard";
 
 
 const store = createStore(
@@ -49,6 +50,7 @@ ReactDOM.render (
         <Route path='/signup' component={Register} />
         <Route path='/students' component={Students} />
         <Route path='/signin' component={Signin} />
+        <Route path='/dashboard' component={Dashboard} />
         <Route path='/signout' component={Signout} />
     </App>
     </BrowserRouter>

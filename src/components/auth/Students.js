@@ -1,13 +1,47 @@
 import React, { Component } from 'react';
-import authRequired from '../authRequired';
+import { fetchStudents } from "../../actions";
+import connect from "react-redux/es/connect/connect";
 
 class Students extends Component { // class-based component because we'll use a lifecycle method to fetch protected data from backend api anytime the feature component is shown
+    componentDidMount() {
+        this.props.dispatch(fetchStudents());
+        console.log(this.props.students);
+    }
+
+    renderStudentData() {
+        return this.props.students.map(student => {
+            return (
+            <div key={student._id}>
+                    <span>{student.fullName}</span>
+                    <p>
+                        {student.body}
+                    </p>
+                    <p className="right">
+                        {student.school}
+                    </p>
+                    <p className="left">
+                        {student.countryOfBirth}
+                    </p>
+                    <span>{student.nativeLanguage}</span>
+                    <span>{student.ellStatus}</span>
+                    <span>{student.gradeLevel}</span>
+                </div>
+                );
+        });
+    }
+
     render() {
-        return <div>
-            <button onClick={
-                () => console.log('This should take you to Students endpoint')}>Search All Students</button>
-        </div>;
+    return (
+        <div>
+            {this.renderStudentData()}
+        </div>
+        );
     }
 }
 
-export default authRequired(Students);
+
+function mapStateToProps({students}) {
+    return { students };
+}
+
+export default connect(mapStateToProps)(Students);
