@@ -5,7 +5,7 @@ class Students extends Component { // class-based component because we'll use a 
     render() {
         return <div>
             <button onClick={
-                () => console.log('This should take you to Students endpoint')}>Search All</button>
+                () => console.log('This should take you to Students endpoint')}>Search All Students</button>
         </div>;
     }
 }
