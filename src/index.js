@@ -1,6 +1,6 @@
 // data layer control for redux (app root) - start up redux side of things in the app, render root component but limit react configuration here
 
-import 'materialize-css/dist/css/materialize.min.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -21,6 +21,7 @@ import Signin from './components/auth/Signin';
 import Signout from './components/auth/Signout';
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
+import UpdateStudent from "./components/UpdateStudent";
 
 
 const store = createStore(
@@ -48,10 +49,12 @@ ReactDOM.render (
         <Header />
         <Route exact path='/' component={Landing} />
         <Route path='/signup' component={Register} />
-        <Route path='/students' component={Students} />
+        <Route exact path='/students/:id/update' component={UpdateStudent} />
+        <Route exact path='/students' component={Students} />
         <Route path='/signin' component={Signin} />
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/signout' component={Signout} />
+
     </App>
     </BrowserRouter>
     </Provider>,
