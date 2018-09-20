@@ -12,21 +12,25 @@ class Students extends Component { // class-based component because we'll use a 
     renderStudentData() {
         return this.props.students.map(student => {
             return (
-            <div key={student._id}>
-                    <span>{student.fullName}</span>
-                    <p>
-                        {student.body}
-                    </p>
-                    <p className="right">
-                        {student.school}
-                    </p>
-                    <p className="left">
-                        {student.countryOfBirth}
-                    </p>
-                    <span>{student.nativeLanguage}</span>
-                    <span>{student.ellStatus}</span>
-                    <span>{student.gradeLevel}</span>
-                <Link to={`/students/${student._id}/update`}>Edit</Link>
+            <div className="student-card" key={student._id}>
+                <table>
+                    <tr>
+                        <th>Name: </th>
+                            <td>{student.fullName}</td>
+                    </tr>
+                    <tr>
+                        <th>School: </th>
+                        <td>{student.school}</td>
+                    </tr>
+                    <tr>
+                        <th>Country of Birth: </th>
+                        <td>{student.countryOfBirth}</td>
+                    </tr>
+                        {/*{student.nativeLanguage}*/}
+                    {/*{student.ellStatus}*/}
+                    {/*{student.gradeLevel}*/}
+                </table>
+                    <Link to={`/students/${student._id}/update`}>Edit</Link>
             </div>
                 );
         });

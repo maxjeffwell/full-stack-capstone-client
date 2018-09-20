@@ -1,8 +1,9 @@
 import React from 'react';
 
+
 const Landing = () => {
     return (
-        <div style={{ textAlign: 'center' }}>
+        <div className="landing-title">
             <h1>
                 educationELLy
             </h1>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Field, reduxForm, initialize } from 'redux-form';
 import axios from 'axios';
 
+
 class UpdateStudent extends Component {
     constructor() {
         super();
@@ -33,8 +34,8 @@ class UpdateStudent extends Component {
         const {handleSubmit} = this.props;
         return (
             <form onSubmit={handleSubmit(this.onSubmit)}>
-                <fieldset>
-                    <label>Student Name</label>
+                <fieldset className="update-group">
+                    <label className="update-labels">Student Name: </label>
                     <Field
                         name="fullName"
                         type="text"
@@ -43,8 +44,8 @@ class UpdateStudent extends Component {
                     />
                     <button>Update</button>
                 </fieldset>
-                <fieldset>
-                    <label>School Name</label>
+                <fieldset className="update-group">
+                    <label className="update-labels">School Name: </label>
                     <Field
                         name="school"
                         type="text"
@@ -53,8 +54,8 @@ class UpdateStudent extends Component {
                     />
                     <button>Update</button>
                 </fieldset>
-                <fieldset>
-                    <label>Teacher</label>
+                <fieldset className="update-group">
+                    <label className="update-labels">Teacher: </label>
                     <Field
                         name="teacher"
                         type="text"
@@ -63,8 +64,8 @@ class UpdateStudent extends Component {
                     />
                     <button>Update</button>
                 </fieldset>
-                <fieldset>
-                    <label>Grade Level</label>
+                <fieldset className="update-group">
+                    <label className="update-labels">Grade Level: </label>
                     <Field
                         name="gradeLevel"
                         type="text"
@@ -73,8 +74,8 @@ class UpdateStudent extends Component {
                     />
                     <button>Update</button>
                 </fieldset>
-                <fieldset>
-                    <label>ELL Status</label>
+                <fieldset className="update-group">
+                    <label className="update-labels">ELL Status: </label>
                     <Field
                         name="ellStatus"
                         type="text"
@@ -83,8 +84,8 @@ class UpdateStudent extends Component {
                     />
                     <button>Update</button>
                 </fieldset>
-                <fieldset>
-                    <label>Composite Level</label>
+                <fieldset className="update-group">
+                    <label className="update-labels">Composite Level: </label>
                     <Field
                         name="compositeLevel"
                         type="text"
@@ -93,8 +94,8 @@ class UpdateStudent extends Component {
                     />
                     <button>Update</button>
                 </fieldset>
-                <fieldset>
-                    <label>Active</label>
+                <fieldset className="update-group">
+                    <label className="update-labels">Active: </label>
                     <Field
                         name="active"
                         type="text"
@@ -103,8 +104,8 @@ class UpdateStudent extends Component {
                     />
                     <button>Update</button>
                 </fieldset>
-                <fieldset>
-                    <label>Designation</label>
+                <fieldset className="update-group">
+                    <label className="update-labels">Designation: </label>
                     <Field
                         name="designation"
                         type="text"
@@ -118,7 +119,7 @@ class UpdateStudent extends Component {
     }
 }
 
-export default reduxForm({form: 'UpdatesStudent'})(UpdateStudent);
+export default reduxForm({form: 'UpdatesStudent', fields: ['fullName', 'school', 'teacher', 'gradeLevel', 'ellStatus', 'compositeLevel', 'active', 'designation']})(UpdateStudent);
 
 
 

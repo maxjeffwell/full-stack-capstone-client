@@ -19,7 +19,7 @@ class Signin extends Component {
         return (
             <form onSubmit={handleSubmit(this.onSubmit)}> {/* now we can add an onSubmit and call handleSubmit and to handleSubmit we'll pass the callback we want to be executed when user submits the form, which is the onSubmit method we just created. we don't call onSubmit as soon as we render the form, however. onSubmit will be called in the future. we pass a reference to the onSubmit function to handleSubmit.*/}
                 <fieldset>
-                    <label>Email</label>
+                    <label>Email: </label>
                     <Field
                         name="email"
                         type="text"
@@ -28,7 +28,7 @@ class Signin extends Component {
                     />
                 </fieldset>
                 <fieldset>
-                    <label>Password</label>
+                    <label>Password: </label>
                     <Field
                         name="password"
                         type="password"
