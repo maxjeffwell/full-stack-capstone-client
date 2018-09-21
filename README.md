@@ -40,6 +40,7 @@ ___________________________________________________
 A demo of educationELLy can be accessed using the following credentials:
 
 Email: DemoELL
+
 Password: Passworddemo
 
 
