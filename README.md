@@ -10,13 +10,13 @@ https://jmaxwell-fullstack-client.herokuapp.com/
 __________________________________________________
 educationELLy Screenshots:
 
-https://gyazo.com/258327c3ec9f657d748d59fc28459ba5   
+Landing Page - https://gyazo.com/8ca1f09e6e9a83e5f04e5c6e629961f2  
 
-https://gyazo.com/d98302a752503cc5b41516ea9e202044
+Login Page: https://gyazo.com/d98302a752503cc5b41516ea9e202044
 
-https://gyazo.com/cc21e88ecf9456d6f6ad3d2fd46e48d3
+Student List: https://gyazo.com/cc21e88ecf9456d6f6ad3d2fd46e48d3
 
-https://gyazo.com/5006e4facbfd04e8f30792d6e07c3b87
+Update Student Fields: https://gyazo.com/5006e4facbfd04e8f30792d6e07c3b87
 
 ___________________________________________________
 Built With the MERN stack and deployed using Heroku with a MongoDB database hosted on mLab.
