@@ -24,9 +24,9 @@ Built With the MERN stack and deployed using Heroku with a MongoDB database host
 ___________________________________________________
 Relevant source code to key parts of educationELLy can be found in the following places:
 
-action creators and ajax request to backend api - 'client/src/actions/index.js'
+Action creators and ajax request to backend api - 'client/src/actions/index.js'
 
-data layer control for redux - 'client/src/index.js'
+Data layer control for redux - 'client/src/index.js'
 
 JWT strategies and Passport Authentication - 'server/services/passport.js'
 
