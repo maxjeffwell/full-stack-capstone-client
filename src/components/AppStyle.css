@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:500');
+
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -13,7 +16,7 @@
 }
 
 body {
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 24px;
     background-color: lightblue;
 }

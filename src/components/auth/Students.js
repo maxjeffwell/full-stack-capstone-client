@@ -3,7 +3,7 @@ import { fetchStudents } from "../../actions";
 import connect from "react-redux/es/connect/connect";
 import { Link } from 'react-router-dom';
 
-class Students extends Component { // class-based component because we'll use a lifecycle method to fetch protected data from backend api anytime the feature component is shown
+class Students extends Component { // class-based component because we'll use a lifecycle method to fetch protected data from backend api anytime the Students component is shown
     componentDidMount() {
         this.props.dispatch(fetchStudents());
         console.log(this.props.students);
@@ -14,6 +14,7 @@ class Students extends Component { // class-based component because we'll use a 
             return (
             <div className="student-card" key={student._id}>
                 <table>
+                    <tbody>
                     <tr>
                         <th>Name: </th>
                             <td>{student.fullName}</td>
@@ -26,11 +27,21 @@ class Students extends Component { // class-based component because we'll use a 
                         <th>Country of Birth: </th>
                         <td>{student.countryOfBirth}</td>
                     </tr>
-                        {/*{student.nativeLanguage}*/}
-                    {/*{student.ellStatus}*/}
-                    {/*{student.gradeLevel}*/}
+                    <tr>
+                        <th>Native Language: </th>
+                        <td>{student.nativeLanguage}</td>
+                    </tr>
+                    <tr>
+                        <th>ELL Status</th>
+                        <td>{student.ellStatus}</td>
+                    </tr>
+                    <tr>
+                        <th>Grade Level</th>
+                        <td>{student.gradeLevel}</td>
+                    </tr>
+                    </tbody>
                 </table>
-                    <Link to={`/students/${student._id}/update`}>Edit</Link>
+                <Link to={`/students/${student._id}/update`}>Edit</Link>
             </div>
                 );
         });
@@ -45,9 +56,8 @@ class Students extends Component { // class-based component because we'll use a 
     }
 }
 
-
-function mapStateToProps({students}) {
-    return { students };
+function mapStateToProps(state) {
+    return { students: state.students.students };
 }
 
 export default connect(mapStateToProps)(Students);

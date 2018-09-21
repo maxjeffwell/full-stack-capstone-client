@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import './AppStyle.css';
-
 
 class Header extends Component {
     showLinks() {
+        console.log('this.props.authenticated', this.props.authenticated);
         if (this.props.authenticated) {
             return (
                 <div>

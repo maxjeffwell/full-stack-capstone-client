@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import authRequired from './authRequired';
 
 const Dashboard = () => {
     return (
         <div>
-            <div></div>
+            <div>Teacher Dashboard</div>
         </div>
     );
 };
 
-export default Dashboard;
+export default authRequired(Dashboard);

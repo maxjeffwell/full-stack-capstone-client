@@ -1,4 +1,4 @@
-// Write function to retrieve lots of json
+// Write function to retrieve json
 // Make an ajax request
 
 import axios from 'axios';
@@ -14,7 +14,7 @@ export const signup = (formProps, callback) => async dispatch => {
         localStorage.setItem('jwtToken', response.data.token);
         callback();
     } catch(e) {
-        dispatch({ type: AUTH_ERROR, payload: 'This email is in use'});
+        dispatch({ type: AUTH_ERROR, payload: 'This email is in use' });
     }
 };
 
@@ -22,7 +22,12 @@ export const signin = (formProps, callback) => async dispatch => {
     try {
         const response = await axios.post('http://localhost:8080/signin', formProps);
         dispatch({ type: AUTH_USER, payload: response.data.token });
+
+        // store JWT token
+
+        localStorage.setItem('jwtToken', response.data.token);
         callback();
+
     } catch(e) {
         dispatch({ type: AUTH_ERROR, payload: 'Invalid login email or password' });
     }
@@ -30,7 +35,8 @@ export const signin = (formProps, callback) => async dispatch => {
 
 export const fetchStudents = () => async dispatch => {
     let token = localStorage.getItem('jwtToken');
-    var config = { headers: {'Authorization': "bearer " + token} };
+    let config = { headers: {'Authorization': "bearer " + token} };
+
     const res = await axios.get('http://localhost:8080/students', config);
 
     dispatch({ type: FETCH_STUDENTS, payload: res.data });
