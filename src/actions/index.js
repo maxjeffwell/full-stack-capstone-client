@@ -6,7 +6,7 @@ import { AUTH_USER, AUTH_ERROR, FETCH_STUDENTS } from './types';
 
 export const signup = (formProps, callback) => async dispatch => {
     try {
-        const response = await axios.post('http://localhost:8080/signup', formProps);
+        const response = await axios.post('https://jmaxwell-fullstack-client.herokuapp.com/signup', formProps);
         dispatch({ type: AUTH_USER, payload: response.data.token });
 
         // store JWT token
@@ -20,7 +20,7 @@ export const signup = (formProps, callback) => async dispatch => {
 
 export const signin = (formProps, callback) => async dispatch => {
     try {
-        const response = await axios.post('http://localhost:8080/signin', formProps);
+        const response = await axios.post('https://jmaxwell-fullstack-client.herokuapp.com/signin', formProps);
         dispatch({ type: AUTH_USER, payload: response.data.token });
 
         // store JWT token
@@ -37,7 +37,7 @@ export const fetchStudents = () => async dispatch => {
     let token = localStorage.getItem('jwtToken');
     let config = { headers: {'Authorization': "bearer " + token} };
 
-    const res = await axios.get('http://localhost:8080/students', config);
+    const res = await axios.get('https://jmaxwell-fullstack-client.herokuapp.com/students', config);
 
     dispatch({ type: FETCH_STUDENTS, payload: res.data });
 };
