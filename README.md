@@ -19,7 +19,7 @@ Student List: https://gyazo.com/cc21e88ecf9456d6f6ad3d2fd46e48d3
 Update Student Fields: https://gyazo.com/5006e4facbfd04e8f30792d6e07c3b87
 
 ___________________________________________________
-Built With the MERN stack and deployed using Heroku with a MongoDB database hosted on mLab.
+Built with the MERN stack and deployed using Heroku with a MongoDB database hosted on mLab.
 
 ___________________________________________________
 Relevant source code to key parts of educationELLy can be found in the following places:
