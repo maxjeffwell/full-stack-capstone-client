@@ -12,7 +12,7 @@ class UpdateStudent extends Component {
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:8080/students/${this.props.match.params.id}`)
+        axios.get(`/api/students/${this.props.match.params.id}`)
             .then(res => {
                 console.log(res.data);
                 this.props.dispatch(initialize('UpdatesStudent', res.data));
@@ -23,7 +23,7 @@ class UpdateStudent extends Component {
 
     onSubmit = formProps => {
         console.log(formProps);
-        axios.put(`http://localhost:8080/students/${this.props.match.params.id}`, formProps)
+        axios.put(`/api/students/${this.props.match.params.id}`, formProps)
             .then(res => {
                 console.log(res);
             })
