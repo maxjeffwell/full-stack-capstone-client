@@ -5,7 +5,9 @@ educationELLy aims to engage regular classroom teachers in the English language 
 __________________________________________________
 A deployed version of the educationELLy app with associated demo account information can be found here:
 
-https://jmaxwell-fullstack-client.herokuapp.com/
+Client: https://jmaxwell-fullstack-client.herokuapp.com/
+
+Server: https://jmaxwell-fullstack-server.herokuapp.com/
 
 __________________________________________________
 educationELLy Screenshots:
