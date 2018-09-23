@@ -8,7 +8,7 @@ import { AUTH_USER, AUTH_ERROR, FETCH_STUDENTS } from './types';
 
 export const signup = (formProps, callback) => async dispatch => {
     try {
-        const response = await axios.post('`${API_BASE_URL}/api/signup`, formProps);
+        const response = await axios.post(`${API_BASE_URL}/api/signup`, formProps);
         dispatch({ type: AUTH_USER, payload: response.data.token });
 
         // store JWT token
