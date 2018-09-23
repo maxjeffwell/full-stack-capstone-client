@@ -13,7 +13,7 @@ class UpdateStudent extends Component {
 
     componentDidMount() {
         console.log(this.props.match.params.id);
-        axios.get(`${'https://cors-anywhere.herokuapp.com'}/students/${this.props.match.params.id}`)
+        axios.get(`${'/students/${this.props.match.params.id}`)
             .then(res => {
                 console.log(res.data);
                 this.props.dispatch(initialize('UpdatesStudent', res.data));
@@ -24,7 +24,7 @@ class UpdateStudent extends Component {
 
     onSubmit = formProps => {
         console.log(formProps);
-        axios.put(`${'https://cors-anywhere.herokuapp.com'}/students/${this.props.match.params.id}`, formProps)
+        axios.put(`/students/${this.props.match.params.id}`, formProps)
             .then(res => {
                 console.log(res);
             })
