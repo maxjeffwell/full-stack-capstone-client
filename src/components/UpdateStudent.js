@@ -12,13 +12,14 @@ class UpdateStudent extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props.match.params.id);
         axios.get(`/students/${this.props.match.params.id}`)
             .then(res => {
                 console.log(res.data);
                 this.props.dispatch(initialize('UpdatesStudent', res.data));
 
             })
-        console.log(this.props.match.params.id);
+//         console.log(this.props.match.params.id);
     }
 
     onSubmit = formProps => {
