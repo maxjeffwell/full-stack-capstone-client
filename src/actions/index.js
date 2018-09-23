@@ -1,12 +1,14 @@
 // Write function to retrieve json
 // Make an ajax request
 
+import { API_BASE_URL } from '../config';
+
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, FETCH_STUDENTS } from './types';
 
 export const signup = (formProps, callback) => async dispatch => {
     try {
-        const response = await axios.post('http://jmaxwell-fullstack-server.herokuapp.com/signup', formProps);
+        const response = await axios.post('`${API_BASE_URL}/api/signup`, formProps);
         dispatch({ type: AUTH_USER, payload: response.data.token });
 
         // store JWT token
@@ -20,7 +22,7 @@ export const signup = (formProps, callback) => async dispatch => {
 
 export const signin = (formProps, callback) => async dispatch => {
     try {
-        const response = await axios.post('https://jmaxwell-fullstack-server.herokuapp.com/signin', formProps);
+        const response = await axios.post(`${API_BASE_URL}/api/signin`, formProps);
         dispatch({ type: AUTH_USER, payload: response.data.token });
 
         // store JWT token
@@ -37,7 +39,7 @@ export const fetchStudents = () => async dispatch => {
     let token = localStorage.getItem('jwtToken');
     let config = { headers: {'Authorization': "bearer " + token} };
 
-    const res = await axios.get('https://jmaxwell-fullstack-server.herokuapp.com/students', config);
+    const res = await axios.get(`${API_BASE_URL}/api/students`, config);
 
     dispatch({ type: FETCH_STUDENTS, payload: res.data });
 };
