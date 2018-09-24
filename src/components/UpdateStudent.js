@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Field, reduxForm, initialize } from 'redux-form';
 import axios from 'axios';
+import {API_BASE_URL} from "../config";
 
 
 class UpdateStudent extends Component {
@@ -13,7 +14,7 @@ class UpdateStudent extends Component {
 
     componentDidMount() {
         console.log(this.props.match.params.id);
-        axios.get(`/students/${this.props.match.params.id}`)
+        axios.get(`${API_BASE_URL}/students/${this.props.match.params.id}`)
             .then(res => {
                 console.log(res.data);
                 this.props.dispatch(initialize('UpdatesStudent', res.data));
@@ -24,7 +25,7 @@ class UpdateStudent extends Component {
 
     onSubmit = formProps => {
         console.log(formProps);
-        axios.put(`/students/${this.props.match.params.id}`, formProps)
+        axios.put(`${API_BASE_URL}/students/${this.props.match.params.id}`, formProps)
             .then(res => {
                 console.log(res);
             })
