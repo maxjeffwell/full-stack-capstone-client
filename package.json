@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "author": "Jeff Maxwell <maxjeffwell@gmail.com>",
   "license": "GNU GPLv3",
-  "devDependencies": {
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.12.4"
-  },
   "dependencies": {
     "axios": "^0.18.0",
+    "eslint-plugin-flowtype": "^3.2.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.0",
+    "eslint-plugin-react": "^7.12.4",
     "mongoose": "^5.4.8",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
