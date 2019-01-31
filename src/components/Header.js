@@ -25,6 +25,7 @@ class Header extends Component {
             return (
               <Menu>
                   <Container>
+
                     <Menu.Item as="a" header>
                     </Menu.Item>
 
@@ -34,11 +35,12 @@ class Header extends Component {
                         <Link to="/signin">Log in</Link>
                       </Menu.Item>
                     </Menu.Menu>
+
                   </Container>
               </Menu>
             );
         }
-    }
+    };
 
     render() {
         return (
@@ -47,7 +49,7 @@ class Header extends Component {
                 {this.showLinks()}
             </Menu.Header>
         );
-    }
+    };
 }
 
 function mapStateToProps(state) {

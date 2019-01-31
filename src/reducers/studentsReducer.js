@@ -2,7 +2,6 @@ import { FETCH_STUDENTS } from '../actions/types';
 
 const INITIAL_STATE = {
     students: []
-
 };
 
 export default function (state=INITIAL_STATE, action) {
@@ -12,4 +11,4 @@ export default function (state=INITIAL_STATE, action) {
         default:
             return state;
     }
-}
+};
