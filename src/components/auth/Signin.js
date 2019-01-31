@@ -25,9 +25,9 @@ class Signin extends Component {
 
       return (
         <Fragment>
-          <Grid centered columns={2}>
-          <Grid.Column>
-            <Segment>
+          <div className="login">
+          <Grid textAlign="center" style={{ height: '100%' }} verticalAlign="middle">
+          <Grid.Column style={{ maxWidth: 450 }}>
 
               <Message info>
                 <p>
@@ -39,6 +39,7 @@ class Signin extends Component {
               </Message>
 
               <Header as="h1">educationELLy Account Login</Header>
+            <Segment stacked>
 
               <Form onSubmit={handleSubmit(this.onSubmit)}>
 
@@ -57,16 +58,14 @@ class Signin extends Component {
                                 Login
                               </Form.Field>
 
-                <Message negative>
-                  <Message.Header>
+                <div>
                     {this.props.errorMessage}
-                  </Message.Header>
-                </Message>
-
+                  </div>
               </Form>
             </Segment>
           </Grid.Column>
           </Grid>
+          </div>
         </Fragment>
         );
     }
@@ -80,6 +79,4 @@ export default compose (
 
   // compose allows us to apply multiple HOC's in series to a single component (Signin in this case) in an easier  // to read way
 
-  connect(mapStateToProps, actions), //apply action creators to Register component
-  reduxForm({ form: 'signin'})
-)(Signin);
+  connect(mapStateToProps, actions),reduxForm({ form: 'signin' }))(Signin);

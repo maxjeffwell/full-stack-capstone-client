@@ -13,6 +13,10 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { EnhancerOptions as stateSanitizer } from 'redux-devtools-extension';
+import { EnahncerOptions as actionSanitizer } from 'redux-devtools-extension';
+
 import 'semantic-ui-css/semantic.min.css';
 
 import reducers from './reducers';
@@ -24,20 +28,29 @@ import Signin from './components/auth/Signin';
 import Signout from './components/auth/Signout';
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
-import UpdateStudent from "./components/UpdateStudent";
+// import UpdateStudent from "./components/UpdateStudent";
 
-const store = createStore(
-    reducers,
+import { default as UpdateStudent } from './components/UpdateStudent';
 
-    // use starting state object to get initializing state inside redux store, pass to store the key of auth
-    // piece of state and then value to be initialized when redux store is created (authenticated) and assign to
-    // it whatever is returned from localStorage
+const composeEnhancer = composeWithDevTools({
+    EnhanncerOptions: actionSanitizer,
+        stateSanitizer,
+    });
 
-    {
-        auth: { authenticated: localStorage.getItem('jwtToken') }
-    },
-    applyMiddleware(reduxThunk)
-);
+    const store = createStore(
+      reducers,
+
+      // use starting state object to get initializing state inside redux store, pass to store the key of auth
+      // piece of state and then value to be initialized when redux store is created (authenticated) and assign to
+      // it whatever is returned from localStorage
+
+      {
+          auth: { authenticated: localStorage.getItem('jwtToken') }
+      }, composeEnhancer(
+        applyMiddleware(reduxThunk)
+        )
+    );
+
 
 ReactDOM.render (
 
@@ -49,17 +62,16 @@ ReactDOM.render (
 
     <Provider store={store}>
     <BrowserRouter>
-    <App>
+        <App>
         <Header />
         <Route exact path='/' component={Landing} />
-        <Route path='/signup' component={Register} />
-        <Route exact path='/students/:id/update' component={UpdateStudent} />
+        <Route exact path='/signup' component={Register} />
+        <Route path='/students/:id/update' component={UpdateStudent} />
         <Route exact path='/students' component={Students} />
-        <Route path='/signin' component={Signin} />
-        <Route path='/dashboard' component={Dashboard} />
-        <Route path='/signout' component={Signout} />
-
-    </App>
+        <Route exact path='/signin' component={Signin} />
+        <Route exact path='/dashboard' component={Dashboard} />
+        <Route exact path='/signout' component={Signout} />
+        </App>
     </BrowserRouter>
     </Provider>,
         document.querySelector('#root')

@@ -4,7 +4,7 @@
 import { API_BASE_URL } from '../config';
 
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, FETCH_STUDENTS } from './types';
+import { AUTH_USER, AUTH_ERROR, FETCH_STUDENTS, TOGGLE_SIDEBAR } from './types';
 
 export const signup = (formProps, callback) => async dispatch => {
     try {
@@ -51,6 +51,10 @@ export const signout = () => {
         payload: '' // clear authenticated piece of state
     };
 };
+
+export const toggleSidebar = () => ({
+    type: TOGGLE_SIDEBAR,
+});
 
 
 
