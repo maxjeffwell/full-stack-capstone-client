@@ -13,7 +13,7 @@ class Header extends Component {
                   </Menu.Item>
 
                   <Menu.Menu position="right">
-                    <Menu.Item as="a" name="authenticated">
+                    <Menu.Item name="authenticated">
                       <Link to="/signout">Log out</Link>
                       <Link to="/students">Students</Link>
                     </Menu.Item>
@@ -30,7 +30,7 @@ class Header extends Component {
                     </Menu.Item>
 
                     <Menu.Menu position="right">
-                      <Menu.Item as="a" name="unauthenticated">
+                      <Menu.Item name="unauthenticated">
                         <Link to="/signup">Register</Link>
                         <Link to="/signin">Log in</Link>
                       </Menu.Item>
