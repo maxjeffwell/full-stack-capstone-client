@@ -6,8 +6,9 @@ import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-    // BrowserRouter tells react router what to do - looks at current url and changes components visible on screen
-    // Route is a react component used to set a rule between a certain route in the application and a set of         // components that will be available on screen
+// BrowserRouter tells react router what to do - looks at current url and changes components visible on screen
+// Route is a react component used to set a rule between a certain route in the application and a set of
+// components that will be available on screen
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
