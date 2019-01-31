@@ -41,8 +41,7 @@ class Register extends Component {
                   <Segment>
                       <Form onSubmit={handleSubmit(this.onSubmit)}>
 
-                          {/* now we can add an onSubmit and call handleSubmit and to handleSubmit we'll pass the                             callback we want to be executed when user submits the form, which is the onSubmit                                method we just created. we don't call onSubmit as soon as we render the
-                             form, however. onSubmit will be called in the future. we pass a reference to the                                 onSubmit function to handleSubmit. */}
+                        {/* now we can add an onSubmit and call handleSubmit and to handleSubmit we'll pass the callback we want to be executed when user submits the form, which is the onSubmit method we just created. we don't call onSubmit as soon as we render the form, however. onSubmit will be called in the future. we pass a reference to the onSubmit function to handleSubmit. */}
 
         <Field name="email" component={LabelInputField}
                    label={{ content: <Icon color="orange" name="user" size="large" /> }}
