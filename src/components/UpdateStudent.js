@@ -3,10 +3,9 @@ import { Field, reduxForm, initialize } from 'redux-form';
 import axios from 'axios';
 import {API_BASE_URL} from "../config";
 
-
 class UpdateStudent extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             initialValues: null,
         }
@@ -15,14 +14,12 @@ class UpdateStudent extends Component {
     componentDidMount() {
         let token = localStorage.getItem('jwtToken');
         let config = { headers: {'Authorization': "bearer " +   token}};
-        console.log(this.props.match.params.id);
+
         axios.get(`${API_BASE_URL}/students/${this.props.match.params.id}`, config)
             .then(res => {
                 console.log(res.data);
                 this.props.dispatch(initialize('UpdatesStudent', res.data));
-
-            })
-//         console.log(this.props.match.params.id);
+            });
     }
 
     onSubmit = formProps => {
@@ -31,7 +28,6 @@ class UpdateStudent extends Component {
             .then(res => {
                 console.log(res);
             })
-
     };
 
     render() {
