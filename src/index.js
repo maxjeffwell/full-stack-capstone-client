@@ -29,7 +29,9 @@ import UpdateStudent from "./components/UpdateStudent";
 const store = createStore(
     reducers,
 
-    // use starting state object to get initializing state inside redux store, pass to store the key of auth        //  piece of state and then value to be initialized when redux store is created (authenticated) and assign to    //  it whatever is returned from localStorage
+    // use starting state object to get initializing state inside redux store, pass to store the key of auth
+    // piece of state and then value to be initialized when redux store is created (authenticated) and assign to
+    // it whatever is returned from localStorage
 
     {
         auth: { authenticated: localStorage.getItem('jwtToken') }

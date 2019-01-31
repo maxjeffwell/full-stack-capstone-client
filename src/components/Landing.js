@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Footer } from './Footer';
 
 const Landing = () => {
     return (
@@ -20,6 +20,7 @@ const Landing = () => {
             <div id="demo-account">
                 Use demo email: DemoELL and demo password: Passworddemo
             </div>
+          <Footer />
         </div>
     );
 };

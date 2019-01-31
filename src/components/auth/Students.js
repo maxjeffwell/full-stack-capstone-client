@@ -1,57 +1,46 @@
 import React, { Component } from 'react';
-import { fetchStudents } from "../../actions";
-import connect from "react-redux/es/connect/connect";
+import connect from 'react-redux/es/connect/connect';
 import { Link } from 'react-router-dom';
+import { Card } from 'semantic-ui-react';
 
-class Students extends Component { // class-based component because we'll use a lifecycle method to fetch protected data from backend api anytime the Students component is shown
+import { fetchStudents } from '../../actions';
+
+class Students extends Component {
+
+    // class-based component so we can use a lifecycle method to fetch protected data from backend api anytime the Students component is shown
+
     componentDidMount() {
         this.props.dispatch(fetchStudents());
-        console.log(this.props.students);
     }
 
     renderStudentData() {
         return this.props.students.map(student => {
             return (
-            <div className="student-card" key={student._id}>
-                <table>
-                    <tbody>
-                    <tr>
-                        <th>Name: </th>
-                            <td>{student.fullName}</td>
-                    </tr>
-                    <tr>
-                        <th>School: </th>
-                        <td>{student.school}</td>
-                    </tr>
-                    <tr>
-                        <th>Country of Birth: </th>
-                        <td>{student.countryOfBirth}</td>
-                    </tr>
-                    <tr>
-                        <th>Native Language: </th>
-                        <td>{student.nativeLanguage}</td>
-                    </tr>
-                    <tr>
-                        <th>ELL Status</th>
-                        <td>{student.ellStatus}</td>
-                    </tr>
-                    <tr>
-                        <th>Grade Level</th>
-                        <td>{student.gradeLevel}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <Link to={`/students/${student._id}/update`}>Edit</Link>
-            </div>
-                );
+                  <Card className="student-card" key={student._id}>
+                      <Card.Content>
+                          <Card.Header>Student: {student.fullName}</Card.Header>
+                          <Card.Header>School: {student.school}</Card.Header>
+                          <Card.Header>Teacher: {student.teacher}</Card.Header>
+                          <Card.Header>Grade: {student.gradeLevel}</Card.Header>
+                          <Card.Header>ELL Status: {student.ellStatus}</Card.Header>
+                          <Card.Header>Composite Level: {student.compositeLevel}</Card.Header>
+                          <Card.Header>Designation: {student.designation}</Card.Header>
+                          <Card.Header>Native Language: {student.nativeLanguage}</Card.Header>
+                          <Card.Header>Country of Birth: {student.countryOfBirth}</Card.Header>
+                      </Card.Content>
+                      <Card.Content extra>
+                            <Link to={`/students/${student._id}/update`}>Edit Student Information</Link>
+                      </Card.Content>
+                  </Card>
+            );
         });
     }
 
     render() {
-    return (
-        <div>
+        return (
+        <Card.Group itemsPerRow={4}>
             {this.renderStudentData()}
-        </div>
+        </Card.Group>
         );
     }
 }

@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import { Field, reduxForm, initialize } from 'redux-form';
+import { Form, Icon, Button } from 'semantic-ui-react';
+import { LabelInputField } from 'react-semantic-redux-form';
 import axios from 'axios';
+
 import {API_BASE_URL} from "../config";
 
 class UpdateStudent extends Component {
@@ -28,98 +31,63 @@ class UpdateStudent extends Component {
             .then(res => {
                 console.log(res);
             })
+            .then(this.props.history.push('/students'));
     };
 
     render() {
         const {handleSubmit} = this.props;
         return (
-            <form onSubmit={handleSubmit(this.onSubmit)}>
-                <fieldset className="update-group">
-                    <label className="update-labels">Student Name: </label>
-                    <Field
-                        name="fullName"
-                        type="text"
-                        component="input"
-                        autoComplete="none"
-                    />
-                    <button>Update</button>
-                </fieldset>
-                <fieldset className="update-group">
-                    <label className="update-labels">School Name: </label>
-                    <Field
-                        name="school"
-                        type="text"
-                        component="input"
-                        autoComplete="none"
-                    />
-                    <button>Update</button>
-                </fieldset>
-                <fieldset className="update-group">
-                    <label className="update-labels">Teacher: </label>
-                    <Field
-                        name="teacher"
-                        type="text"
-                        component="input"
-                        autoComplete="none"
-                    />
-                    <button>Update</button>
-                </fieldset>
-                <fieldset className="update-group">
-                    <label className="update-labels">Grade Level: </label>
-                    <Field
-                        name="gradeLevel"
-                        type="text"
-                        component="input"
-                        autoComplete="none"
-                    />
-                    <button>Update</button>
-                </fieldset>
-                <fieldset className="update-group">
-                    <label className="update-labels">ELL Status: </label>
-                    <Field
-                        name="ellStatus"
-                        type="text"
-                        component="input"
-                        autoComplete="none"
-                    />
-                    <button>Update</button>
-                </fieldset>
-                <fieldset className="update-group">
-                    <label className="update-labels">Composite Level: </label>
-                    <Field
-                        name="compositeLevel"
-                        type="text"
-                        component="input"
-                        autoComplete="none"
-                    />
-                    <button>Update</button>
-                </fieldset>
-                <fieldset className="update-group">
-                    <label className="update-labels">Active: </label>
-                    <Field
-                        name="active"
-                        type="text"
-                        component="input"
-                        autoComplete="none"
-                    />
-                    <button>Update</button>
-                </fieldset>
-                <fieldset className="update-group">
-                    <label className="update-labels">Designation: </label>
-                    <Field
-                        name="designation"
-                        type="text"
-                        component="input"
-                        autoComplete="none"
-                    />
-                    <button>Update</button>
-                </fieldset>
-            </form>
+            <Form onSubmit={handleSubmit(this.onSubmit)}>
+
+              <Field name="fullName" component={LabelInputField}
+                     label={{ content: <Icon color="green" name="student" size="large" /> }}
+                     labelPosition="left"
+                     placeholder="Student Name" />
+                     {/*<Button>Update</Button>*/}
+
+              <Field name="school" component={LabelInputField}
+                     label={{ content: <Icon color="blue" name="university" size="large" /> }}
+                     labelPosition="left"
+                     placeholder="School Name" />
+                     {/*<Button>Update</Button>*/}
+
+              <Field name="teacher" component={LabelInputField}
+                     label={{ content: <Icon color="orange" name="header" size="large" /> }}
+                     labelPosition="left"
+                     placeholder="Teacher Name" />
+                     {/*<Button>Update</Button>*/}
+
+              <Field name="gradeLevel" component={LabelInputField}
+                     label={{ content: <Icon color="green" name="level up" size="large" /> }}
+                     labelPosition="left"
+                     placeholder="Grade Level" />
+                     {/*<Button>Update</Button>*/}
+
+              <Field name="ellStatus" component={LabelInputField}
+                     label={{ content: <Icon color="blue" name="language" size="large" /> }}
+                     labelPosition="left"
+                     placeholder="Current ELL Status" />
+                     {/*<Button>Update</Button>*/}
+
+              <Field name="compositeLevel" component={LabelInputField}
+                     label={{ content: <Icon color="orange" name="bullseye" size="large" /> }}
+                     labelPosition="left"
+                     placeholder="Composite Level" />
+                     {/*<Button>Update</Button>*/}
+
+              <Field name="designation" component={LabelInputField}
+                     label={{ content: <Icon color="green" name="certificate" size="large" /> }}
+                     labelPosition="left"
+                     placeholder="Current Designation" />
+
+                     <Button>Update</Button>
+
+            </Form>
         );
     }
 }
 
-export default reduxForm({form: 'UpdatesStudent', fields: ['fullName', 'school', 'teacher', 'gradeLevel', 'ellStatus', 'compositeLevel', 'active', 'designation']})(UpdateStudent);
+export default reduxForm({form: 'UpdatesStudent', fields: ['fullName', 'school', 'teacher', 'gradeLevel', 'ellStatus', 'compositeLevel', 'designation']})(UpdateStudent);
 
 
 
