@@ -1,28 +1,27 @@
 import React from 'react';
+import { Container, Header } from 'semantic-ui-react';
 import { Footer } from './Footer';
 
-const Landing = () => {
-    return (
-        <div className="landing-title">
-            <h1>
+const Landing = () => (
+    <Container text>
+        <Header as='h1'>
                 educationELLy
-            </h1>
-            <div>
+        </Header>
+      <p>
             Student data at your fingertips
-            </div>
+
             Quickly access student lists
-            <div>
+
             Improve collaboration and manage workflows
-            </div>
-            <div id='landing-page'>
-                Click the "Log in" link in the right hand corner and enter your demo account information to access your student list and update student ELL student information!
-            </div>
-            <div id="demo-account">
-                Use demo email: DemoELL and demo password: Passworddemo
-            </div>
-          <Footer />
-        </div>
+
+            Click the "Log in" link in the right hand corner and
+            enter your demo account information to access your student
+            list and update student ELL student information!
+
+            Use demo email: Demo and demo password: demopassword
+      </p>
+      <Footer />
+    </Container>
     );
-};
 
 export default Landing;

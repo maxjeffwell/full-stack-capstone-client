@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { reduxForm, Field } from 'redux-form'; // add reduxForm to component export statement and tell it about different field names, then use the field component inside of the component itself
 
-import { Form, Icon, Button, Grid, Segment } from 'semantic-ui-react';
+import { Form, Icon, Button, Grid, Segment, Header, Message } from 'semantic-ui-react';
 import { LabelInputField } from 'react-semantic-redux-form';
 
 import { compose } from 'redux'; // write out multiple higher order components in a better formatted way
@@ -13,7 +13,7 @@ class Signin extends Component {
 
       this.props.signin(formProps, () => {
             this.props.history.push('/dashboard');
-        }); // call the signup action creator
+        }); // call the signin action creator
 
       // when we use reduxForm we get a function on our props object called handleSubmit. Use this function to         // take email and password out of the form and provide it to the onSubmit callback
     };
@@ -24,10 +24,23 @@ class Signin extends Component {
         // can't just add onSubmit as a callback directly to form tag. we have to destructure handleSubmit              // function from our props object
 
       return (
+        <Fragment>
           <Grid centered columns={2}>
           <Grid.Column>
             <Segment>
-          <Form onSubmit={handleSubmit(this.onSubmit)}>
+
+              <Message info>
+                <p>
+
+                Please log in with your account email and password. If you have neither registered
+                nor been assigned an account email and password, please use the available demo account to log in.
+
+                </p>
+              </Message>
+
+              <Header as="h1">educationELLy Account Login</Header>
+
+              <Form onSubmit={handleSubmit(this.onSubmit)}>
 
             {/* now we can add an onSubmit and call handleSubmit and to handleSubmit we'll pass the callback we want to be executed when user submits the form, which is the onSubmit method we just created. we don't call onSubmit as soon as we render the form, however. onSubmit will be called in the future. we pass a reference to the onSubmit function to handleSubmit.*/}
 
@@ -44,13 +57,17 @@ class Signin extends Component {
                                 Login
                               </Form.Field>
 
-                <div className="error">
+                <Message negative>
+                  <Message.Header>
                     {this.props.errorMessage}
-                </div>
-            </Form>
+                  </Message.Header>
+                </Message>
+
+              </Form>
             </Segment>
           </Grid.Column>
           </Grid>
+        </Fragment>
         );
     }
 }
