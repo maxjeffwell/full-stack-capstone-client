@@ -11,6 +11,11 @@ class Header extends Component {
                 <Container>
                   <Menu.Item as="a" header>
                   </Menu.Item>
+                  <Menu.Menu position="left">
+                    <Menu.Item name="authenticated">
+                      <Link to="/dashboard">Teacher Dashboard</Link>
+                    </Menu.Item>
+                  </Menu.Menu>
 
                   <Menu.Menu position="right">
                     <Menu.Item name="authenticated">

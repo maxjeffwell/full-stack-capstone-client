@@ -28,9 +28,7 @@ import Signin from './components/auth/Signin';
 import Signout from './components/auth/Signout';
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
-// import UpdateStudent from "./components/UpdateStudent";
-
-import { default as UpdateStudent } from './components/UpdateStudent';
+import UpdateStudent from "./components/UpdateStudent";
 
 const composeEnhancer = composeWithDevTools({
     EnhanncerOptions: actionSanitizer,

@@ -8,7 +8,7 @@ import { toggleSidebar as toggleSidebarAction } from '../actions';
 
 const Navigation = ({ toggleSidebar }) => (
   <div role="navigation" className="flex-container">
-    <Button id="menu-button" className="flex-item" icon="sidebar" onClick={toggleSidebar}
+    <Button id="menu-button" className="flex-item" icon="sidebar" circular onClick={toggleSidebar}
             />
 
             <div className="flex-item">
