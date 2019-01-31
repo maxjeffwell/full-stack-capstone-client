@@ -1,12 +1,13 @@
-// data layer control for redux (app root) - start up redux side of things in the app, render root component but limit react configuration here
-
+// data layer control for redux (app root) - start up redux side of things in the app,
+// render root component but limit react configuration here
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'semantic-ui-css/semantic.min.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-// BrowserRouter tells react router what to do - looks at current url and changes components visible on screen
-// Route is a react component used to set a rule between a certain route in the application and a set of components that will be available on screen
+    // BrowserRouter tells react router what to do - looks at current url and changes components visible on screen
+    // Route is a react component used to set a rule between a certain route in the application and a set of         // components that will be available on screen
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -23,11 +24,10 @@ import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import UpdateStudent from "./components/UpdateStudent";
 
-
 const store = createStore(
     reducers,
 
-    // use starting state object to get initializing state inside redux store, pass to store the key of auth piece of state and then value to be initialized when redux store is created (authenticated) and assign to it whatever is returned from localStorage
+    // use starting state object to get initializing state inside redux store, pass to store the key of auth        //  piece of state and then value to be initialized when redux store is created (authenticated) and assign to    //  it whatever is returned from localStorage
 
     {
         auth: { authenticated: localStorage.getItem('jwtToken') }
@@ -58,6 +58,6 @@ ReactDOM.render (
     </App>
     </BrowserRouter>
     </Provider>,
-        document.querySelector('#root') // have to pass in reference to root
+        document.querySelector('#root')
 );
 
