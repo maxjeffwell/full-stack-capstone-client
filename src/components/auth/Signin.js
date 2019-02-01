@@ -9,7 +9,7 @@ import { compose } from 'redux'; // write out multiple higher order components i
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-const StyledMessage = styled(Message)`
+export const StyledMessage = styled(Message)`
   &&& {
   display: grid;
     margin-top: 35px;
@@ -19,7 +19,7 @@ const StyledMessage = styled(Message)`
     font-weight: bold;
     border: 4px solid ${props => props.theme.orange};
     color: ${props => props.theme.blue};
-    background: ${props => props.theme.green};
+    background: ${props => props.theme.white};
     line-height: 30px;
     border-radius: 5px;
    }
@@ -51,7 +51,7 @@ const StyledHeader = styled(Header)`
     }
 `;
 
- const StyledForm = styled(Form)`
+ export const StyledForm = styled(Form)`
   &&& {
     padding: 0px;
   }
@@ -77,6 +77,10 @@ const StyledHeader = styled(Header)`
     font-family: 'Roboto','sans-serif';
     color: ${props => props.theme.white};
   }
+`;
+
+ const StyledError = styled.div`
+  font-family: 'Roboto', 'sans-serif';
 `;
 
  class Signin extends Component {
@@ -131,9 +135,9 @@ const StyledHeader = styled(Header)`
                                 Login
                               </Form.Field>
 
-                <div>
+                <StyledError>
                     {this.props.errorMessage}
-                  </div>
+                  </StyledError>
               </StyledForm>
             </StyledSegment>
           </Grid.Column>

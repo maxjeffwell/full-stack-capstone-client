@@ -31,7 +31,7 @@ export const signin = (formProps, callback) => async dispatch => {
         callback();
 
     } catch(e) {
-        dispatch({ type: AUTH_ERROR, payload: 'Invalid login email or password' });
+        dispatch({ type: AUTH_ERROR, payload: 'Invalid login email or password. Please try logging in again.' });
     }
 };
 

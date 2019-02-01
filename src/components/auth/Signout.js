@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { Header, Grid } from 'semantic-ui-react';
+import { StyledMessage } from './Signin';
 
 import * as actions from '../../actions';
-import { Link } from 'react-router-dom';
 
 class Signout extends Component { // create class based component in order to use lifecycle method
     componentDidMount() {
@@ -18,13 +16,13 @@ class Signout extends Component { // create class based component in order to us
     render() {
 
         return (
-            <Grid centered columns={2}>
-                <Header as="h2" textAlign="center">
-                    You have successfully logged out
-                </Header>
-                    <Link to="/signin">Login</Link>
-                    <Link to="/dashboard">Home</Link>
-            </Grid>
+
+          <StyledMessage
+              success
+              header="You have successfully logged out"
+              content=""
+              />
+
         );
     };
 }

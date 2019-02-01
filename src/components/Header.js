@@ -6,16 +6,14 @@ import styled from 'styled-components';
 
 const StyledMenu = styled(Menu)`
   &&& .header {
-    margin-bottom: 20px;
-    font-size: 2em;
-    font-weight: bold;
-    font-family: 'Roboto', 'sans-serif';
     background: ${props => props.theme.green};
   }
-    &&& a {
-      font-size: 1.5em;
-      font-weight: bold;
-     }
+  &&& a.item {
+   font-size: 1.2em;
+   font-weight: bold;
+   font-family: 'Roboto', 'sans-serif';
+   color: ${props => props.theme.green};
+  }
 `;
 
 const StyledContainer = styled(Container) `
@@ -33,23 +31,22 @@ class Header extends Component {
                   <Menu.Item as="a" header>
                   </Menu.Item>
                   <Menu.Menu position="left">
-                    <Menu.Item name="authenticated">
-                      <Link to="/dashboard">Teacher Dashboard</Link>
-                    </Menu.Item>
+                      <Menu.Item as={Link} name="dashboard" to="/dashboard">
+                      </Menu.Item>
                   </Menu.Menu>
 
                   <Menu.Menu position="right">
-                    <Menu.Item name="authenticated">
-                      <Link to="/signout">Log out</Link>
-                      <Link to="/students">Students</Link>
+                    <Menu.Item as={Link} name="Students" to="/students">
                     </Menu.Item>
+                      <Menu.Item as={Link} name="Logout" to="/signout">
+                      </Menu.Item>
                   </Menu.Menu>
                 </StyledContainer>
               </StyledMenu>
             );
         } else {
             return (
-              <Menu>
+              <StyledMenu>
                   <Container>
                     <Menu.Item as="a" header>
                     </Menu.Item>
@@ -61,15 +58,14 @@ class Header extends Component {
                     </Menu.Menu>
 
                   </Container>
-              </Menu>
+              </StyledMenu>
             );
         }
     };
 
     render() {
         return (
-            <Menu.Header>
-                <Link to="/">educationELLy</Link>
+            <Menu.Header as={Link} name="educationELLy" to="/">
                 {this.showLinks()}
             </Menu.Header>
         );

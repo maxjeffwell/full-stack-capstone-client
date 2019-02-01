@@ -12,13 +12,17 @@ const StyledContainer = styled(Container)`
 `;
 
 const StyledHeader = styled(Header)`
-  color: ${props => props.theme.blue};
-  background: ${props => props.theme.orange};
-  border: 2px solid ${props => props.theme.green};
-  font-size: 2em;
-  font-family: 'Roboto', 'sans-serif';
-  padding-left: 10px;
-  margin-top: 20px;
+  &&& {
+    color: ${props => props.theme.blue};
+  
+    background: ${props => props.theme.orange};
+    border: 2px solid ${props => props.theme.green};
+    font-size: 2em;
+    font-family: 'Roboto', 'sans-serif';
+    padding-left: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+  }
 `;
 
 const StyledParagraph = styled.p`
@@ -39,11 +43,10 @@ const Landing = () => (
           <li>Student data at your fingertips</li>
           <li>Quickly access student lists</li>
           <li>Improve collaboration and manage workflows</li>
-          <li>Click the "Log in" link in the right hand corner and
-            enter your demo account information to access your student
-            list and update student ELL student information!</li>
-          <li>Please click on the Register button in the right hand corner in order to create an account and access the teacher dashboard             as well as the student list.</li>
-          <li>If you'd rather not create an account. you can simply use the demo account provided on both the login and registration                  pages</li>
+          <li>Click the Login link in the right hand corner and
+            enter the demo account information to access your student
+            list and update student ELL information!</li>
+          <li>To create an account, please click on the Register button in the right hand corner of the landing page. Using the demo account, you'll be able to access all of educationELLy's current features</li>
         </ul>
       </StyledParagraph>
       <Footer />

@@ -15,46 +15,25 @@ class Sidebar extends Component {
     const { activeItem } = this.state || {};
 
     return (
-      <Menu id="sidebar" vertical className={isToggled ? 'toggled' : ''}>
+      <Menu.Menu id="sidebar" vertical className={isToggled ? 'toggled' : ''}>
         <Menu.Item>
-          <Menu.Header>Products</Menu.Header>
+          <Menu.Header>Document Upload Center Coming Soon</Menu.Header>
+        </Menu.Item>
 
-        <Menu.Menu>
           <Menu.Item
-            name="enterprise"
-            active={activeItem === 'enterprise'}
+            name="File Upload Link Coming Soon"
+            active={activeItem === 'File Uploader'}
             onClick={this.handleItemClick}
           />
-          <Menu.Item
-            name="consumer"
-            active={activeItem === 'consumer'}
-            onClick={this.handleItemClick}
-          />
-        </Menu.Menu>
-      </Menu.Item>
-
       <Menu.Item>
-        <Menu.Header>CMS Solutions</Menu.Header>
-
-        <Menu.Menu>
-          <Menu.Item
-            name="rails"
-            active={activeItem === 'rails'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name="python"
-            active={activeItem === 'python'}
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name="php"
-            active={activeItem === 'php'}
-            onClick={this.handleItemClick}
-          />
-        </Menu.Menu>
+        <Menu.Header>Integrated Team Member Messaging</Menu.Header>
       </Menu.Item>
-      </Menu>
+        <Menu.Item
+            name="Direct Messaging Link Coming Soon"
+            active={activeItem === 'Direct Messages'}
+            onClick={this.handleItemClick}
+          />
+      </Menu.Menu>
     );
   }
 }
