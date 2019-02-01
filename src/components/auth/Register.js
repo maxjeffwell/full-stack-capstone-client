@@ -6,6 +6,7 @@ import { reduxForm, Field } from 'redux-form';
 
 import { Form, Icon, Button, Grid, Segment } from 'semantic-ui-react';
 import { LabelInputField } from 'react-semantic-redux-form';
+import styled from 'styled-components';
 
 import { compose } from 'redux';
 
@@ -13,6 +14,13 @@ import { compose } from 'redux';
 
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+
+const StyledSegment = styled(Segment)`
+  &&& {
+    margin-top: 125px;
+    padding: 30px 30px 30px 30px;
+  }
+`;
 
 class Register extends Component {
     onSubmit = (formProps) => {
@@ -38,7 +46,7 @@ class Register extends Component {
         return (
           <Grid centered columns={2}>
               <Grid.Column>
-                  <Segment>
+                  <StyledSegment>
                       <Form onSubmit={handleSubmit(this.onSubmit)}>
 
                         {/* now we can add an onSubmit and call handleSubmit and to handleSubmit we'll pass the callback we want to be executed when user submits the form, which is the onSubmit method we just created. we don't call onSubmit as soon as we render the form, however. onSubmit will be called in the future. we pass a reference to the onSubmit function to handleSubmit. */}
@@ -60,7 +68,7 @@ class Register extends Component {
                 {this.props.errorMessage}
             </div>
         </Form>
-                  </Segment>
+                  </StyledSegment>
               </Grid.Column>
           </Grid>
         );

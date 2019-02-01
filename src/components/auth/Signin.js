@@ -3,12 +3,83 @@ import { reduxForm, Field } from 'redux-form'; // add reduxForm to component exp
 
 import { Form, Icon, Button, Grid, Segment, Header, Message } from 'semantic-ui-react';
 import { LabelInputField } from 'react-semantic-redux-form';
+import styled from 'styled-components';
 
 import { compose } from 'redux'; // write out multiple higher order components in a better formatted way
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-class Signin extends Component {
+const StyledMessage = styled(Message)`
+  &&& {
+  display: grid;
+    margin-top: 35px;
+    margin-bottom: 20px;
+    padding: 25px 25px 25px 25px;
+    font-family: 'Roboto', 'sans-serif';
+    font-weight: bold;
+    border: 4px solid ${props => props.theme.orange};
+    color: ${props => props.theme.blue};
+    background: ${props => props.theme.green};
+    line-height: 30px;
+    border-radius: 5px;
+   }
+`;
+
+const StyledHeader = styled(Header)`
+  &&& {
+    margin-bottom: 20px;
+    font-family: 'Roboto', 'sans-serif';
+    font-size: 2em;
+    font-weight: bold;
+    color: ${props => props.theme.blue};
+    background: ${props => props.theme.green};
+    border: 4px solid ${props => props.theme.orange};
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 50%;
+    border-radius: 5px;
+  }
+  `;
+
+ const StyledSegment = styled(Segment)`
+    &&& {
+      border: 4px solid ${props => props.theme.orange};
+      border-radius: 5px;
+      padding-top: 25px;
+      background: ${props => props.theme.white};
+    }
+`;
+
+ const StyledForm = styled(Form)`
+  &&& {
+    padding: 0px;
+  }
+  .icon {
+    size: 100px;
+  }
+  .input {
+      border: 2px solid ${props => props.theme.blue};
+      margin-bottom: 10px;
+      margin-top: 12px;
+  }
+  .ui.labeled.input:not([class*="corner labeled"]) .label:first-child + input {
+      color: ${props => props.theme.blue};
+      font-family: 'Roboto', 'sans-serif';
+      font-weight: bold;
+      font-size: 1.5em;
+      padding-left: 5px;
+  }
+  .ui.button {
+    border: 2px solid ${props => props.theme.orange};
+    border-radius: 5px;
+    font-size: 2em;
+    font-family: 'Roboto','sans-serif';
+    color: ${props => props.theme.white};
+  }
+`;
+
+ class Signin extends Component {
     onSubmit = (formProps) => { // arrow function makes it so we don't have to worry about binding the context of onSubmit
 
       this.props.signin(formProps, () => {
@@ -29,19 +100,21 @@ class Signin extends Component {
           <Grid textAlign="center" style={{ height: '100%' }} verticalAlign="middle">
           <Grid.Column style={{ maxWidth: 450 }}>
 
-              <Message info>
-                <p>
-
+              <StyledMessage info>
                 Please log in with your account email and password. If you have neither registered
-                nor been assigned an account email and password, please use the available demo account to log in.
+                nor been assigned account credentials, please use the available demo account to log in.
+              </StyledMessage>
 
-                </p>
-              </Message>
+            <StyledMessage info>
+            DEMO ACCOUNT AVAILABLE
+            <p>Username: demo <span>
+              </span>Password: demopassword</p>
+          </StyledMessage>
 
-              <Header as="h1">educationELLy Account Login</Header>
-            <Segment stacked>
+            <StyledSegment stacked>
+              <StyledHeader as="h1">educationELLy account login</StyledHeader>
 
-              <Form onSubmit={handleSubmit(this.onSubmit)}>
+              <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
 
             {/* now we can add an onSubmit and call handleSubmit and to handleSubmit we'll pass the callback we want to be executed when user submits the form, which is the onSubmit method we just created. we don't call onSubmit as soon as we render the form, however. onSubmit will be called in the future. we pass a reference to the onSubmit function to handleSubmit.*/}
 
@@ -61,8 +134,8 @@ class Signin extends Component {
                 <div>
                     {this.props.errorMessage}
                   </div>
-              </Form>
-            </Segment>
+              </StyledForm>
+            </StyledSegment>
           </Grid.Column>
           </Grid>
           </div>

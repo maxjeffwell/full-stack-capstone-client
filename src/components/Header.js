@@ -2,13 +2,34 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, Menu } from 'semantic-ui-react';
+import styled from 'styled-components';
+
+const StyledMenu = styled(Menu)`
+  &&& .header {
+    margin-bottom: 20px;
+    font-size: 2em;
+    font-weight: bold;
+    font-family: 'Roboto', 'sans-serif';
+    background: ${props => props.theme.green};
+  }
+    &&& a {
+      font-size: 1.5em;
+      font-weight: bold;
+     }
+`;
+
+const StyledContainer = styled(Container) `
+  &&& {
+    margin-bottom: 20px;
+  }
+`;
 
 class Header extends Component {
     showLinks() {
         if (this.props.authenticated) {
             return (
-              <Menu>
-                <Container>
+              <StyledMenu>
+                <StyledContainer>
                   <Menu.Item as="a" header>
                   </Menu.Item>
                   <Menu.Menu position="left">
@@ -23,21 +44,19 @@ class Header extends Component {
                       <Link to="/students">Students</Link>
                     </Menu.Item>
                   </Menu.Menu>
-                </Container>
-              </Menu>
+                </StyledContainer>
+              </StyledMenu>
             );
         } else {
             return (
               <Menu>
                   <Container>
-
                     <Menu.Item as="a" header>
                     </Menu.Item>
-
                     <Menu.Menu position="right">
-                      <Menu.Item name="unauthenticated">
-                        <Link to="/signup">Register</Link>
-                        <Link to="/signin">Log in</Link>
+                      <Menu.Item as={Link} name="Register" to="/Signup">
+                      </Menu.Item>
+                        <Menu.Item as={Link} name="Login" to="/Signin">
                       </Menu.Item>
                     </Menu.Menu>
 
