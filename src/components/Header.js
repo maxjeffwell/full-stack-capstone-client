@@ -34,7 +34,7 @@ class Header extends Component {
     showLinks() {
         if (this.props.authenticated) {
             return (
-              <StyledMenu borderless>
+              <StyledMenu>
                   <Menu.Item as="header">
                   </Menu.Item>
                   <Menu.Menu position="left">
