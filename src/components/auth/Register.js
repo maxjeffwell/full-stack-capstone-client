@@ -1,18 +1,15 @@
 import React, { Component, Fragment } from 'react';
-import { reduxForm, Field, initialize } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 
+// compose allows us to write out multiple higher order components in a better formatted way
 // add reduxForm to component export statement and tell it about different field names,
 // then we can use the field component inside of the component itself
 
 import { Form, Icon, Button, Grid, Segment, Header, Message } from 'semantic-ui-react';
 import { LabelInputField } from 'react-semantic-redux-form';
 import styled from 'styled-components';
-
-import { compose } from 'redux';
-
-// compose allows us to write out multiple higher order components in a better formatted way
-
-import { connect } from 'react-redux';
 
 import * as actions from '../../actions';
 
@@ -105,13 +102,6 @@ class Register extends Component {
 
         this.props.signup(formProps, () => {
             this.props.history.push('/dashboard')
-              .then(
-                result => {
-                  if (result) {
-                    this.props.dispatch(initialize('register', {}));
-                  }
-                }
-              );
         });
 
         // call the signup action creator

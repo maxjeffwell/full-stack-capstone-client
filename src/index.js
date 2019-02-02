@@ -17,8 +17,6 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import WebFont from 'webfontloader';
 
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { EnhancerOptions as stateSanitizer } from 'redux-devtools-extension';
-import { EnahncerOptions as actionSanitizer } from 'redux-devtools-extension';
 
 import 'semantic-ui-css/semantic.min.css';
 
@@ -66,11 +64,6 @@ body {
 	}
 `;
 
-const composeEnhancer = composeWithDevTools({
-    EnhanncerOptions: actionSanitizer,
-        stateSanitizer,
-    });
-
 const store = createStore(
   reducers,
 
@@ -80,7 +73,7 @@ const store = createStore(
 
   {
           auth: { authenticated: localStorage.getItem('jwtToken') }
-      }, composeEnhancer(
+      }, composeWithDevTools(
         applyMiddleware(reduxThunk)
         )
     );

@@ -10,7 +10,6 @@ class Signout extends Component { // create class based component in order to us
 
         // as soon as component is rendered call action creator and that signs user out of app by
         // removing authenticated JWT from reducer
-
     }
 
     render() {
@@ -19,11 +18,10 @@ class Signout extends Component { // create class based component in order to us
 
           <StyledMessage
               success
-              header="You have successfully logged out"
+              header="You have successfully logged out."
               content=""
               />
-
-        );
+              );
     };
 }
 

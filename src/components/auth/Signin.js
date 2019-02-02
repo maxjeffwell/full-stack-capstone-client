@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { reduxForm, Field, initialize } from 'redux-form'; // add reduxForm to component export statement and tell it about different field names, then use the field component inside of the component itself
+import { reduxForm, Field } from 'redux-form'; // add reduxForm to component export statement and tell it about different field names, then use the field component inside of the component itself
 
 import { Form, Icon, Button, Grid, Segment, Header, Message } from 'semantic-ui-react';
 import { LabelInputField } from 'react-semantic-redux-form';
@@ -93,14 +93,7 @@ const StyledError = styled.div`
 
       this.props.signin(formProps, () => {
             this.props.history.push('/dashboard')
-              .then(
-                result => {
-                  if (result) {
-                    this.props.dispatch(initialize('signin', {}));
-                  }
-                }
-              );
-        }); // call the signin action creator
+      }); // call the signin action creator
 
       // when we use reduxForm we get a function on our props object called handleSubmit. Use this function     // take email and password out of the form and provide it to the onSubmit callback
     };
