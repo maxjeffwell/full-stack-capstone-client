@@ -73,37 +73,31 @@ class UpdateStudent extends Component {
                      label={{ content: <Icon color="green" name="student" size="large" /> }}
                      labelPosition="left"
                      placeholder="Student Name" />
-                     {/*<Button>Update</Button>*/}
 
               <Field name="school" component={LabelInputField}
                      label={{ content: <Icon color="blue" name="university" size="large" /> }}
                      labelPosition="left"
                      placeholder="School Name" />
-                     {/*<Button>Update</Button>*/}
 
               <Field name="teacher" component={LabelInputField}
                      label={{ content: <Icon color="orange" name="header" size="large" /> }}
                      labelPosition="left"
                      placeholder="Teacher Name" />
-                     {/*<Button>Update</Button>*/}
 
               <Field name="gradeLevel" component={LabelInputField}
                      label={{ content: <Icon color="green" name="level up" size="large" /> }}
                      labelPosition="left"
                      placeholder="Grade Level" />
-                     {/*<Button>Update</Button>*/}
 
               <Field name="ellStatus" component={LabelInputField}
                      label={{ content: <Icon color="blue" name="language" size="large" /> }}
                      labelPosition="left"
                      placeholder="Current ELL Status" />
-                     {/*<Button>Update</Button>*/}
 
               <Field name="compositeLevel" component={LabelInputField}
                      label={{ content: <Icon color="orange" name="bullseye" size="large" /> }}
                      labelPosition="left"
                      placeholder="Composite Level" />
-                     {/*<Button>Update</Button>*/}
 
               <Field name="designation" component={LabelInputField}
                      label={{ content: <Icon color="green" name="certificate" size="large" /> }}
