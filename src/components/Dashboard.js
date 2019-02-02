@@ -9,17 +9,17 @@ import Students from './auth/Students';
 import Sidebar from './Sidebar';
 
 const Dashboard = ({ isToggled }) => (
-        <div id="dashboard">
-            <div id="main" className={isToggled ? 'toggled' : ''}>
-              <Navigation />
-              <Switch>
-                <Route exact path='/' component={Landing} />
-                <Route exact path='/students' component={Students} />
-              </Switch>
-            </div>
-          <Sidebar />
-        </div>
-    );
+  <div id="dashboard">
+    <div id="main" className={isToggled ? 'toggled' : ''}>
+      <Navigation />
+      <Switch>
+        <Route exact path='/' component={Landing} />
+        <Route exact path='/students' component={Students} />
+      </Switch>
+    </div>
+    <Sidebar />
+  </div>
+);
 
 Dashboard.propTypes = {
   isToggled: PropTypes.bool.isRequired

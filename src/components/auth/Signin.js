@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { reduxForm, Field } from 'redux-form'; // add reduxForm to component export statement and tell it about different field names, then use the field component inside of the component itself
+import { reduxForm, Field, initialize } from 'redux-form'; // add reduxForm to component export statement and tell it about different field names, then use the field component inside of the component itself
 
 import { Form, Icon, Button, Grid, Segment, Header, Message } from 'semantic-ui-react';
 import { LabelInputField } from 'react-semantic-redux-form';
@@ -11,7 +11,7 @@ import * as actions from '../../actions';
 
 export const StyledMessage = styled(Message)`
   &&& {
-  display: grid;
+    display: grid;
     margin-top: 35px;
     margin-bottom: 20px;
     padding: 25px 25px 25px 25px;
@@ -42,35 +42,36 @@ const StyledHeader = styled(Header)`
   }
   `;
 
- const StyledSegment = styled(Segment)`
-    &&& {
-      border: 4px solid ${props => props.theme.orange};
-      border-radius: 5px;
-      padding-top: 25px;
-      background: ${props => props.theme.white};
-    }
+const StyledSegment = styled(Segment)`
+  &&& {
+    border: 4px solid ${props => props.theme.orange};
+    border-radius: 5px;
+    padding-top: 25px;
+    background: ${props => props.theme.white};
+  }
 `;
 
- export const StyledForm = styled(Form)`
+const StyledForm = styled(Form)`
   &&& {
-    padding: 0px;
+    padding: 0;
   }
-  .icon {
+  &&& .icon {
     size: 100px;
   }
-  .input {
-      border: 2px solid ${props => props.theme.blue};
-      margin-bottom: 10px;
-      margin-top: 12px;
+  &&& .input {
+    border: 2px solid ${props => props.theme.blue};
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-top: 12px;
   }
-  .ui.labeled.input:not([class*="corner labeled"]) .label:first-child + input {
-      color: ${props => props.theme.blue};
-      font-family: 'Roboto', 'sans-serif';
-      font-weight: bold;
-      font-size: 1.5em;
-      padding-left: 5px;
+  &&& .ui.labeled.input:not([class*="corner labeled"]) .label:first-child + input {
+    color: ${props => props.theme.blue};
+    font-family: 'Roboto', 'sans-serif';
+    font-weight: bold;
+    font-size: 1.5em;
+    padding-left: 5px;
   }
-  .ui.button {
+  &&& .ui.button {
     border: 2px solid ${props => props.theme.orange};
     border-radius: 5px;
     font-size: 2em;
@@ -79,18 +80,29 @@ const StyledHeader = styled(Header)`
   }
 `;
 
- const StyledError = styled.div`
-  font-family: 'Roboto', 'sans-serif';
+const StyledError = styled.div`
+  &&& {
+    font-family: 'Roboto', 'sans-serif';
+    font-size: 1.5em;
+    color: ${props => props.theme.blue};
+  }
 `;
 
  class Signin extends Component {
     onSubmit = (formProps) => { // arrow function makes it so we don't have to worry about binding the context of onSubmit
 
       this.props.signin(formProps, () => {
-            this.props.history.push('/dashboard');
+            this.props.history.push('/dashboard')
+              .then(
+                result => {
+                  if (result) {
+                    this.props.dispatch(initialize('signin', {}));
+                  }
+                }
+              );
         }); // call the signin action creator
 
-      // when we use reduxForm we get a function on our props object called handleSubmit. Use this function to         // take email and password out of the form and provide it to the onSubmit callback
+      // when we use reduxForm we get a function on our props object called handleSubmit. Use this function     // take email and password out of the form and provide it to the onSubmit callback
     };
 
     render() {
@@ -106,7 +118,7 @@ const StyledHeader = styled(Header)`
 
               <StyledMessage info>
                 Please log in with your account email and password. If you have neither registered
-                nor been assigned account credentials, please use the available demo account to log in.
+                nor been assigned account credentials, you are welcome to use the available demo account to log in.
               </StyledMessage>
 
             <StyledMessage info>
@@ -116,7 +128,7 @@ const StyledHeader = styled(Header)`
           </StyledMessage>
 
             <StyledSegment stacked>
-              <StyledHeader as="h1">educationELLy account login</StyledHeader>
+              <StyledHeader as="h1">educationELLy account</StyledHeader>
 
               <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
 

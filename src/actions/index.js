@@ -16,7 +16,7 @@ export const signup = (formProps, callback) => async dispatch => {
         localStorage.setItem('jwtToken', response.data.token);
         callback();
     } catch(e) {
-        dispatch({ type: AUTH_ERROR, payload: 'This email is in use' });
+        dispatch({ type: AUTH_ERROR, payload: 'This email is in use. Please register using a different email.' });
     }
 };
 
@@ -53,7 +53,7 @@ export const signout = () => {
 };
 
 export const toggleSidebar = () => ({
-    type: TOGGLE_SIDEBAR,
+    type: TOGGLE_SIDEBAR
 });
 
 
