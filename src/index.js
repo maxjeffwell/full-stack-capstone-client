@@ -101,7 +101,7 @@ ReactDOM.render (
         <Header />
         <Route exact path='/' component={Landing} />
         <Route exact path='/signup' component={Register} />
-        <Route path='/students/:id/update' component={UpdateStudent} />
+        <Route path='/students/:id/update' render={(props) => <UpdateStudent {...props} />} />
         <Route exact path='/students' component={Students} />
         <Route exact path='/signin' component={Signin} />
         <Route exact path='/dashboard' component={Dashboard} />

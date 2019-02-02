@@ -41,12 +41,7 @@ class Header extends Component {
                       <Menu.Item as={Link} name="Instructor Dashboard" to="/dashboard">
                       </Menu.Item>
                   </Menu.Menu>
-                  <Menu.Menu>
-                    <Menu.Item as={Link} name="educationelly" to="/">
-                      educationELLy
-                    </Menu.Item>
-                  </Menu.Menu>
-                  <Menu.Menu position="right">
+                <Menu.Menu position="right">
                     <Menu.Item as={Link} name="Students" to="/students">
                     </Menu.Item>
                       <Menu.Item as={Link} name="Logout" to="/signout">
