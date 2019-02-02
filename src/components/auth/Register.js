@@ -51,7 +51,10 @@ const StyledForm = styled(Form)`
     border-radius: 5px;
     margin-bottom: 10px;
     margin-top: 12px;
-    border: 2px solid ${props => props.theme.blue};
+    border-top: 3px solid ${props => props.theme.green};
+    border-right: 3px solid ${props => props.theme.green};
+    border-bottom: 2px solid ${props => props.theme.green};
+    border-left: 3px solid ${props => props.theme.green};
   }
   &&& .ui.labeled.input:not([class*="corner labeled"]) .label:first-child + input {
     color: ${props => props.theme.blue};
@@ -127,7 +130,7 @@ class Register extends Component {
                   <p>If you prefer not to register at this time, an account for demo purposes is available on the login page.</p>
                 </StyledMessage>
                   <StyledSegment>
-                    <StyledHeader as="h1">account registration</StyledHeader>
+                    <StyledHeader as="h1">educationELLy registration</StyledHeader>
                       <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
 
                         {/* now we can add an onSubmit and call handleSubmit and to handleSubmit we'll pass the callback we want to be executed when user submits the form, which is the onSubmit method we just created. we don't call onSubmit as soon as we render the form, however. onSubmit will be called in the future. we pass a reference to the onSubmit function to handleSubmit. */}

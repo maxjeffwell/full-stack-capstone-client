@@ -23,6 +23,13 @@ export const StyledMessage = styled(Message)`
     line-height: 30px;
     border-radius: 5px;
    }
+   &&& p:first-child {
+    margin-top: 10px;
+    margin-bottom: 2px;
+   }
+   &&& p:last-child {
+    margin-top: 2px;
+   }
 `;
 
 const StyledHeader = styled(Header)`
@@ -59,7 +66,10 @@ const StyledForm = styled(Form)`
     size: 100px;
   }
   &&& .input {
-    border: 2px solid ${props => props.theme.blue};
+    border-top: 3px solid ${props => props.theme.green};
+    border-right: 3px solid ${props => props.theme.green};
+    border-bottom: 2px solid ${props => props.theme.green};
+    border-left: 3px solid ${props => props.theme.green};
     border-radius: 5px;
     margin-bottom: 10px;
     margin-top: 12px;
@@ -116,12 +126,12 @@ const StyledError = styled.div`
 
             <StyledMessage info>
             DEMO ACCOUNT AVAILABLE
-            <p>Username: demo <span>
-              </span>Password: demopassword</p>
+              <p>Email: demo</p>
+              <p>Password: demopassword</p>
           </StyledMessage>
 
             <StyledSegment stacked>
-              <StyledHeader as="h1">educationELLy account</StyledHeader>
+              <StyledHeader as="h1">educationELLy login</StyledHeader>
 
               <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
 

@@ -2,8 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Card } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 import { fetchStudents } from '../../actions';
+
+const StyledCard = styled(Card)`
+  &&& .content .header:not(.ui) {
+    color: ${props => props.theme.blue};
+    font-family: 'Roboto', 'sans-serif';
+    font-size: 1em;
+    font-weight: 700;
+    padding: 2px;
+  }
+  &&& .extra a:not(.ui) {
+    font-size: 1.2em;
+    font-family: 'Roboto', 'sans-serif';
+    color: ${props => props.theme.green};
+    font-weight: 700;
+  }
+`;
 
 class Students extends Component {
 
@@ -16,7 +33,7 @@ class Students extends Component {
     renderStudentData() {
         return this.props.students.map(student => {
             return (
-                  <Card className="student-card" key={student._id}>
+                  <StyledCard className="student-card" key={student._id}>
                       <Card.Content>
                           <Card.Header>Student: {student.fullName}</Card.Header>
                           <Card.Header>School: {student.school}</Card.Header>
@@ -31,7 +48,7 @@ class Students extends Component {
                       <Card.Content extra>
                             <Link to={`/students/${student._id}/update`}>Edit Student Information</Link>
                       </Card.Content>
-                  </Card>
+                  </StyledCard>
             );
         });
     }

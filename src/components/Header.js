@@ -8,9 +8,14 @@ const StyledMenu = styled(Menu)`
   &&& {
     display: flex;
     border: 2px solid ${props => props.theme.orange};
+    border-radius: 5px;
+    margin-bottom: 25px;
   }
   &&& .header {
     background: ${props => props.theme.green};
+  }
+  &&& a.header.item {
+    width: 50px;
   }
   &&& a.item {
    font-size: 2em;
@@ -30,7 +35,7 @@ class Header extends Component {
         if (this.props.authenticated) {
             return (
               <StyledMenu borderless>
-                  <Menu.Item as="a" header>
+                  <Menu.Item as="header">
                   </Menu.Item>
                   <Menu.Menu position="left">
                       <Menu.Item as={Link} name="Instructor Dashboard" to="/dashboard">

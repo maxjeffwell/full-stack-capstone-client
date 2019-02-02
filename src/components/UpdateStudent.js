@@ -3,8 +3,38 @@ import { Field, reduxForm, initialize } from 'redux-form';
 import { Form, Icon, Button } from 'semantic-ui-react';
 import { LabelInputField } from 'react-semantic-redux-form';
 import axios from 'axios';
+import styled from 'styled-components';
 
 import {API_BASE_URL} from "../config";
+
+const StyledForm = styled(Form)`
+  &&& .ui.labeled.input:not([class*="corner labeled"]) 
+  .label:first-child+input {
+    font-family: 'Roboto', 'sans-serif';
+    font-size: 2em;
+    font-weight: 700;
+    color: ${props => props.theme.blue};
+    padding: 5px 5px 5px 10px;
+    background-color: ${props => props.theme.white};
+    border-top: 2px solid ${props => props.theme.green};
+    border-right: 2px solid ${props => props.theme.green};
+    border-bottom: 2px solid ${props => props.theme.green};
+  }
+  &&& .ui.label {
+    border: 2px solid ${props => props.theme.orange};
+    border-radius: 5px;
+    width: 50px;
+  }
+  &&& .ui.button {
+    font-family: 'Roboto', 'sans-serif';
+    font-size: 2em;
+    color: ${props => props.theme.white};
+    background-color: ${props => props.theme.blue}; 
+    border: 2px solid ${props => props.theme.orange};
+    border-radius: 5px;
+    padding: 10px;
+  }
+`;
 
 class UpdateStudent extends Component {
     constructor(props) {
@@ -37,7 +67,7 @@ class UpdateStudent extends Component {
     render() {
         const {handleSubmit} = this.props;
         return (
-            <Form onSubmit={handleSubmit(this.onSubmit)}>
+            <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
 
               <Field name="fullName" component={LabelInputField}
                      label={{ content: <Icon color="green" name="student" size="large" /> }}
@@ -82,7 +112,7 @@ class UpdateStudent extends Component {
 
                      <Button>Update</Button>
 
-            </Form>
+            </StyledForm>
         );
     }
 }

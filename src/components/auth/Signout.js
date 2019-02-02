@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyledMessage } from './Signin';
 
+import { StyledMessage } from './Signin';
 import * as actions from '../../actions';
 
 class Signout extends Component { // create class based component in order to use lifecycle method
@@ -16,11 +16,9 @@ class Signout extends Component { // create class based component in order to us
 
         return (
 
-          <StyledMessage
-              success
-              header="You have successfully logged out."
-              content=""
-              />
+          <StyledMessage success>
+            You have successfully logged out.
+          </StyledMessage>
               );
     };
 }
