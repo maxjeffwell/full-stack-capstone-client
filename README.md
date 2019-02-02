@@ -3,7 +3,7 @@
 > **educationELLy** aims to engage regular classroom teachers in the English language learning process by providing them with quick access to relevant information about the ELL students in their classes. By making ELL student information accessible to mainstream teachers and ELL teachers alike, educationELLy keeps an ELL student's teachers updated on his or her English language proficiency and provides a centralized platform through which all teachers can participate in the feedback process. educationELLy bridges the gap between ELL teachers and regular teachers and facilitates the creation of a more integrated curriculum for English language learners. With educationELLy, all teachers become language teachers.
 
 ## Build Status
-![React](https://img.shields.io/badge/react-16.6.0%2B-blue.svg) [![npm version](https://img.shields.io/badge/npm%20package-6.4.1-orange.svg)](https://badge.fury.io/js/npm) [![Build Status](https://travis-ci.org/maxjeffwell/code-talk-graphql-client.svg?branch=master)](https://travis-ci.org/maxjeffwell/code-talk-graphql-client) ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg) [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://jmaxwell-fullstack-client.herokuapp.com/)
+![React](https://img.shields.io/badge/react-16.6.0%2B-blue.svg) [![npm version](https://img.shields.io/badge/npm%20package-6.4.1-orange.svg)](https://badge.fury.io/js/npm) [![Build Status](https://travis-ci.org/maxjeffwell/full-stack-capstone-client.svg?branch=master)](https://travis-ci.org/maxjeffwell/full-stack-capstone-client) ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg) [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://jmaxwell-fullstack-client.herokuapp.com/)
 
 ## [Live App](https://jmaxwell-fullstack-client.herokuapp.com/)
 
@@ -21,17 +21,12 @@ password: demopassword
 
 [![educationELLy Login Page](https://i.gyazo.com/7bf3966ef1f82a8870268357977a0684.png)](https://gyazo.com/7bf3966ef1f82a8870268357977a0684)
 
-[![educationELLy Dashboard Page](https://i.gyazo.com/726aac47a4e2bb4d1d99b30c05c54b03.png)](https://gyazo.com/726aac47a4e2bb4d1d99b30c05c54b03)
-
 [![educationELLy Student List Page](https://i.gyazo.com/56c518f5cadba3482bba048bdd6187a9.png)](https://gyazo.com/56c518f5cadba3482bba048bdd6187a9)
 
 [![educationELLy Update Student Page](https://i.gyazo.com/6d604a8f7fab09b42970e5be7a2f8e90.png)](https://gyazo.com/6d604a8f7fab09b42970e5be7a2f8e90)
 
-[![educationELLy Logged Out Page](https://i.gyazo.com/01a439dcbe74ee7e644041b1e0a58344.png)](https://gyazo.com/01a439dcbe74ee7e644041b1e0a58344)
-
-
 ## Technology Stack
-**Front End**:
+**Front End**
 * React/Redux with extensive use of Redux-Form
 * Async Redux actions implemented with Redux Thunk middleware
 * Semantic-UI-React components customized with the use of Styled Components
@@ -67,7 +62,7 @@ password: demopassword
 
 ## Meta
 
-by Jeff Maxwell maxjeffwell@gmail.com
+by Jeff Maxwell maxjeffwell@gmail.com |
 [https://github.com/maxjeffwell](https://github.com/maxjeffwell)
 
 Distributed under the GNU GPLv3 License.
