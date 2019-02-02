@@ -18,7 +18,18 @@ import WebFont from 'webfontloader';
 
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import 'semantic-ui-css/semantic.min.css';
+import 'semantic-ui-css/components/button.css';
+import 'semantic-ui-css/components/container.css';
+import 'semantic-ui-css/components/grid.css';
+import 'semantic-ui-css/components/header.css';
+import 'semantic-ui-css/components/form.css';
+import 'semantic-ui-css/components/icon.css';
+import 'semantic-ui-css/components/segment.css';
+import 'semantic-ui-css/components/message.css';
+import 'semantic-ui-css/components/card.css';
+import 'semantic-ui-css/components/menu.css';
+import 'semantic-ui-css/components/input.css';
+import 'semantic-ui-css/components/sidebar.css';
 
 import reducers from './reducers';
 import App from './components/App';
