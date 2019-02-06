@@ -7,6 +7,9 @@ import styled from 'styled-components';
 import { fetchStudents } from '../../actions';
 
 const StyledCard = styled(Card)`
+  &&& .content {
+    overflow: scroll;
+  }
   &&& .content .header:not(.ui) {
     color: ${props => props.theme.blue};
     font-family: 'Roboto', 'sans-serif';

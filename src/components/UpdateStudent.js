@@ -24,6 +24,7 @@ const StyledForm = styled(Form)`
     border: 2px solid ${props => props.theme.orange};
     border-radius: 5px;
     width: 50px;
+    text-align: center;
   }
   &&& .ui.button {
     font-family: 'Roboto', 'sans-serif';

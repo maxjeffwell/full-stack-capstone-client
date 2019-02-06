@@ -12,8 +12,9 @@ import * as actions from '../../actions';
 export const StyledMessage = styled(Message)`
   &&& {
     display: grid;
-    margin-top: 35px;
-    margin-bottom: 20px;
+    min-width: 250px;
+    margin-top: 10px;
+    margin-bottom: 25px;
     padding: 25px 25px 25px 25px;
     font-family: 'Roboto', 'sans-serif';
     font-weight: bold;
@@ -42,8 +43,8 @@ const StyledHeader = styled(Header)`
     background: ${props => props.theme.green};
     border: 4px solid ${props => props.theme.orange};
     width: 100%;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 3px;
+    padding-bottom: 25px;
     height: 50%;
     border-radius: 5px;
   }
@@ -51,10 +52,13 @@ const StyledHeader = styled(Header)`
 
 const StyledSegment = styled(Segment)`
   &&& {
+    display: grid;
+    min-width: 250px;
     border: 4px solid ${props => props.theme.orange};
     border-radius: 5px;
     padding-top: 25px;
     background: ${props => props.theme.white};
+    margin-top: 25px;
   }
 `;
 

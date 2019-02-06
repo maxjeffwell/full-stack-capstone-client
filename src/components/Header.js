@@ -10,12 +10,15 @@ const StyledMenu = styled(Menu)`
     border: 2px solid ${props => props.theme.orange};
     border-radius: 5px;
     margin-bottom: 25px;
+    flex-wrap: wrap;
+    min-width: 250px;
   }
   &&& .header {
     background: ${props => props.theme.green};
   }
   &&& a.header.item {
     width: 50px;
+    position: absolute;
   }
   &&& a.item {
    font-size: 2em;

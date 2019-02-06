@@ -16,6 +16,7 @@ import * as actions from '../../actions';
 const StyledSegment = styled(Segment)`
   &&& {
     display: grid;
+    min-width: 250px;
     margin-top: 50px;
     border: 4px solid ${props => props.theme.orange};
     border-radius: 5px;
@@ -85,8 +86,8 @@ const StyledErrorMessage = styled.div`
 const StyledMessage = styled(Message)`
   &&& {
     display: grid;
-    margin-top: 35px;
-    margin-bottom: 20px;
+    margin-top: 25px;
+    margin-bottom: 10px;
     padding: 25px 25px 25px 25px;
     font-family: 'Roboto', 'sans-serif';
     font-weight: bold;
@@ -95,6 +96,7 @@ const StyledMessage = styled(Message)`
     background: ${props => props.theme.white};
     line-height: 30px;
     border-radius: 5px;
+    min-width: 250px;
    }
 `;
 
