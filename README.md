@@ -23,7 +23,7 @@ password: demopassword
 
 [![educationELLy Student List Page](https://i.gyazo.com/56c518f5cadba3482bba048bdd6187a9.png)](https://gyazo.com/56c518f5cadba3482bba048bdd6187a9)
 
-[![educationELLy Update Student Page](https://i.gyazo.com/6d604a8f7fab09b42970e5be7a2f8e90.png)](https://gyazo.com/6d604a8f7fab09b42970e5be7a2f8e90)
+[![educationELLy Update Student Page](https://i.gyazo.com/60b899e1d34962bb2f17127f830dfbf0.png)](https://gyazo.com/60b899e1d34962bb2f17127f830dfbf0)
 
 ## Technology Stack
 **Front End**
