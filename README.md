@@ -46,19 +46,13 @@ password: demopassword
 * Heroku
 * mLab
 
-**Relevant source code to key parts of educationELLy**
+**Relevant source code to key parts of client-side educationELLy**
 
-* Action creators and ajax request to backend api `client/src/actions/index.js`
+* [Action creators and ajax request to backend api](../master/src/actions/index.js)
 
- * Data layer control for redux `client/src/index.js`
+ * [Data layer control for redux](../master/src/index.js)
 
- * JWT strategies and Passport Authentication `server/services/passport.js`
-
- * JWT token generation `server/controllers/authentication.js`
-
- * Student and User Mongoose models `server/models/`
-
- * Client-side authentication `client/src/reducers/auth.js`
+ * [Client-side authentication](../master/src/reducers/auth.js)
 
 ## Meta
 
