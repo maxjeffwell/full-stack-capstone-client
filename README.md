@@ -35,8 +35,9 @@ password: demopassword
 **Back End** [Server Github Repo](https://github.com/maxjeffwell/full-stack-capstone-server)
 
 * API built with Express Server
+  * with middleware yay
 * Security
-    * JWT authentication and password hashing with bcrypt.js
+  * JWT authentication and password hashing with bcrypt.js
 
 **Data Persistence**
 * MongoDB connected to Express via Mongoose
