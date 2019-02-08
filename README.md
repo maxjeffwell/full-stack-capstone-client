@@ -30,6 +30,7 @@ password: demopassword
 * React/Redux with extensive use of Redux-Form
 * Async Redux actions implemented with Redux Thunk middleware
 * Semantic-UI-React components customized with the use of Styled Components
+* React component testing with Enzyme
 
 **Back End** [Server Github Repo](https://github.com/maxjeffwell/full-stack-capstone-server)
 
