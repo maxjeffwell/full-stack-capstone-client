@@ -56,7 +56,7 @@ const StyledSegment = styled(Segment)`
     min-width: 250px;
     border: 4px solid ${props => props.theme.orange};
     border-radius: 5px;
-    padding-top: 25px;
+    padding: 25px 25px 25px 25px;
     background: ${props => props.theme.white};
     margin-top: 25px;
   }
