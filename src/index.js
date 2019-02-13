@@ -59,7 +59,7 @@ const GlobalStyle = createGlobalStyle`
 
 html {
   box-sizing: border-box;
-  font-size: 10px;
+  font-size: 14px;
   }
 
 *, *:before, *:after {

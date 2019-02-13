@@ -13,12 +13,12 @@ const StyledCard = styled(Card)`
   &&& .content .header:not(.ui) {
     color: ${props => props.theme.blue};
     font-family: 'Roboto', 'sans-serif';
-    font-size: 1em;
+    font-size: .75em;
     font-weight: 700;
     padding: 2px;
   }
   &&& .extra a:not(.ui) {
-    font-size: 1.2em;
+    font-size: .8em;
     font-family: 'Roboto', 'sans-serif';
     color: ${props => props.theme.green};
     font-weight: 700;
