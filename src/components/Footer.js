@@ -6,11 +6,12 @@ const StyledHeader = styled(Header)`
 	&&& {
 	  display: grid;
 	  grid-template-rows: 1fr auto;
-	  height: 50px;
+	  height: auto;
 	  margin-top: -50px;
     bottom: -4em;
     position: relative;
     width: 100%;
+    min-width: 190px;
     z-index: -1;
 	  background: ${props => props.theme.white};
 	  color: ${props => props.theme.orange};

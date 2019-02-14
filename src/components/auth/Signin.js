@@ -12,7 +12,7 @@ import * as actions from '../../actions';
 export const StyledMessage = styled(Message)`
   &&& {
     display: grid;
-    min-width: 250px;
+    min-width: 420px;
     margin-top: 10px;
     margin-bottom: 25px;
     padding: 25px 25px 25px 25px;
@@ -53,7 +53,7 @@ const StyledHeader = styled(Header)`
 const StyledSegment = styled(Segment)`
   &&& {
     display: grid;
-    min-width: 250px;
+    min-width: 420px;
     border: 4px solid ${props => props.theme.orange};
     border-radius: 5px;
     padding: 25px 25px 25px 25px;

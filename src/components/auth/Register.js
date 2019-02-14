@@ -16,7 +16,7 @@ import * as actions from '../../actions';
 const StyledSegment = styled(Segment)`
   &&& {
     display: grid;
-    min-width: 250px;
+    min-width: 420px;
     margin-top: 50px;
     border: 4px solid ${props => props.theme.orange};
     border-radius: 5px;
@@ -96,7 +96,7 @@ const StyledMessage = styled(Message)`
     background: ${props => props.theme.white};
     line-height: 30px;
     border-radius: 5px;
-    min-width: 250px;
+    min-width: 420px;
    }
 `;
 

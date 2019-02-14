@@ -14,7 +14,6 @@ const StyledContainer = styled(Container)`
 const StyledHeader = styled(Header)`
   &&& {
     color: ${props => props.theme.blue};
-  
     background: ${props => props.theme.orange};
     border: 2px solid ${props => props.theme.green};
     border-radius: 5px;
@@ -25,6 +24,7 @@ const StyledHeader = styled(Header)`
     padding-bottom: 10px;
     margin-top: 20px;
     margin-bottom: 25px;
+    min-width: 250px;
   }
 `;
 
