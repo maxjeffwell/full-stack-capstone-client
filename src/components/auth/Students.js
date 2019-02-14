@@ -17,8 +17,11 @@ const StyledCard = styled(Card)`
     font-weight: 700;
     padding: 2px;
   }
+  &&& .extra {
+    height: auto;
+  }
   &&& .extra a:not(.ui) {
-    font-size: .8em;
+    font-size: .75em;
     font-family: 'Roboto', 'sans-serif';
     color: ${props => props.theme.green};
     font-weight: 700;
