@@ -10,13 +10,13 @@ import { BrowserRouter, Route } from 'react-router-dom';
 // components that will be available on screen
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import WebFont from 'webfontloader';
 
-import { composeWithDevTools } from 'redux-devtools-extension';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 
 import 'semantic-ui-css/components/button.css';
 import 'semantic-ui-css/components/container.css';
@@ -75,6 +75,8 @@ body {
 	}
 `;
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
   reducers,
 
@@ -84,7 +86,7 @@ const store = createStore(
 
   {
           auth: { authenticated: localStorage.getItem('jwtToken') }
-      }, composeWithDevTools(
+      }, composeEnhancers(
         applyMiddleware(reduxThunk)
         )
     );
