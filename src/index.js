@@ -10,7 +10,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 // components that will be available on screen
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
