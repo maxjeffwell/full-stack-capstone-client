@@ -5,6 +5,7 @@ import { Card } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { fetchStudents } from '../../actions';
+import { deleteStudent } from '../../actions'
 
 const StyledCard = styled(Card)`
   &&& .content {
@@ -26,6 +27,16 @@ const StyledCard = styled(Card)`
     color: ${props => props.theme.green};
     font-weight: 700;
   }
+`;
+
+const StyledButton = styled.button`
+    border: 2px solid ${props => props.theme.orange};
+    background-color: ${props => props.theme.blue};
+    border-radius: 5px;
+    font-size: .85em;
+    font-family: 'Roboto','sans-serif';
+    color: ${props => props.theme.white};
+    cursor: pointer;
 `;
 
 class Students extends Component {
@@ -53,6 +64,9 @@ class Students extends Component {
                       </Card.Content>
                       <Card.Content extra>
                             <Link to={`/students/${student._id}/update`}>Edit Student Information</Link>
+                        <StyledButton onClick={() => this.props.dispatch(deleteStudent(student._id))}>
+                          Delete Student
+                        </StyledButton>
                       </Card.Content>
                   </StyledCard>
             );
@@ -68,8 +82,8 @@ class Students extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return { students: state.students.students };
-}
+const mapStateToProps = (state) => ({
+     students: state.students.students
+});
 
 export default connect(mapStateToProps)(Students);

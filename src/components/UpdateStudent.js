@@ -5,7 +5,7 @@ import { LabelInputField } from 'react-semantic-redux-form';
 import axios from 'axios';
 import styled from 'styled-components';
 
-import {API_BASE_URL} from "../config";
+import {API_BASE_URL} from '../config';
 
 const StyledForm = styled(Form)`
   &&& .ui.labeled.input:not([class*="corner labeled"]) 

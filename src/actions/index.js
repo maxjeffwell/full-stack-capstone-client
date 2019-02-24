@@ -4,7 +4,7 @@
 import { API_BASE_URL } from '../config';
 
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, FETCH_STUDENTS, TOGGLE_SIDEBAR } from './types';
+import { AUTH_USER, AUTH_ERROR, FETCH_STUDENTS, DELETE_STUDENT, TOGGLE_SIDEBAR } from './types';
 
 export const signup = (formProps, callback) => async dispatch => {
     try {
@@ -55,6 +55,15 @@ export const signout = () => {
 export const toggleSidebar = () => ({
     type: TOGGLE_SIDEBAR
 });
+
+export const deleteStudent = (id) => async dispatch => {
+    let token = localStorage.getItem('jwtToken');
+    let config = { headers: {'Authorization': "bearer " + token} };
+
+    const res = await axios.delete(`${API_BASE_URL}/students/${id}`, config);
+
+    dispatch({ type: DELETE_STUDENT, payload: res.data});
+};
 
 
 
