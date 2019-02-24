@@ -8,7 +8,7 @@ import toggleReducer from './toggleReducer';
 import auth from './auth';
 import studentsReducer from './studentsReducer';
 
-export default combineReducers({
+export const rootReducer = combineReducers({
     auth,
     isSidebarToggled: toggleReducer,
     form: formReducer,

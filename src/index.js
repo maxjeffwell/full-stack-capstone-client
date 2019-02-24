@@ -31,16 +31,17 @@ import 'semantic-ui-css/components/menu.css';
 import 'semantic-ui-css/components/input.css';
 import 'semantic-ui-css/components/sidebar.css';
 
-import reducers from './reducers';
+import { rootReducer } from './reducers';
 import App from './components/App';
 import Landing from './components/Landing';
 import Register from './components/auth/Register';
 import Students from './components/auth/Students';
 import Signin from './components/auth/Signin';
 import Signout from './components/auth/Signout';
-import Header from "./components/Header";
-import Dashboard from "./components/Dashboard";
-import UpdateStudent from "./components/UpdateStudent";
+import Header from './components/Header';
+import Dashboard from './components/Dashboard';
+import UpdateStudent from './components/UpdateStudent';
+import CreateStudent from './components/CreateStudent';
 
 WebFont.load({
     google: {
@@ -76,7 +77,7 @@ body {
 `;
 
 const store = createStore(
-  reducers,
+  rootReducer,
 
       // use starting state object to get initializing state inside redux store, pass to store the key of auth
       // piece of state and then value to be initialized when redux store is created (authenticated) and assign to
@@ -117,10 +118,11 @@ ReactDOM.render (
         <Route exact path='/signin' component={Signin} />
         <Route exact path='/dashboard' component={Dashboard} />
         <Route exact path='/signout' component={Signout} />
+        <Route exact path='/createStudent' render={(props) => <CreateStudent {...props} />} />
         </App>
     </BrowserRouter>
     </Provider>
   </ThemeProvider>,
-        document.querySelector('#root')
+document.querySelector('#root')
 );
 

@@ -1,6 +1,7 @@
-export const AUTH_USER = 'auth_user';
-export const AUTH_ERROR = 'auth_error';
-export const FETCH_STUDENTS = 'fetch_students';
-export const TOGGLE_SIDEBAR = 'toggle_sidebar';
+export const AUTH_USER = 'AUTH_USER';
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const FETCH_STUDENTS = 'FETCH_STUDENTS';
+export const DELETE_STUDENT = 'DELETE_STUDENT';
+export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
 
 
