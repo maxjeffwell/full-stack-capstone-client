@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, Container } from 'semantic-ui-react';
+import { Menu, Container, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
@@ -24,6 +24,21 @@ const StyledMenu = styled(Menu.Menu)`
   margin-top: 20px;
 `;
 
+const StyledHeader = styled(Header)`
+  &&& {
+    font-family: 'Roboto', 'sans-serif';
+    font-size: 1em;
+    font-weight: bold;
+    color: ${props => props.theme.blue};
+    background: ${props => props.theme.green};
+    border: 2px solid ${props => props.theme.orange};
+    height: 50%;
+    width: 25%;
+    border-radius: 5px;
+    text-align: center;
+  }
+  `;
+
 class Sidebar extends Component {
   static propTypes = {
     isToggled: PropTypes.bool.isRequired
@@ -40,9 +55,9 @@ class Sidebar extends Component {
               Access Your Student List
             </StyledContainer>
           </Menu.Item>
-          <Menu.Header>
+          <StyledHeader>
             Create a New Student
-          </Menu.Header>
+          </StyledHeader>
           <Menu.Item>
             <StyledContainer>
               <CreateStudent />

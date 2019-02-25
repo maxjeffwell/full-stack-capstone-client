@@ -46,7 +46,7 @@ class Header extends Component {
                       </Menu.Item>
                   </Menu.Menu>
                 <Menu.Menu position="right">
-                    <Menu.Item as={Link} name="Students" to="/students">
+                    <Menu.Item as={Link} name="Student List" to="/students">
                     </Menu.Item>
                       <Menu.Item as={Link} name="Logout" to="/signout">
                       </Menu.Item>

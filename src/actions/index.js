@@ -53,10 +53,10 @@ export const toggleSidebar = () => ({
 });
 
 export const deleteStudent = (id) => async dispatch => {
-    // let token = localStorage.getItem('jwtToken');
-    // let config = { headers: {'Authorization': "bearer " + token} };
+    let token = localStorage.getItem('jwtToken');
+    let config = { headers: {'Authorization': "bearer " + token} };
 
-    const request = await axios.delete(`${API_BASE_URL}/students/${id}`);
+    await axios.delete(`${API_BASE_URL}/students/${id}`, config);
 
     return dispatch({ type: DELETE_STUDENT, payload: id });
 };
