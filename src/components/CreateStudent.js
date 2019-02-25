@@ -63,7 +63,7 @@ class CreateStudent extends Component {
           <Field name="fullName" component={LabelInputField}
                  label={{ content: <Icon color="green" name="student" size="large"/> }}
                  labelPosition="left"
-                 placeholder="Student Name"/>
+                 placeholder="Student Name (Required)"/>
 
           <Field name="school" component={LabelInputField}
                  label={{ content: <Icon color="blue" name="university" size="large"/> }}
@@ -83,7 +83,7 @@ class CreateStudent extends Component {
           <Field name="ellStatus" component={LabelInputField}
                  label={{ content: <Icon color="blue" name="language" size="large"/> }}
                  labelPosition="left"
-                 placeholder="Current ELL Status"/>
+                 placeholder="Current ELL Status (Required)"/>
 
           <Field name="compositeLevel" component={LabelInputField}
                  label={{ content: <Icon color="orange" name="bullseye" size="large"/> }}
@@ -93,7 +93,7 @@ class CreateStudent extends Component {
           <Field name="designation" component={LabelInputField}
                  label={{ content: <Icon color="green" name="certificate" size="large"/> }}
                  labelPosition="left"
-                 placeholder="Current Designation"/>
+                 placeholder="Current Designation (Required)"/>
 
           <Button>Create Student</Button>
 

@@ -11,8 +11,6 @@ export const signup = (formProps, callback) => async dispatch => {
         const response = await axios.post(`${API_BASE_URL}/signup`, formProps);
         dispatch({ type: AUTH_USER, payload: response.data.token });
 
-        // store JWT token
-
         localStorage.setItem('jwtToken', response.data.token);
         callback();
     } catch(e) {
@@ -24,8 +22,6 @@ export const signin = (formProps, callback) => async dispatch => {
     try {
         const response = await axios.post(`${API_BASE_URL}/signin`, formProps);
         dispatch({ type: AUTH_USER, payload: response.data.token });
-
-        // store JWT token
 
         localStorage.setItem('jwtToken', response.data.token);
         callback();
@@ -57,12 +53,12 @@ export const toggleSidebar = () => ({
 });
 
 export const deleteStudent = (id) => async dispatch => {
-    let token = localStorage.getItem('jwtToken');
-    let config = { headers: {'Authorization': "bearer " + token} };
+    // let token = localStorage.getItem('jwtToken');
+    // let config = { headers: {'Authorization': "bearer " + token} };
 
-    const res = await axios.delete(`${API_BASE_URL}/students/${id}`, config);
+    const request = await axios.delete(`${API_BASE_URL}/students/${id}`);
 
-    dispatch({ type: DELETE_STUDENT, payload: res.data});
+    return dispatch({ type: DELETE_STUDENT, payload: id });
 };
 
 

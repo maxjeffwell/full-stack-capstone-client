@@ -109,13 +109,13 @@ const StyledError = styled.div`
             this.props.history.push('/dashboard')
       }); // call the signin action creator
 
-      // when we use reduxForm we get a function on our props object called handleSubmit. Use this function     // take email and password out of the form and provide it to the onSubmit callback
+      // when we use reduxForm we get a function on our props object called handleSubmit. Use this function to take email and password out of the form and provide it to the onSubmit callback
     };
 
     render() {
         const { handleSubmit } = this.props;
 
-        // can't just add onSubmit as a callback directly to form tag. we have to destructure handleSubmit              // function from our props object
+        // can't just add onSubmit as a callback directly to form tag. we have to destructure handleSubmit function from our props object
 
       return (
         <Fragment>
@@ -172,7 +172,4 @@ function mapStateToProps(state) {
 }
 
 export default compose (
-
-  // compose allows us to apply multiple HOC's in series to a single component (Signin in this case) in an easier  // to read way
-
   connect(mapStateToProps, actions),reduxForm({ form: 'signin' }))(Signin);

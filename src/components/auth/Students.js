@@ -5,7 +5,7 @@ import { Card } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { fetchStudents } from '../../actions';
-import { deleteStudent } from '../../actions'
+import { deleteStudent } from '../../actions';
 
 const StyledCard = styled(Card)`
   &&& .content {
@@ -41,11 +41,9 @@ const StyledButton = styled.button`
 
 class Students extends Component {
 
-    // class-based component so we can use a lifecycle method to fetch protected data from backend api anytime the Students component is shown
-
-    componentDidMount() {
-        this.props.dispatch(fetchStudents());
-    }
+  componentDidMount() {
+    this.props.dispatch(fetchStudents());
+  }
 
     renderStudentData() {
         return this.props.students.map(student => {
@@ -82,7 +80,7 @@ class Students extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
      students: state.students.students
 });
 
