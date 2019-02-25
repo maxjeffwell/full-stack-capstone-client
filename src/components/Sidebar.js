@@ -26,6 +26,9 @@ const StyledMenu = styled(Menu.Menu)`
 
 const StyledHeader = styled(Header)`
   &&& {
+    display: grid;
+    position: relative;
+    min-width: 85px;
     font-family: 'Roboto', 'sans-serif';
     font-size: 1em;
     font-weight: bold;
