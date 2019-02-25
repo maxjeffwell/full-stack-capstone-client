@@ -29,7 +29,7 @@ password: demopassword
 **Front End**
 * React/Redux with extensive use of Redux-Form
 * Async Redux actions implemented with Redux Thunk middleware
-* Styled-Components (overriden with higher specificity when needed)
+* React Styled-Components
 * React component testing with Enzyme
 
 **Back End** [Server Github Repo](https://github.com/maxjeffwell/full-stack-capstone-server)
