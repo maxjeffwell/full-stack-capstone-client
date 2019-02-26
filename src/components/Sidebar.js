@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Container, Header } from 'semantic-ui-react';
 import { connect } from 'react-redux';
@@ -18,28 +18,38 @@ const StyledContainer = styled(Container)`
     font-family: "Roboto", "sans-serif";
     font-weight: bold;
   }
+  &:hover:not([disabled]) {
+      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+      background-color: ${props => props.theme.orange};
+      border: 5px solid ${props => props.theme.green};
+      border-radius: 5px;
+      padding: 0px 5px 0px 5px;
+      text-decoration: none;
+    }
 `;
 
 const StyledMenu = styled(Menu.Menu)`
   margin-top: 20px;
+  display: grid;
 `;
 
 const StyledHeader = styled(Header)`
   &&& {
-    display: grid;
-    position: relative;
-    min-width: 85px;
+    min-width: 290px;
     font-family: 'Roboto', 'sans-serif';
-    font-size: 1em;
+    font-size: 1.25em;
     font-weight: bold;
     color: ${props => props.theme.blue};
     background: ${props => props.theme.green};
     border: 2px solid ${props => props.theme.orange};
     height: 50%;
-    width: 25%;
+    width: fit-content;
     border-radius: 5px;
     text-align: center;
-  }
+    padding: 2px 10px 10px 5px;
+    white-space: nowrap;
+    margin-top: 15px;
+    }
   `;
 
 class Sidebar extends Component {
@@ -59,12 +69,12 @@ class Sidebar extends Component {
             </StyledContainer>
           </Menu.Item>
           <StyledHeader>
-            Create a New Student
+            Create New Student
           </StyledHeader>
           <Menu.Item>
-            <StyledContainer>
+            <Fragment>
               <CreateStudent />
-            </StyledContainer>
+            </Fragment>
           </Menu.Item>
         </StyledMenu>
       );

@@ -83,7 +83,7 @@ const StyledForm = styled(Form)`
     font-family: 'Roboto', 'sans-serif';
     font-weight: bold;
     font-size: 1.5em;
-    padding-left: 5px;
+    padding-left: 10px;
   }
   &&& .ui.button {
     border: 2px solid ${props => props.theme.orange};
@@ -91,6 +91,13 @@ const StyledForm = styled(Form)`
     font-size: 2em;
     font-family: 'Roboto','sans-serif';
     color: ${props => props.theme.white};
+     &:hover:not([disabled]) {
+      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+  }
+  &&& .ui.label.label {
+    padding-right: 10px;
+    padding-left: 10px;
   }
 `;
 

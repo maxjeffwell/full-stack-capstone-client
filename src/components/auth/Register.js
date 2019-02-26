@@ -21,13 +21,14 @@ const StyledSegment = styled(Segment)`
     border: 4px solid ${props => props.theme.orange};
     border-radius: 5px;
     background: ${props => props.theme.white};
-    padding: 25px 25px 25px 25px;
+    padding: 25px 20px 25px 20px;
   }
 `;
 
 const StyledHeader = styled(Header)`
   &&& {
     margin-bottom: 20px;
+    margin-right: 5px;
     font-family: 'Roboto', 'sans-serif';
     font-size: 2em;
     font-weight: bold;
@@ -35,9 +36,10 @@ const StyledHeader = styled(Header)`
     background: ${props => props.theme.green};
     border: 4px solid ${props => props.theme.orange};
     width: 100%;
+    max-height: border-box;
     border-radius: 5px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 0px 5px 0px 5px; ;
+    white-space: nowrap;
   }
 `;
 
@@ -62,7 +64,7 @@ const StyledForm = styled(Form)`
     font-family: 'Roboto', 'sans-serif';
     font-weight: bold;
     font-size: 1.5em;
-    padding-left: 5px;
+    padding-left: 10px;
     border-radius: 5px;
   }
   &&& .ui.button {
@@ -72,6 +74,13 @@ const StyledForm = styled(Form)`
     font-family: 'Roboto','sans-serif';
     color: ${props => props.theme.white};
     margin-top: 15px;
+    &:hover:not([disabled]) {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+  }
+  &&& .ui.label.label {
+    padding-right: 10px;
+    padding-left: 10px;
   }
 `;
 

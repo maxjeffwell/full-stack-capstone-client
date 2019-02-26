@@ -9,34 +9,34 @@ import { deleteStudent } from '../../actions';
 
 const StyledCard = styled(Card)`
   &&& .content {
-    overflow: scroll;
+    overflow: auto;
   }
   &&& .content .header:not(.ui) {
     color: ${props => props.theme.blue};
     font-family: 'Roboto', 'sans-serif';
     font-size: .75em;
-    font-weight: 700;
-    padding: 2px;
+    font-weight: 600;
   }
   &&& .extra {
     height: auto;
+    overflow: hidden;
   }
-  &&& .extra a:not(.ui) {
-    font-size: .75em;
-    font-family: 'Roboto', 'sans-serif';
-    color: ${props => props.theme.green};
-    font-weight: 700;
-  }
-`;
+ `;
 
 const StyledButton = styled.button`
-    border: 2px solid ${props => props.theme.orange};
-    background-color: ${props => props.theme.blue};
+    border: 2.5px solid ${props => props.theme.orange};
+    background-color: ${props => props.theme.green};
     border-radius: 5px;
-    font-size: .85em;
     font-family: 'Roboto','sans-serif';
-    color: ${props => props.theme.white};
+    font-size: 1em;
+    font-weight: 500;
+    color: ${props => props.theme.blue};
     cursor: pointer;
+    margin-right: 10px;
+    white-space: nowrap;
+     &:hover:not([disabled]) {
+      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+      }
 `;
 
 class Students extends Component {
@@ -61,7 +61,11 @@ class Students extends Component {
                           <Card.Header>Country of Birth: {student.countryOfBirth}</Card.Header>
                       </Card.Content>
                       <Card.Content extra>
-                            <Link to={`/students/${student._id}/update`}>Edit Student Information</Link>
+                        <Link to={`/students/${student._id}/update`}>
+                          <StyledButton>
+                          Edit Student
+                        </StyledButton>
+                        </Link>
                         <StyledButton onClick={() => this.props.dispatch(deleteStudent(student._id))}>
                           Delete Student
                         </StyledButton>
@@ -73,7 +77,7 @@ class Students extends Component {
 
     render() {
         return (
-        <Card.Group itemsPerRow={4}>
+        <Card.Group stackable={true} itemsPerRow={4}>
             {this.renderStudentData()}
         </Card.Group>
         );

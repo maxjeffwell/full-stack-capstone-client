@@ -25,6 +25,7 @@ const StyledHeader = styled(Header)`
     margin-top: 20px;
     margin-bottom: 25px;
     min-width: 250px;
+    text-align: center;
   }
 `;
 
