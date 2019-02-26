@@ -3,7 +3,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 // BrowserRouter tells react router what to do - looks at current url and changes components visible on screen
 // Route is a react component used to set a rule between a certain route in the application and a set of
@@ -43,6 +43,7 @@ import Header from './components/Header';
 import Dashboard from './components/Dashboard';
 import UpdateStudent from './components/UpdateStudent';
 import CreateStudent from './components/CreateStudent';
+import DeleteStudent from './components/DeleteStudent';
 
 WebFont.load({
     google: {
@@ -112,6 +113,7 @@ ReactDOM.render (
         <App>
             <GlobalStyle />
         <Header />
+        <Switch>
         <Route exact path='/' component={Landing} />
         <Route exact path='/signup' component={Register} />
         <Route path='/students/:id/update' render={(props) => <UpdateStudent {...props} />} />
@@ -119,7 +121,9 @@ ReactDOM.render (
         <Route exact path='/signin' component={Signin} />
         <Route exact path='/dashboard' component={Dashboard} />
         <Route exact path='/signout' component={Signout} />
-        <Route exact path='/createStudent' render={(props) => <CreateStudent {...props} />} />
+        <Route path='/students/new' render={(props) => <CreateStudent {...props} />} />
+        <Route path='/students/delete/:id' render={(props) => <DeleteStudent {...props} />} />
+        </Switch>
         </App>
     </BrowserRouter>
     </Provider>

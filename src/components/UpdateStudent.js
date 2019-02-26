@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Field, reduxForm, initialize } from 'redux-form';
+import { Field, reduxForm, initialize, focus } from 'redux-form';
 import { Form, Icon, Button } from 'semantic-ui-react';
 import { LabelInputField } from 'react-semantic-redux-form';
 import axios from 'axios';
@@ -76,46 +76,61 @@ class UpdateStudent extends Component {
               <Field name="fullName" component={LabelInputField}
                      label={{ content: <Icon color="green" name="student" size="large" /> }}
                      labelPosition="left"
-                     placeholder="Student Name" />
+                     placeholder="Student Name"
+              />
 
               <Field name="school" component={LabelInputField}
                      label={{ content: <Icon color="blue" name="university" size="large" /> }}
                      labelPosition="left"
-                     placeholder="School Name" />
+                     placeholder="School Name"
+              />
 
               <Field name="teacher" component={LabelInputField}
                      label={{ content: <Icon color="orange" name="header" size="large" /> }}
                      labelPosition="left"
-                     placeholder="Teacher Name" />
+                     placeholder="Teacher Name"
+              />
 
               <Field name="gradeLevel" component={LabelInputField}
                      label={{ content: <Icon color="green" name="level up" size="large" /> }}
                      labelPosition="left"
-                     placeholder="Grade Level" />
+                     placeholder="Grade Level"
+              />
 
               <Field name="ellStatus" component={LabelInputField}
                      label={{ content: <Icon color="blue" name="language" size="large" /> }}
                      labelPosition="left"
-                     placeholder="Current ELL Status" />
+                     placeholder="Current ELL Status"
+              />
 
               <Field name="compositeLevel" component={LabelInputField}
                      label={{ content: <Icon color="orange" name="bullseye" size="large" /> }}
                      labelPosition="left"
-                     placeholder="Composite Level" />
+                     placeholder="Composite Level"
+              />
 
               <Field name="designation" component={LabelInputField}
                      label={{ content: <Icon color="green" name="certificate" size="large" /> }}
                      labelPosition="left"
-                     placeholder="Current Designation" />
+                     placeholder="Current Designation"
+              />
 
-                     <Button>Update</Button>
+              <Form.Field control={Button} primary
+                          type="submit"
+                          disabled={this.props.pristine || this.props.submitting}>
+                Update
+              </Form.Field>
 
             </StyledForm>
         );
     }
 }
 
-export default reduxForm({form: 'UpdatesStudent', fields: ['fullName', 'school', 'teacher', 'gradeLevel', 'ellStatus', 'compositeLevel', 'designation']})(UpdateStudent);
+export default reduxForm({form: 'UpdatesStudent',
+  fields: ['fullName', 'school', 'teacher', 'gradeLevel', 'ellStatus', 'compositeLevel', 'designation'],
+  onSubmitFail: (errors, dispatch) =>
+    dispatch(focus('UpdatesStudent', Object.keys(errors)[0]))
+})(UpdateStudent);
 
 
 

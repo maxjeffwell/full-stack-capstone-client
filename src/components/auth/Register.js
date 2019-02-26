@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, focus } from 'redux-form';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import { Form, Icon, Button, Grid, Segment, Header, Message } from 'semantic-ui-react';
 import { LabelInputField } from 'react-semantic-redux-form';
 import styled from 'styled-components';
+
+import { required, nonEmpty, matches, length, isTrimmed } from '../../validators';
 
 import * as actions from '../../actions';
 
@@ -38,7 +40,7 @@ const StyledHeader = styled(Header)`
     width: 100%;
     max-height: border-box;
     border-radius: 5px;
-    padding: 0px 5px 0px 5px; ;
+    padding: 0 5px 0 5px; ;
     white-space: nowrap;
   }
 `;
@@ -82,13 +84,18 @@ const StyledForm = styled(Form)`
     padding-right: 10px;
     padding-left: 10px;
   }
+  &&& .ui.red {
+  color: red;
+  font-family: 'Roboto','sans-serif';
+  font-size: 1.25em;
+  }
 `;
 
 const StyledErrorMessage = styled.div`
   &&& {
     font-family: 'Roboto', 'sans-serif';
     font-size: 1.5em;
-    color: ${props => props.theme.blue};
+    color: red;
   }
 `;
 
@@ -108,6 +115,9 @@ const StyledMessage = styled(Message)`
     min-width: 420px;
    }
 `;
+
+const passwordLength = length({ min: 7, max: 42 });
+const matchesPassword = matches('password');
 
 class Register extends Component {
     onSubmit = (formProps) => {
@@ -148,20 +158,27 @@ class Register extends Component {
 
         <Field name="email" component={LabelInputField}
                    label={{ content: <Icon color="orange" name="user outline" size="large" /> }}
-                   labelPosition="left" placeholder="Email" />
+                   labelPosition="left" placeholder="Email" validate={[required, nonEmpty, isTrimmed]}
+        />
 
-                   <Field name="password" component={LabelInputField} type="password"
+        <Field name="password" component={LabelInputField} type="password"
                    label={{ content: <Icon color="orange" name="lock" size="large" /> }}
-                   labelPosition="left" placeholder="Password" />
+                   labelPosition="left" placeholder="Password" validate={[required, passwordLength, isTrimmed]}
+        />
+
+        <Field name="passwordConfirmation" component={LabelInputField} type="password"
+                    label={{ content: <Icon color="orange" name="lock" size="large" /> }}
+                    labelPosition="left" placeholder="Confirm Password" validate={[required, nonEmpty, matchesPassword]}
+        />
 
             <Form.Field control={Button} primary
-                        type="submit">
+                        type="submit"
+                        disabled={this.props.pristine || this.props.submitting}>
                 Register
             </Form.Field>
-
-            <StyledErrorMessage>
-                {this.props.errorMessage}
-            </StyledErrorMessage>
+                        <StyledErrorMessage className="form-error" aria-live="polite">
+                          {this.props.errorMessage}
+                        </StyledErrorMessage>
         </StyledForm>
                   </StyledSegment>
               </Grid.Column>
@@ -172,11 +189,14 @@ class Register extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return { errorMessage: state.auth.errorMessage };
-}
+const mapStateToProps = state => ({
+    errorMessage: state.signup.errorMessage,
+})
 
 export default compose (
   connect(mapStateToProps, actions), //apply action creators to Register component
-    reduxForm({ form: 'register'})
+    reduxForm({ form: 'register',
+    onSubmitFail: (errors, dispatch) =>
+    dispatch(focus('register', Object.keys(errors)[0]))
+    })
 )(Register);

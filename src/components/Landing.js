@@ -17,14 +17,14 @@ const StyledHeader = styled(Header)`
     background: ${props => props.theme.orange};
     border: 2px solid ${props => props.theme.green};
     border-radius: 5px;
-    font-size: 2em;
+    font-size: 2.5em;
     font-family: 'Roboto', 'sans-serif';
     padding-left: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     margin-top: 20px;
     margin-bottom: 25px;
-    min-width: 250px;
+    min-width: 325px;
     text-align: center;
   }
 `;

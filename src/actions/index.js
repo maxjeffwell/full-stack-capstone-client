@@ -4,7 +4,7 @@
 import { API_BASE_URL } from '../config';
 
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, FETCH_STUDENTS, DELETE_STUDENT, TOGGLE_SIDEBAR } from './types';
+import { AUTH_USER, AUTH_ERROR, FETCH_STUDENTS, FETCH_STUDENT, DELETE_STUDENT, TOGGLE_SIDEBAR, REGISTER_USER_REQUEST, REGISTER_USER_ERROR, TOGGLE_MODAL } from './types';
 
 export const signup = (formProps, callback) => async dispatch => {
     try {
@@ -14,7 +14,7 @@ export const signup = (formProps, callback) => async dispatch => {
         localStorage.setItem('jwtToken', response.data.token);
         callback();
     } catch(e) {
-        dispatch({ type: AUTH_ERROR, payload: 'This email is in use. Please register using a different email.' });
+        dispatch({ type: REGISTER_USER_ERROR, payload: 'This email is in use. Please register using a different email.' });
     }
 };
 
@@ -40,6 +40,15 @@ export const fetchStudents = () => async dispatch => {
     dispatch({ type: FETCH_STUDENTS, payload: res.data });
 };
 
+export const fetchStudent = id => async dispatch => {
+    let token = localStorage.getItem('jwtToken');
+    let config = { headers: {'Authorization': "bearer " + token} };
+
+    const res = await axios.get(`${API_BASE_URL}/students/${id}`, config)
+
+    dispatch({ type: FETCH_STUDENT, payload: res.data });
+};
+
 export const signout = () => {
     localStorage.removeItem('jwtToken');
     return {
@@ -49,8 +58,7 @@ export const signout = () => {
 };
 
 export const toggleSidebar = () => ({
-    type: TOGGLE_SIDEBAR
-});
+    type: TOGGLE_SIDEBAR });
 
 export const deleteStudent = (id) => async dispatch => {
     let token = localStorage.getItem('jwtToken');
@@ -60,6 +68,12 @@ export const deleteStudent = (id) => async dispatch => {
 
     return dispatch({ type: DELETE_STUDENT, payload: id });
 };
+
+export const registerUserRequest = () => ({
+    type: REGISTER_USER_REQUEST });
+
+export const toggleModal = () => ({
+    type: TOGGLE_MODAL });
 
 
 

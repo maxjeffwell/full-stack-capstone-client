@@ -9,7 +9,7 @@ const INITIAL_STATE = {
     errorMessage: ''
 };
 
-export default function(state = INITIAL_STATE, action) {
+export default function authReducer (state = INITIAL_STATE, action) {
     console.log(action);
     switch (action.type) {
         case AUTH_USER:
