@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, focus } from 'redux-form';
 import { Form, Icon, Button } from 'semantic-ui-react';
 import { LabelInputField } from 'react-semantic-redux-form';
 import axios from 'axios';
+import styled from 'styled-components';
 
 import { API_BASE_URL } from '../config';
-import styled from 'styled-components';
+import { required, nonEmpty } from '../validators';
+
 
 const StyledForm = styled(Form)`
   &&& .ui.labeled.input:not([class*="corner labeled"]) 
@@ -40,6 +42,14 @@ const StyledForm = styled(Form)`
       box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
      }
   }
+  &&& .ui.red {
+    color: red;
+    font-family: 'Roboto','sans-serif';
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    display: inline;
+  }
 `;
 
 class CreateStudent extends Component {
@@ -66,39 +76,53 @@ class CreateStudent extends Component {
           <Field name="fullName" component={LabelInputField}
                  label={{ content: <Icon color="green" name="student" size="large"/> }}
                  labelPosition="left"
-                 placeholder="Student Name (Required)"/>
+                 placeholder="Student Name (Required)"
+                 validate={[required, nonEmpty]}
+          />
 
           <Field name="school" component={LabelInputField}
                  label={{ content: <Icon color="blue" name="university" size="large"/> }}
                  labelPosition="left"
-                 placeholder="School Name"/>
+                 placeholder="School Name"
+          />
 
           <Field name="teacher" component={LabelInputField}
                  label={{ content: <Icon color="orange" name="header" size="large"/> }}
                  labelPosition="left"
-                 placeholder="Teacher Name"/>
+                 placeholder="Teacher Name"
+          />
 
           <Field name="gradeLevel" component={LabelInputField}
                  label={{ content: <Icon color="green" name="level up" size="large"/> }}
                  labelPosition="left"
-                 placeholder="Grade Level"/>
+                 placeholder="Grade Level"
+          />
 
           <Field name="ellStatus" component={LabelInputField}
                  label={{ content: <Icon color="blue" name="language" size="large"/> }}
                  labelPosition="left"
-                 placeholder="Current ELL Status (Required)"/>
+                 placeholder="Current ELL Status (Required)"
+                 validate={[required, nonEmpty]}
+          />
 
           <Field name="compositeLevel" component={LabelInputField}
                  label={{ content: <Icon color="orange" name="bullseye" size="large"/> }}
                  labelPosition="left"
-                 placeholder="Composite Level"/>
+                 placeholder="Composite Level"
+          />
 
           <Field name="designation" component={LabelInputField}
                  label={{ content: <Icon color="green" name="certificate" size="large"/> }}
                  labelPosition="left"
-                 placeholder="Current Designation (Required)"/>
+                 placeholder="Current Designation (Required)"
+                 validate={[required, nonEmpty]}
+          />
 
-          <Button>Create Student</Button>
+          <Form.Field control={Button} primary
+                      type="submit"
+                      disabled={this.props.pristine || this.props.submitting}>
+            Create Student
+          </Form.Field>
 
         </StyledForm>
       );
@@ -106,5 +130,8 @@ class CreateStudent extends Component {
   }
 
 export default compose(
-  reduxForm({form: 'CreateStudent', fields: ['fullName', 'school', 'teacher', 'gradeLevel', 'ellStatus', 'compositeLevel', 'designation']})(withRouter(CreateStudent)));
+  reduxForm({form: 'CreateStudent',
+    fields: ['fullName', 'school', 'teacher', 'gradeLevel', 'ellStatus', 'compositeLevel', 'designation'],
+    onSubmitFail: (errors, dispatch) => dispatch(focus('CreateStudent', Object.keys(errors)[0]))
+  })(withRouter(CreateStudent)));
 

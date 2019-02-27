@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Menu, Image } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import styled from 'styled-components';
 
+import LazyImage from './LazyImage';
 import logo from '../logo/logo.png';
 
 const StyledMenu = styled(Menu)`
@@ -13,7 +14,7 @@ const StyledMenu = styled(Menu)`
     border-radius: 5px;
     margin-bottom: 50px;
     flex-wrap: wrap;
-    min-width: 320px;
+    min-width: 420px;
     height: auto;
   }
   &&& .header {
@@ -22,6 +23,7 @@ const StyledMenu = styled(Menu)`
   &&& a.header.item {
     width: 75px;
     position: absolute;
+    white-space: nowrap;
   }
   &&& a.item {
    font-size: 2em;
@@ -29,6 +31,7 @@ const StyledMenu = styled(Menu)`
    font-family: 'Roboto', 'sans-serif';
    color: ${props => props.theme.blue};
    text-align: center;
+   white-space: nowrap;
    &:hover:not([disabled]) {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     border: 5px solid ${props => props.theme.green};
@@ -39,7 +42,7 @@ const StyledMenu = styled(Menu)`
   &&& header.item {
     width: 75px;
     position: static;
-    }
+  }
 `;
 
 class Header extends Component {
@@ -48,7 +51,7 @@ class Header extends Component {
             return (
               <StyledMenu stackable borderless>
                   <Menu.Item as="header">
-                    <Image src={logo} alt="educationELLy-logo" fluid/>
+                    <LazyImage src={logo} />
                   </Menu.Item>
                   <Menu.Menu position="left">
                       <Menu.Item as={Link} name="Instructor Dashboard" to="/dashboard">
@@ -67,7 +70,7 @@ class Header extends Component {
               <StyledMenu stackable borderless>
                 <Menu.Menu position="left">
                     <Menu.Item as="header">
-                      <Image src={logo} alt="educationELLy-logo" fluid />
+                      <LazyImage src={logo} />
                     </Menu.Item>
                 </Menu.Menu>
                 <Menu.Menu>

@@ -5,12 +5,16 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import toggleReducer from './toggleReducer';
-import auth from './auth';
+import authReducer from './auth';
 import studentsReducer from './studentsReducer';
+import signupReducer from './signupReducer';
+import toggleModalReducer from './toggleModalReducer';
 
 export const rootReducer = combineReducers({
-    auth,
+    auth: authReducer,
     isSidebarToggled: toggleReducer,
+    students: studentsReducer,
+    signup: signupReducer,
     form: formReducer,
-    students: studentsReducer
+    showModal: toggleModalReducer,
 });

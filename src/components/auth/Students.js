@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 import { Card } from 'semantic-ui-react';
 import styled from 'styled-components';
@@ -8,6 +9,9 @@ import { fetchStudents } from '../../actions';
 import { deleteStudent } from '../../actions';
 
 const StyledCard = styled(Card)`
+  &&& .ui.card.student-card {
+  min-width: 250px;
+  }
   &&& .content {
     overflow: auto;
   }
@@ -16,26 +20,36 @@ const StyledCard = styled(Card)`
     font-family: 'Roboto', 'sans-serif';
     font-size: .75em;
     font-weight: 600;
+    line-height: 1.25em;
   }
   &&& .extra {
     height: auto;
+    width: auto;
+    padding-left: 5px;
+    padding-right: 5px;
+    justify-content: space-between;
     overflow: hidden;
+    display: table;
   }
  `;
 
 const StyledButton = styled.button`
     border: 2.5px solid ${props => props.theme.orange};
     background-color: ${props => props.theme.green};
+    alignment: left;
+    justify-content: space-around;
+    padding-right: 5px;
+    padding-left: 5px;
     border-radius: 5px;
+    margin-right: 25px;
     font-family: 'Roboto','sans-serif';
     font-size: 1em;
     font-weight: 500;
     color: ${props => props.theme.blue};
     cursor: pointer;
-    margin-right: 10px;
     white-space: nowrap;
      &:hover:not([disabled]) {
-      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+      box-shadow: 0 12px 14px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
       }
 `;
 
@@ -63,10 +77,10 @@ class Students extends Component {
                       <Card.Content extra>
                         <Link to={`/students/${student._id}/update`}>
                           <StyledButton>
-                          Edit Student
-                        </StyledButton>
+                            Edit Student
+                          </StyledButton>
                         </Link>
-                        <StyledButton onClick={() => this.props.dispatch(deleteStudent(student._id))}>
+                          <StyledButton onClick={() => this.props.dispatch(deleteStudent(student._id))}>
                           Delete Student
                         </StyledButton>
                       </Card.Content>
@@ -85,7 +99,7 @@ class Students extends Component {
 }
 
 const mapStateToProps = state => ({
-     students: state.students.students
+     students: state.students.students,
 });
 
 export default connect(mapStateToProps)(Students);
