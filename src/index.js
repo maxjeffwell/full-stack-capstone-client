@@ -43,7 +43,6 @@ import Header from './components/Header';
 import Dashboard from './components/Dashboard';
 import UpdateStudent from './components/UpdateStudent';
 import CreateStudent from './components/CreateStudent';
-import DeleteStudent from './components/DeleteStudent';
 
 WebFont.load({
     google: {
@@ -122,7 +121,6 @@ ReactDOM.render (
         <Route exact path='/dashboard' component={Dashboard} />
         <Route exact path='/signout' component={Signout} />
         <Route path='/students/new' render={(props) => <CreateStudent {...props} />} />
-        <Route path='/students/delete/:id' render={(props) => <DeleteStudent {...props} />} />
         </Switch>
         </App>
     </BrowserRouter>

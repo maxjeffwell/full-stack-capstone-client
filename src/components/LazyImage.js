@@ -26,7 +26,7 @@ export default class LazyImage extends Component {
     const { size } = this.props
     if (!this.state.show) {
       return (
-        <Visibility as="span" onTopVisible={this.showImage}>
+        <Visibility as="span" fireOnMount onOnScreen={this.showImage}>
           <Loader active inline="centered" size={size} />
         </Visibility>
       )

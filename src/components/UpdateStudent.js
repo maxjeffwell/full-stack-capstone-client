@@ -6,6 +6,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import {API_BASE_URL} from '../config';
+import { required } from '../validators';
 
 const StyledForm = styled(Form)`
   &&& .ui.labeled.input:not([class*="corner labeled"]) 
@@ -25,6 +26,14 @@ const StyledForm = styled(Form)`
     border-radius: 5px;
     width: 50px;
     text-align: center;
+  }
+  &&& .ui.red {
+    color: red;
+    font-family: 'Roboto','sans-serif';
+    font-size: 1.5em;
+    font-weight: bold;
+    border: none;
+    display: inline;
   }
   &&& .ui.button {
     font-family: 'Roboto', 'sans-serif';
@@ -77,6 +86,7 @@ class UpdateStudent extends Component {
                      label={{ content: <Icon color="green" name="student" size="large" /> }}
                      labelPosition="left"
                      placeholder="Student Name"
+                     validate={ required }
               />
 
               <Field name="school" component={LabelInputField}
@@ -120,7 +130,6 @@ class UpdateStudent extends Component {
                           disabled={this.props.pristine || this.props.submitting}>
                 Update
               </Form.Field>
-
             </StyledForm>
         );
     }

@@ -14,6 +14,8 @@ const StyledCard = styled(Card)`
   }
   &&& .content {
     overflow: auto;
+    padding-left: 5px;
+    padding-right: 5px;
   }
   &&& .content .header:not(.ui) {
     color: ${props => props.theme.blue};
@@ -21,6 +23,7 @@ const StyledCard = styled(Card)`
     font-size: .75em;
     font-weight: 600;
     line-height: 1.25em;
+    margin-bottom: 5px;
   }
   &&& .extra {
     height: auto;
@@ -34,12 +37,11 @@ const StyledCard = styled(Card)`
  `;
 
 const StyledButton = styled.button`
-    border: 2.5px solid ${props => props.theme.orange};
+    border: 2px solid ${props => props.theme.orange};
     background-color: ${props => props.theme.green};
     alignment: left;
     justify-content: space-around;
-    padding-right: 5px;
-    padding-left: 5px;
+    padding: 0 5px;
     border-radius: 5px;
     margin-right: 25px;
     font-family: 'Roboto','sans-serif';
@@ -48,9 +50,12 @@ const StyledButton = styled.button`
     color: ${props => props.theme.blue};
     cursor: pointer;
     white-space: nowrap;
-     &:hover:not([disabled]) {
-      box-shadow: 0 12px 14px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-      }
+   &:hover:not([disabled]) {
+      box-shadow: inset 6.5em 0 0 0 var(--hover);
+      background-color: ${props => props.theme.blue};
+      color: ${props => props.theme.white};
+    }
+  }
 `;
 
 class Students extends Component {

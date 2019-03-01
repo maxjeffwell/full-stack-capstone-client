@@ -58,7 +58,7 @@ const StyledSegment = styled(Segment)`
     min-width: 420px;
     border: 4px solid ${props => props.theme.orange};
     border-radius: 5px;
-    padding: 25px 25px 25px 25px;
+    padding: 25px 25px 25px 15px;
     background: ${props => props.theme.white};
     margin-top: 25px;
   }
@@ -104,7 +104,7 @@ const StyledForm = styled(Form)`
   &&& .ui.red {
     color: red;
     font-family: 'Roboto','sans-serif';
-    font-size: 1.25em;
+    font-size: 1.5em;
   }
 `;
 

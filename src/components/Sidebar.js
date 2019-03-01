@@ -13,19 +13,21 @@ const StyledContainer = styled(Container)`
     font-family: "Roboto", "sans-serif";
     font-weight: bold;
     color: ${props => props.theme.blue};
+    background-color: ${props => props.theme.orange};
+    border: 2px solid ${props => props.theme.green};
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 0 10px 0 10px;
   }
  &&& #sidebar.menu {
     font-family: "Roboto", "sans-serif";
     font-weight: bold;
   }
-  &:hover:not([disabled]) {
-      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-      background-color: ${props => props.theme.orange};
-      border: 5px solid ${props => props.theme.green};
-      border-radius: 5px;
-      padding: 0px 5px 0px 5px;
-      text-decoration: none;
-    }
+ &:hover:not([disabled]) {
+      background-color: ${props => props.theme.blue};
+      color: ${props => props.theme.white};
+      border: 5px solid ${props => props.theme.orange};
+  }
 `;
 
 const StyledMenu = styled(Menu.Menu)`
@@ -46,9 +48,9 @@ const StyledHeader = styled(Header)`
     width: fit-content;
     border-radius: 5px;
     text-align: center;
-    padding: 2px 10px 10px 5px;
+    padding: 0 5px 22px 5px;
     white-space: nowrap;
-    margin-top: 15px;
+    margin: 15px auto 0;
     }
   `;
 
@@ -69,7 +71,7 @@ class Sidebar extends Component {
             </StyledContainer>
           </Menu.Item>
           <StyledHeader>
-            Create New Student
+            Create A New Student
           </StyledHeader>
           <Menu.Item>
             <Fragment>

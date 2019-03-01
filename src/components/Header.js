@@ -32,11 +32,12 @@ const StyledMenu = styled(Menu)`
    color: ${props => props.theme.blue};
    text-align: center;
    white-space: nowrap;
-   &:hover:not([disabled]) {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-    border: 5px solid ${props => props.theme.green};
+   &:hover:not([disabled]), :focus {
+    box-shadow: inset 6.5em 0 0 0 var(--hover);
     background-color: ${props => props.theme.blue};
     color: ${props => props.theme.white};
+    border-left: 5px solid ${props => props.theme.orange};
+    border-right: 3px solid ${props => props.theme.orange}
     }
   }
   &&& header.item {

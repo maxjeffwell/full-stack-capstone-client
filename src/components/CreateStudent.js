@@ -45,7 +45,7 @@ const StyledForm = styled(Form)`
   &&& .ui.red {
     color: red;
     font-family: 'Roboto','sans-serif';
-    font-size: 1em;
+    font-size: 1.5em;
     font-weight: bold;
     border: none;
     display: inline;
