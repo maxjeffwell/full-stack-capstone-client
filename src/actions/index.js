@@ -1,10 +1,7 @@
-// Write function to retrieve json
-// Make an ajax request
+import axios from 'axios';
 
 import { API_BASE_URL } from '../config';
-
-import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR, FETCH_STUDENTS, FETCH_STUDENT, DELETE_STUDENT, TOGGLE_SIDEBAR, REGISTER_USER_REQUEST, REGISTER_USER_ERROR, TOGGLE_MODAL } from './types';
+import { AUTH_USER, AUTH_ERROR, FETCH_STUDENTS, FETCH_STUDENT, DELETE_STUDENT, TOGGLE_SIDEBAR, REGISTER_USER_REQUEST, REGISTER_USER_ERROR, SHOW_MODAL, HIDE_MODAL } from './types';
 
 export const signup = (formProps, callback) => async dispatch => {
     try {
@@ -60,6 +57,23 @@ export const signout = () => {
 export const toggleSidebar = () => ({
     type: TOGGLE_SIDEBAR });
 
+export const registerUserRequest = () => ({
+    type: REGISTER_USER_REQUEST });
+
+export const showModal = ({ modalProps, modalType }) => dispatch => {
+    dispatch({
+        type: SHOW_MODAL,
+        modalProps,
+        modalType
+    });
+};
+
+export const hideModal = () => dispatch => {
+    dispatch({
+        type: HIDE_MODAL
+    });
+};
+
 export const deleteStudent = (id) => async dispatch => {
     let token = localStorage.getItem('jwtToken');
     let config = { headers: {'Authorization': "bearer " + token} };
@@ -69,11 +83,6 @@ export const deleteStudent = (id) => async dispatch => {
     return dispatch({ type: DELETE_STUDENT, payload: id });
 };
 
-export const registerUserRequest = () => ({
-    type: REGISTER_USER_REQUEST });
-
-export const toggleModal = () => ({
-    type: TOGGLE_MODAL });
 
 
 

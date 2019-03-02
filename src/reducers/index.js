@@ -8,7 +8,8 @@ import toggleReducer from './toggleReducer';
 import authReducer from './auth';
 import studentsReducer from './studentsReducer';
 import signupReducer from './signupReducer';
-import toggleModalReducer from './toggleModalReducer';
+import modal from './modal';
+
 
 export const rootReducer = combineReducers({
     auth: authReducer,
@@ -16,5 +17,5 @@ export const rootReducer = combineReducers({
     students: studentsReducer,
     signup: signupReducer,
     form: formReducer,
-    showModal: toggleModalReducer,
+    modal,
 });

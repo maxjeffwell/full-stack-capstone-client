@@ -14,10 +14,10 @@ const StyledContainer = styled(Container)`
     font-weight: bold;
     color: ${props => props.theme.blue};
     background-color: ${props => props.theme.orange};
-    border: 2px solid ${props => props.theme.green};
+    border: 3px solid ${props => props.theme.green};
     border-radius: 5px;
     text-decoration: none;
-    padding: 0 10px 0 10px;
+    padding: 2px 10px 0 10px;
   }
  &&& #sidebar.menu {
     font-family: "Roboto", "sans-serif";

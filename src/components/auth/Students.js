@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux'
 
 import { Link } from 'react-router-dom';
 import { Card } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import { fetchStudents } from '../../actions';
-import { deleteStudent } from '../../actions';
+import { deleteStudent, fetchStudents, showModal, hideModal } from '../../actions';
 
 const StyledCard = styled(Card)`
   &&& .ui.card.student-card {
@@ -59,9 +59,40 @@ const StyledButton = styled.button`
 `;
 
 class Students extends Component {
+  constructor(props) {
+    super(props);
+
+    this.openDeleteModal = this.openDeleteModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.deleteStudent = this.deleteStudent.bind(this);
+  }
 
   componentDidMount() {
-    this.props.dispatch(fetchStudents());
+    this.props.fetchStudents();
+  }
+
+  closeModal(event) {
+    this.props.hideModal();
+  }
+
+  showModal(event) {
+    this.props.showModal();
+  }
+
+  deleteStudent() {
+    this.props.deleteStudent().then(this.props.hideModal());
+  }
+
+  openDeleteModal(event) {
+    this.props.showModal({
+      open: true,
+      title: 'Delete Modal',
+      message: 'Please confirm the deletion of this student',
+      deleteAction: this.deleteStudent,
+      closeModal: this.closeModal,
+      deleteText: 'delete'
+    }, 'delete')
   }
 
     renderStudentData() {
@@ -88,6 +119,11 @@ class Students extends Component {
                           <StyledButton onClick={() => this.props.dispatch(deleteStudent(student._id))}>
                           Delete Student
                         </StyledButton>
+                        <button
+                          className="btn btn-outline-primary btn-block"
+                          onClick={(event) => this.openDeleteModal(event)}>
+                          Delete Student
+                        </button>
                       </Card.Content>
                   </StyledCard>
             );
@@ -103,8 +139,18 @@ class Students extends Component {
     }
 }
 
+const mapDispatchToProps = dispatch => ({
+  hideModal: () => dispatch(hideModal()),
+  showModal: (modalProps, modalType) => {
+    dispatch(showModal({ modalProps, modalType }))
+  },
+  fetchStudents: () => dispatch(fetchStudents()),
+  deleteStudent: () => dispatch(deleteStudent()),
+});
+
 const mapStateToProps = state => ({
      students: state.students.students,
 });
 
-export default connect(mapStateToProps)(Students);
+export default compose (
+  connect(mapStateToProps, mapDispatchToProps))(Students);

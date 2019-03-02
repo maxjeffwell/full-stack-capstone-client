@@ -36,8 +36,6 @@ const StyledMenu = styled(Menu)`
     box-shadow: inset 6.5em 0 0 0 var(--hover);
     background-color: ${props => props.theme.blue};
     color: ${props => props.theme.white};
-    border-left: 5px solid ${props => props.theme.orange};
-    border-right: 3px solid ${props => props.theme.orange}
     }
   }
   &&& header.item {

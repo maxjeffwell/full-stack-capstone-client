@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component, Fragment } from 'react';
 import { Field, reduxForm, initialize, focus } from 'redux-form';
 import { Form, Icon, Button } from 'semantic-ui-react';
 import { LabelInputField } from 'react-semantic-redux-form';
@@ -80,6 +80,7 @@ class UpdateStudent extends Component {
     render() {
         const {handleSubmit} = this.props;
         return (
+          <Fragment>
             <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
 
               <Field name="fullName" component={LabelInputField}
@@ -131,6 +132,7 @@ class UpdateStudent extends Component {
                 Update
               </Form.Field>
             </StyledForm>
+          </Fragment>
         );
     }
 }

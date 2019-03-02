@@ -3,7 +3,6 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 // BrowserRouter tells react router what to do - looks at current url and changes components visible on screen
 // Route is a react component used to set a rule between a certain route in the application and a set of
@@ -13,7 +12,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import { ThemeProvider  } from 'styled-components';
 import WebFont from 'webfontloader';
 
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -34,15 +33,6 @@ import 'semantic-ui-css/components/sidebar.css';
 
 import { rootReducer } from './reducers';
 import App from './components/App';
-import Landing from './components/Landing';
-import Register from './components/auth/Register';
-import Students from './components/auth/Students';
-import Signin from './components/auth/Signin';
-import Signout from './components/auth/Signout';
-import Header from './components/Header';
-import Dashboard from './components/Dashboard';
-import UpdateStudent from './components/UpdateStudent';
-import CreateStudent from './components/CreateStudent';
 
 WebFont.load({
     google: {
@@ -50,32 +40,6 @@ WebFont.load({
     },
     timeout: 2000
 });
-
-const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    src: url('https://fonts.googleapis.com/css?family=Roboto');
-  }
-
-html {
-  box-sizing: border-box;
-  font-size: 14px;
-  }
-
-*, *:before, *:after {
-		box-sizing: inherit; // then inherit box sizing on everything else
-	}
-	
-body {
-	padding: 0;
-	margin: 0;
-	font-size: 1.5rem;
-	line-height: 2;
-	font-family: Roboto, sans-serif;
-	}
-`;
 
 const store = createStore(
   rootReducer,
@@ -108,22 +72,7 @@ ReactDOM.render (
 
   <ThemeProvider theme={theme}>
   <Provider store={store}>
-    <BrowserRouter>
-        <App>
-            <GlobalStyle />
-        <Header />
-        <Switch>
-        <Route exact path='/' component={Landing} />
-        <Route exact path='/signup' component={Register} />
-        <Route path='/students/:id/update' render={(props) => <UpdateStudent {...props} />} />
-        <Route exact path='/students' component={Students} />
-        <Route exact path='/signin' component={Signin} />
-        <Route exact path='/dashboard' component={Dashboard} />
-        <Route exact path='/signout' component={Signout} />
-        <Route path='/students/new' render={(props) => <CreateStudent {...props} />} />
-        </Switch>
-        </App>
-    </BrowserRouter>
+        <App />
     </Provider>
   </ThemeProvider>,
 document.querySelector('#root')
