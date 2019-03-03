@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'redux'
+// import { compose } from 'redux';
 
 import { Link } from 'react-router-dom';
 import { Card } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import { deleteStudent, fetchStudents, showModal, hideModal } from '../../actions';
+import {
+  deleteStudent,
+  fetchStudents,
+  // showModal,
+  // hideModal
+}
+from '../../actions';
 
 const StyledCard = styled(Card)`
   &&& .ui.card.student-card {
@@ -59,73 +65,75 @@ const StyledButton = styled.button`
 `;
 
 class Students extends Component {
-  constructor(props) {
-    super(props);
-
-    this.openDeleteModal = this.openDeleteModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.showModal = this.showModal.bind(this);
-    this.deleteStudent = this.deleteStudent.bind(this);
-  }
+  // constructor(props) {
+  //   super(props);
+  //
+  //   this.openDeleteModal = this.openDeleteModal.bind(this);
+  //   this.closeModal = this.closeModal.bind(this);
+  //   this.showModal = this.showModal.bind(this);
+  //   this.deleteStudent = this.deleteStudent.bind(this);
+  // }
 
   componentDidMount() {
-    this.props.fetchStudents();
+    this.props.dispatch(fetchStudents());
   }
 
-  closeModal(event) {
-    this.props.hideModal();
-  }
+  // closeModal(event) {
+  //   this.props.hideModal();
+  // }
 
-  showModal(event) {
-    this.props.showModal();
-  }
+  // showModal(event) {
+  //   this.props.showModal();
+  // }
 
-  deleteStudent() {
-    this.props.deleteStudent().then(this.props.hideModal());
-  }
+  // deleteStudent() {
+  //     this.props.deleteStudent()
+  //       .then(this.props.hideModal());
+  //     console.log(this.props);
+  // }
 
-  openDeleteModal(event) {
-    this.props.showModal({
-      open: true,
-      title: 'Delete Modal',
-      message: 'Please confirm the deletion of this student',
-      deleteAction: this.deleteStudent,
-      closeModal: this.closeModal,
-      deleteText: 'delete'
-    }, 'delete')
-  }
+  // openDeleteModal(event) {
+  //   this.props.showModal({
+  //     open: true,
+  //     title: 'Delete Modal',
+  //     message: 'Please confirm the deletion of this student',
+  //     deleteAction: this.deleteStudent,
+  //     closeModal: this.closeModal,
+  //     deleteText: 'delete'
+  //   }, 'delete')
+  // }
 
-    renderStudentData() {
+  renderStudentData() {
         return this.props.students.map(student => {
             return (
-                  <StyledCard className="student-card" key={student._id}>
-                      <Card.Content>
-                          <Card.Header>Student: {student.fullName}</Card.Header>
-                          <Card.Header>School: {student.school}</Card.Header>
-                          <Card.Header>Teacher: {student.teacher}</Card.Header>
-                          <Card.Header>Grade: {student.gradeLevel}</Card.Header>
-                          <Card.Header>ELL Status: {student.ellStatus}</Card.Header>
-                          <Card.Header>Composite Level: {student.compositeLevel}</Card.Header>
-                          <Card.Header>Designation: {student.designation}</Card.Header>
-                          <Card.Header>Native Language: {student.nativeLanguage}</Card.Header>
-                          <Card.Header>Country of Birth: {student.countryOfBirth}</Card.Header>
-                      </Card.Content>
-                      <Card.Content extra>
-                        <Link to={`/students/${student._id}/update`}>
-                          <StyledButton>
-                            Edit Student
-                          </StyledButton>
-                        </Link>
-                          <StyledButton onClick={() => this.props.dispatch(deleteStudent(student._id))}>
-                          Delete Student
-                        </StyledButton>
-                        <button
-                          className="btn btn-outline-primary btn-block"
-                          onClick={(event) => this.openDeleteModal(event)}>
-                          Delete Student
-                        </button>
-                      </Card.Content>
-                  </StyledCard>
+              <StyledCard className="student-card" key={student._id}>
+                <Card.Content>
+                  <Card.Header>Student: {student.fullName}</Card.Header>
+                  <Card.Header>School: {student.school}</Card.Header>
+                  <Card.Header>Teacher: {student.teacher}</Card.Header>
+                  <Card.Header>Grade: {student.gradeLevel}</Card.Header>
+                  <Card.Header>ELL Status: {student.ellStatus}</Card.Header>
+                  <Card.Header>Composite Level: {student.compositeLevel}</Card.Header>
+                  <Card.Header>Designation: {student.designation}</Card.Header>
+                  <Card.Header>Native Language: {student.nativeLanguage}</Card.Header>
+                  <Card.Header>Country of Birth: {student.countryOfBirth}</Card.Header>
+                </Card.Content>
+                <Card.Content extra>
+                  <Link to={`/students/${student._id}/update`}>
+                    <StyledButton>
+                      Edit Student
+                    </StyledButton>
+                  </Link>
+                  <StyledButton onClick={() => this.props.dispatch(deleteStudent(student._id))}>
+                    Delete Student
+                  </StyledButton>
+                  {/*<button*/}
+                          {/*className="btn btn-outline-primary btn-block"*/}
+                          {/*onClick={() => this.openDeleteModal() }>*/}
+                          {/*Delete Student*/}
+                  {/*</button>*/}
+                </Card.Content>
+              </StyledCard>
             );
         });
     }
@@ -139,18 +147,17 @@ class Students extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-  hideModal: () => dispatch(hideModal()),
-  showModal: (modalProps, modalType) => {
-    dispatch(showModal({ modalProps, modalType }))
-  },
-  fetchStudents: () => dispatch(fetchStudents()),
-  deleteStudent: () => dispatch(deleteStudent()),
-});
+// const mapDispatchToProps = dispatch => ({
+//   hideModal: () => dispatch(hideModal()),
+//   showModal: (modalProps, modalType) => {
+//     dispatch(showModal({ modalProps, modalType }))
+//   },
+//   fetchStudents: () => dispatch(fetchStudents()),
+//   deleteStudent: () => dispatch(deleteStudent()),
+// });
 
 const mapStateToProps = state => ({
-     students: state.students.students,
+     students: state.students.students
 });
 
-export default compose (
-  connect(mapStateToProps, mapDispatchToProps))(Students);
+export default connect(mapStateToProps)(Students);

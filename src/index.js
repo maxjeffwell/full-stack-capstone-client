@@ -33,6 +33,7 @@ import 'semantic-ui-css/components/sidebar.css';
 
 import { rootReducer } from './reducers';
 import App from './components/App';
+import ModalRoot from './ModalRoot';
 
 WebFont.load({
     google: {
@@ -49,18 +50,18 @@ const store = createStore(
       // it whatever is returned from localStorage
 
   {
-          auth: { authenticated: localStorage.getItem('jwtToken') }
-      }, composeWithDevTools(
-        applyMiddleware(reduxThunk)
-        )
-    );
+    auth: { authenticated: localStorage.getItem('jwtToken') }
+    }, composeWithDevTools(
+      applyMiddleware(reduxThunk)
+  )
+);
 
-    const theme = {
-        orange: '#fb9438',
-        blue: '#2873b4',
-        green: '#86c64e',
-        white: '#f5f5f5',
-    };
+const theme = {
+  orange: '#fb9438',
+  blue: '#2873b4',
+  green: '#86c64e',
+  white: '#f5f5f5',
+};
 
 ReactDOM.render (
 
@@ -72,7 +73,8 @@ ReactDOM.render (
 
   <ThemeProvider theme={theme}>
   <Provider store={store}>
-        <App />
+    <App />
+    <ModalRoot />
     </Provider>
   </ThemeProvider>,
 document.querySelector('#root')

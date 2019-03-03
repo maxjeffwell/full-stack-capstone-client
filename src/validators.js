@@ -1,6 +1,6 @@
-export const required = value => (value ? undefined : 'This input value is required');
+export const required = value => (value ? undefined : 'This field is required');
 export const nonEmpty = value =>
-  value.trim() !== '' ? undefined : 'This input value cannot be empty';
+  value.trim() !== '' ? undefined : 'This field cannot be empty';
 export const isTrimmed = value =>
   value.trim() === value ? undefined : 'Cannot start or end with whitespace';
 export const length = length => value => {

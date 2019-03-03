@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import { createGlobalStyle } from 'styled-components';
 
-import { showModal, hideModal } from '../actions';
-
-import ModalRoot from '../ModalRoot';
 import Header from './Header';
 import Landing from './Landing';
 import Register from './auth/Register';
@@ -44,31 +40,9 @@ body {
 `;
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-
-        this.openDeleteModal = this.openDeleteModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
-    }
-
-    closeModal(event) {
-        this.props.hideModal();
-    }
-
-    openDeleteModal(event) {
-        this.props.showModal({
-            open: true,
-            title: 'Delete Modal',
-            message: 'Please confirm your deletion of this student',
-            deleteAction: this.closeModal,
-            closeModal: this.closeModal,
-            deleteText: 'delete'
-        }, 'delete')
-    }
 
     render() {
         return (
-          <div>
           <BrowserRouter>
               <Container>
                   <GlobalStyle />
@@ -85,19 +59,10 @@ class App extends Component {
                   </Switch>
               </Container>
           </BrowserRouter>
-          <ModalRoot />
-          </div>
-        )
+        );
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    hideModal: () => dispatch(hideModal()),
-    showModal: (modalProps, modalType) => {
-        dispatch(showModal({ modalProps, modalType }))
-    }
-});
-
-export default connect(null, mapDispatchToProps)(App);
+export default App;
 
 
