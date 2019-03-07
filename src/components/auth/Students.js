@@ -67,7 +67,7 @@ class Students extends Component {
   renderStudentData() {
       return this.props.students.map(student => {
         return (
-          <Fragment>
+          <Fragment key={student._id}>
           <StyledCard className="student-card" key={student._id}>
             <Card.Content>
               <Card.Header>Student: {student.fullName}</Card.Header>
@@ -86,9 +86,6 @@ class Students extends Component {
                   Edit Student
                 </StyledButton>
               </Link>
-              {/*<StyledButton onClick={() => this.props.dispatch(deleteStudent(student._id))}>*/}
-                {/*Delete Student*/}
-              {/*</StyledButton>*/}
             </Card.Content>
           </StyledCard>
           </Fragment>
