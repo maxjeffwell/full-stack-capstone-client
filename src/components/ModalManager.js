@@ -25,6 +25,7 @@ const StyledModal = styled(Modal)`
   &&& i {
       color: red;
       margin: auto;
+      cursor: pointer;
     }
   }
 `;
