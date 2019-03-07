@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 import {API_BASE_URL} from '../config';
 import { required } from '../validators';
+import DeleteStudent from './DeleteStudent';
 
 const StyledForm = styled(Form)`
   &&& .ui.labeled.input:not([class*="corner labeled"]) 
@@ -37,7 +38,7 @@ const StyledForm = styled(Form)`
   }
   &&& .ui.button {
     font-family: 'Roboto', 'sans-serif';
-    font-size: 2em;
+    font-size: 28px;
     color: ${props => props.theme.white};
     background-color: ${props => props.theme.blue}; 
     border: 2px solid ${props => props.theme.orange};
@@ -63,22 +64,17 @@ class UpdateStudent extends Component {
 
         axios.get(`${API_BASE_URL}/students/${this.props.match.params.id}`, config)
             .then(res => {
-                console.log(res.data);
                 this.props.dispatch(initialize('UpdatesStudent', res.data));
             });
     }
 
     onSubmit = formProps => {
-        console.log(formProps);
         axios.put(`${API_BASE_URL}/students/${this.props.match.params.id}`, formProps)
-            .then(res => {
-                console.log(res);
-            })
-            .then(this.props.history.push('/students'));
+          .then(() => this.props.history.push('/students'));
     };
 
     render() {
-        const {handleSubmit} = this.props;
+        const { handleSubmit, pristine, submitting } = this.props;
         return (
           <Fragment>
             <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
@@ -128,10 +124,11 @@ class UpdateStudent extends Component {
 
               <Form.Field control={Button} primary
                           type="submit"
-                          disabled={this.props.pristine || this.props.submitting}>
+                          disabled={pristine || submitting}>
                 Update
               </Form.Field>
             </StyledForm>
+            <DeleteStudent />
           </Fragment>
         );
     }

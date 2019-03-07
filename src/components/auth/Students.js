@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom';
-import { Card, Button } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import { showModal } from '../../actions/modalActions';
-import { fetchStudents, deleteStudent } from '../../actions';
-import ModalManager from '../ModalManager';
+import { fetchStudents } from '../../actions';
 import { bindActionCreators } from 'redux';
 
 const StyledCard = styled(Card)`
@@ -69,6 +67,7 @@ class Students extends Component {
   renderStudentData() {
       return this.props.students.map(student => {
         return (
+          <Fragment>
           <StyledCard className="student-card" key={student._id}>
             <Card.Content>
               <Card.Header>Student: {student.fullName}</Card.Header>
@@ -90,16 +89,9 @@ class Students extends Component {
               {/*<StyledButton onClick={() => this.props.dispatch(deleteStudent(student._id))}>*/}
                 {/*Delete Student*/}
               {/*</StyledButton>*/}
-              <ModalManager />
-              <Button
-              onClick={() => this.props.showModal({
-              header: 'Test Content',
-              content: 'Test Content 2'
-              })}>
-              Delete Student
-              </Button>
             </Card.Content>
           </StyledCard>
+          </Fragment>
         );
       });
     }
@@ -108,7 +100,7 @@ class Students extends Component {
     {
       return (
         <Card.Group stackable={true} itemsPerRow={4}>
-          {this.renderStudentData}
+          {this.renderStudentData()}
         </Card.Group>
       );
     }
@@ -116,8 +108,7 @@ class Students extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchStudents: bindActionCreators(fetchStudents, dispatch),
-    showModal: bindActionCreators(showModal, dispatch)
+    fetchStudents: bindActionCreators(fetchStudents, dispatch)
   }};
 
 function mapStateToProps(state) {
