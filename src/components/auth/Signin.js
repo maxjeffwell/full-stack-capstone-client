@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
+import { Redirect } from 'react-router-dom';
 import { reduxForm, Field, focus } from 'redux-form'; // add reduxForm to component export statement and tell it about different field names, then use the field component inside of the component itself
 
 import { Form, Icon, Button, Grid, Segment, Header, Message } from 'semantic-ui-react';
 import { LabelInputField } from 'react-semantic-redux-form';
 import styled from 'styled-components';
-
-import { compose } from 'redux'; // write out multiple higher order components in a better formatted way
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 import * as actions from '../../actions';
@@ -119,15 +119,26 @@ const StyledError = styled.div`
  class Signin extends Component {
     onSubmit = (formProps) => { // arrow function makes it so we don't have to worry about binding the context of onSubmit
 
-      this.props.signin(formProps, () => {
+      this.props.signin(formProps, () => { // call the signin action creator
             this.props.history.push('/dashboard')
-      }); // call the signin action creator
+      });
 
       // when we use reduxForm we get a function on our props object called handleSubmit. Use this function to take email and password out of the form and provide it to the onSubmit callback
     };
 
     render() {
-        const { handleSubmit } = this.props;
+
+      if (this.props.auth) {
+        return <Redirect to="/dashboard" />;
+      }
+
+      let registrationError = '';
+
+      if (this.props.errorMessage) {
+        registrationError = this.props.errorMessage;
+      }
+
+      const { handleSubmit, pristine, submitting } = this.props;
 
         // can't just add onSubmit as a callback directly to form tag. we have to destructure handleSubmit function from our props object
 
@@ -166,12 +177,12 @@ const StyledError = styled.div`
 
             <Form.Field control={Button} primary
                         type="submit"
-                        disabled={this.props.pristine || this.props.submitting}
+                        disabled={pristine || submitting}
             >
               Login
             </Form.Field>
                 <StyledError className='form-error' aria-live="polite">
-                  {this.props.errorMessage}
+                  {registrationError}
                 </StyledError>
               </StyledForm>
             </StyledSegment>
@@ -184,7 +195,7 @@ const StyledError = styled.div`
 
 const mapStateToProps = state => ({
     errorMessage: state.auth.errorMessage,
-    authenticated: state.auth.authenticated
+    auth: state.auth.authenticated
 });
 
 export default compose (

@@ -60,16 +60,12 @@ class CreateStudent extends Component {
     }
   }
   onSubmit = formProps => {
-      console.log(formProps);
       axios.post(`${API_BASE_URL}/students`, formProps)
-        .then(res => {
-          console.log(res);
-        })
-        .then(this.props.history.push('/students'));
+        .then(() => this.props.history.push('/students'));
     };
 
     render() {
-      const { handleSubmit } = this.props;
+      const { handleSubmit, pristine, submitting } = this.props;
       return (
         <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
 
@@ -120,7 +116,7 @@ class CreateStudent extends Component {
 
           <Form.Field control={Button} primary
                       type="submit"
-                      disabled={this.props.pristine || this.props.submitting}>
+                      disabled={pristine || submitting}>
             Create Student
           </Form.Field>
 

@@ -46,7 +46,7 @@ const StyledMenu = styled(Menu)`
 
 class Header extends Component {
     showLinks() {
-        if (this.props.authenticated) {
+        if (this.props.auth) {
             return (
               <StyledMenu stackable borderless>
                   <Menu.Item as="header">
@@ -98,7 +98,7 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-    return { authenticated: state.auth.authenticated };
+    return { auth: state.auth.authenticated };
 }
 
 export default connect(mapStateToProps)(Header);

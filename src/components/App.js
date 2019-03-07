@@ -12,6 +12,7 @@ import Dashboard from './Dashboard';
 import Signout from './auth/Signout';
 import CreateStudent from './CreateStudent';
 import UpdateStudent from './UpdateStudent';
+import ModalManager from './ModalManager';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -51,6 +52,7 @@ class App extends Component {
                       <Route exact path='/' component={Landing} />
                       <Route exact path='/signup' component={Register} />
                       <Route path='/students/:id/update' render={(props) => <UpdateStudent {...props} />} />
+                      <Route exact path='/students/:id/update' render={ModalManager} />
                       <Route exact path='/students' component={Students} />
                       <Route exact path='/signin' component={Signin} />
                       <Route exact path='/dashboard' component={Dashboard} />
