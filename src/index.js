@@ -33,7 +33,6 @@ import 'semantic-ui-css/components/sidebar.css';
 
 import { rootReducer } from './reducers';
 import App from './components/App';
-import ModalRoot from './ModalRoot';
 
 WebFont.load({
     google: {
@@ -74,8 +73,7 @@ ReactDOM.render (
   <ThemeProvider theme={theme}>
   <Provider store={store}>
     <App />
-    <ModalRoot />
-    </Provider>
+  </Provider>
   </ThemeProvider>,
 document.querySelector('#root')
 );

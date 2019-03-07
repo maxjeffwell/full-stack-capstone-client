@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { API_BASE_URL } from '../config';
-import { AUTH_USER, AUTH_ERROR, FETCH_STUDENTS, FETCH_STUDENT, DELETE_STUDENT, TOGGLE_SIDEBAR, REGISTER_USER_REQUEST, REGISTER_USER_ERROR, SHOW_MODAL, HIDE_MODAL } from './types';
+import { AUTH_USER, AUTH_ERROR, FETCH_STUDENTS, FETCH_STUDENT, DELETE_STUDENT, TOGGLE_SIDEBAR, REGISTER_USER_REQUEST, REGISTER_USER_ERROR } from './types';
 
 export const signup = (formProps, callback) => async dispatch => {
     try {
@@ -59,20 +59,6 @@ export const toggleSidebar = () => ({
 
 export const registerUserRequest = () => ({
     type: REGISTER_USER_REQUEST });
-
-export const showModal = ({ modalProps, modalType }) => dispatch => {
-    dispatch({
-        type: SHOW_MODAL,
-        modalProps,
-        modalType
-    });
-};
-
-export const hideModal = () => dispatch => {
-    dispatch({
-        type: HIDE_MODAL
-    });
-};
 
 export const deleteStudent = (id) => async dispatch => {
     let token = localStorage.getItem('jwtToken');

@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { compose } from 'redux';
 
 import { Link } from 'react-router-dom';
-import { Card } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import {
-  deleteStudent,
-  fetchStudents,
-  // showModal,
-  // hideModal
-}
-from '../../actions';
+import { showModal } from '../../actions/modalActions';
+import { fetchStudents, deleteStudent } from '../../actions';
+import ModalManager from '../ModalManager';
+import { bindActionCreators } from 'redux';
 
 const StyledCard = styled(Card)`
   &&& .ui.card.student-card {
@@ -65,99 +61,69 @@ const StyledButton = styled.button`
 `;
 
 class Students extends Component {
-  // constructor(props) {
-  //   super(props);
-  //
-  //   this.openDeleteModal = this.openDeleteModal.bind(this);
-  //   this.closeModal = this.closeModal.bind(this);
-  //   this.showModal = this.showModal.bind(this);
-  //   this.deleteStudent = this.deleteStudent.bind(this);
-  // }
 
   componentDidMount() {
-    this.props.dispatch(fetchStudents());
+      this.props.fetchStudents();
   }
 
-  // closeModal(event) {
-  //   this.props.hideModal();
-  // }
-
-  // showModal(event) {
-  //   this.props.showModal();
-  // }
-
-  // deleteStudent() {
-  //     this.props.deleteStudent()
-  //       .then(this.props.hideModal());
-  //     console.log(this.props);
-  // }
-
-  // openDeleteModal(event) {
-  //   this.props.showModal({
-  //     open: true,
-  //     title: 'Delete Modal',
-  //     message: 'Please confirm the deletion of this student',
-  //     deleteAction: this.deleteStudent,
-  //     closeModal: this.closeModal,
-  //     deleteText: 'delete'
-  //   }, 'delete')
-  // }
-
   renderStudentData() {
-        return this.props.students.map(student => {
-            return (
-              <StyledCard className="student-card" key={student._id}>
-                <Card.Content>
-                  <Card.Header>Student: {student.fullName}</Card.Header>
-                  <Card.Header>School: {student.school}</Card.Header>
-                  <Card.Header>Teacher: {student.teacher}</Card.Header>
-                  <Card.Header>Grade: {student.gradeLevel}</Card.Header>
-                  <Card.Header>ELL Status: {student.ellStatus}</Card.Header>
-                  <Card.Header>Composite Level: {student.compositeLevel}</Card.Header>
-                  <Card.Header>Designation: {student.designation}</Card.Header>
-                  <Card.Header>Native Language: {student.nativeLanguage}</Card.Header>
-                  <Card.Header>Country of Birth: {student.countryOfBirth}</Card.Header>
-                </Card.Content>
-                <Card.Content extra>
-                  <Link to={`/students/${student._id}/update`}>
-                    <StyledButton>
-                      Edit Student
-                    </StyledButton>
-                  </Link>
-                  <StyledButton onClick={() => this.props.dispatch(deleteStudent(student._id))}>
-                    Delete Student
-                  </StyledButton>
-                  {/*<button*/}
-                          {/*className="btn btn-outline-primary btn-block"*/}
-                          {/*onClick={() => this.openDeleteModal() }>*/}
-                          {/*Delete Student*/}
-                  {/*</button>*/}
-                </Card.Content>
-              </StyledCard>
-            );
-        });
-    }
-
-    render() {
+      return this.props.students.map(student => {
         return (
-        <Card.Group stackable={true} itemsPerRow={4}>
-            {this.renderStudentData()}
-        </Card.Group>
+          <StyledCard className="student-card" key={student._id}>
+            <Card.Content>
+              <Card.Header>Student: {student.fullName}</Card.Header>
+              <Card.Header>School: {student.school}</Card.Header>
+              <Card.Header>Teacher: {student.teacher}</Card.Header>
+              <Card.Header>Grade: {student.gradeLevel}</Card.Header>
+              <Card.Header>ELL Status: {student.ellStatus}</Card.Header>
+              <Card.Header>Composite Level: {student.compositeLevel}</Card.Header>
+              <Card.Header>Designation: {student.designation}</Card.Header>
+              <Card.Header>Native Language: {student.nativeLanguage}</Card.Header>
+              <Card.Header>Country of Birth: {student.countryOfBirth}</Card.Header>
+            </Card.Content>
+            <Card.Content extra>
+              <Link to={`/students/${student._id}/update`}>
+                <StyledButton>
+                  Edit Student
+                </StyledButton>
+              </Link>
+              {/*<StyledButton onClick={() => this.props.dispatch(deleteStudent(student._id))}>*/}
+                {/*Delete Student*/}
+              {/*</StyledButton>*/}
+              <ModalManager />
+              <Button
+              onClick={() => this.props.showModal({
+              header: 'Test Content',
+              content: 'Test Content 2'
+              })}>
+              Delete Student
+              </Button>
+            </Card.Content>
+          </StyledCard>
         );
+      });
     }
-}
 
-// const mapDispatchToProps = dispatch => ({
-//   hideModal: () => dispatch(hideModal()),
-//   showModal: (modalProps, modalType) => {
-//     dispatch(showModal({ modalProps, modalType }))
-//   },
-//   fetchStudents: () => dispatch(fetchStudents()),
-//   deleteStudent: () => dispatch(deleteStudent()),
-// });
+    render()
+    {
+      return (
+        <Card.Group stackable={true} itemsPerRow={4}>
+          {this.renderStudentData}
+        </Card.Group>
+      );
+    }
+  }
 
-const mapStateToProps = state => ({
-     students: state.students.students
-});
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchStudents: bindActionCreators(fetchStudents, dispatch),
+    showModal: bindActionCreators(showModal, dispatch)
+  }};
 
-export default connect(mapStateToProps)(Students);
+function mapStateToProps(state) {
+     return {
+       students: state.students.students
+     }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Students);
