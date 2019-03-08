@@ -32,6 +32,18 @@ const StyledModal = styled(Modal)`
 
 class ModalManager extends Component {
 
+  scrollToBottom(){
+    this.el.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
   render() {
     const { modalConfiguration } = this.props;
 
@@ -48,7 +60,7 @@ class ModalManager extends Component {
       const { modalProps = {} } = modalConfiguration;
       renderedComponent = <StyledModal { ...Object.assign({}, modalProps, defaultProps) } />;
     }
-    return <span>{renderedComponent}</span>;
+    return <span ref={el => { this.el = el; }}>{renderedComponent}</span>;
   }
 }
 
