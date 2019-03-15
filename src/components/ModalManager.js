@@ -1,47 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal } from 'semantic-ui-react';
-import styled from 'styled-components';
 
 import { hideModal } from '../actions/modalActions';
 
-const StyledModal = styled(Modal)`
-  &&& {
-    display: grid;
-    margin: auto;
-    width: 50%;
-    border: 5px solid ${props => props.theme.blue};
-    border-radius: 5px;
-    padding: 5px 10px 10px 10px;
-    background-color: ${props => props.theme.white};
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    transition: 1.1s ease-out;
-    box-shadow: -2rem 2rem 2rem rgba(black, 0.2);
-    filter: blur(0);
-    transform: scale(1);  
-    opacity: 1;
-  &&& i {
-      color: red;
-      margin: auto;
-      cursor: pointer;
-    }
-  }
-`;
+let rand = () => Math.floor(Math.random() * 20) - 10;
+
+const backdropStyle = {
+  position: 'fixed',
+  zIndex: 1040,
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+  backgroundColor: '#000',
+  opacity: 0.5
+};
+
+const modalStyle = function() {
+  let top = 50 + rand();
+  let left = 50 + rand();
+
+  return {
+    position: 'fixed',
+    width: 400,
+    zIndex: 1040,
+    top: top + '%',
+    left: left + '%',
+    border: '1px solid #e5e5e5',
+    backgroundColor: 'white',
+    boxShadow: '0 5px 15px rgba(0,0,0,.5)',
+    padding: 20
+  };
+};
 
 class ModalManager extends Component {
 
-  scrollToBottom(){
-    this.el.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  componentDidMount() {
-    this.scrollToBottom();
-  }
-
-  componentDidUpdate() {
-    this.scrollToBottom();
+  renderBackdrop(props) {
+    return <div {...props} style={backdropStyle} />;
   }
 
   render() {
@@ -58,7 +54,8 @@ class ModalManager extends Component {
 
     if (modalConfiguration) {
       const { modalProps = {} } = modalConfiguration;
-      renderedComponent = <StyledModal { ...Object.assign({}, modalProps, defaultProps) } />;
+      renderedComponent = <Modal renderbackdrop={this.renderBackdrop} style={modalStyle()}
+                                 { ...Object.assign({}, modalProps, defaultProps) } />;
     }
     return <span ref={el => { this.el = el; }}>{renderedComponent}</span>;
   }

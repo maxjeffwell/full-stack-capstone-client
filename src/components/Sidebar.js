@@ -17,6 +17,8 @@ const StyledContainer = styled(Container)`
     border: 3px solid ${props => props.theme.green};
     border-radius: 5px;
     text-decoration: none;
+    text-align: center;
+    margin: auto;
     padding: 2px 10px 0 10px;
   }
  &&& #sidebar.menu {
