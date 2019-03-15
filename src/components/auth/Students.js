@@ -33,6 +33,7 @@ const StyledCard = styled(Card)`
     justify-content: space-between;
     overflow: hidden;
     display: table;
+    text-align: center;
   }
  `;
 
