@@ -14,8 +14,8 @@ const StyledMenu = styled(Menu)`
     border-radius: 5px;
     margin-bottom: 50px;
     flex-wrap: wrap;
-    min-width: 420px;
     height: auto;
+    margin-top: 5px;
   }
   &&& .header {
     background: ${props => props.theme.green};

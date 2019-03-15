@@ -34,6 +34,7 @@ const StyledCard = styled(Card)`
     overflow: hidden;
     display: table;
     text-align: center;
+    border-top: none;
   }
  `;
 
@@ -44,7 +45,6 @@ const StyledButton = styled.button`
     justify-content: space-around;
     padding: 0 5px;
     border-radius: 5px;
-    margin-right: 25px;
     font-family: 'Roboto','sans-serif';
     font-size: 1em;
     font-weight: 500;
