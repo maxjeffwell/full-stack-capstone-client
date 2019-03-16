@@ -31,6 +31,14 @@ html {
 		box-sizing: inherit; // then inherit box sizing on everything else
 	}
 	
+	i {
+	color: #2873b4;
+	:hover{
+	cursor: pointer;
+	color: red;
+	}
+	}
+	
 body {
 	padding: 0;
 	margin: 0;
