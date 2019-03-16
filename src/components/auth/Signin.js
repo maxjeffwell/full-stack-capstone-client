@@ -14,7 +14,6 @@ import { required, nonEmpty } from '../../validators';
 export const StyledMessage = styled(Message)`
   &&& {
     display: grid;
-    min-width: 420px;
     margin-top: 10px;
     margin-bottom: 25px;
     padding: 25px 25px 25px 25px;

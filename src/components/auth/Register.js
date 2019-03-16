@@ -19,7 +19,6 @@ import * as actions from '../../actions';
 const StyledSegment = styled(Segment)`
   &&& {
     display: grid;
-    min-width: 420px;
     margin-top: 50px;
     border: 4px solid ${props => props.theme.orange};
     border-radius: 5px;
