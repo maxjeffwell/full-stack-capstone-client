@@ -27,16 +27,17 @@ const modalStyle = function() {
     zIndex: 1040,
     top: top + '%',
     left: left + '%',
-    border: '1px solid #e5e5e5',
+    border: '1px solid #2873b4',
     backgroundColor: 'white',
     boxShadow: '0 5px 15px rgba(0,0,0,.5)',
-    padding: 20
+    padding: 20,
+    fontSize: 14
   };
 };
 
 class ModalManager extends Component {
 
-  renderBackdrop(props) {
+  static renderbackdrop(props) {
     return <div {...props} style={backdropStyle} />;
   }
 
@@ -54,7 +55,7 @@ class ModalManager extends Component {
 
     if (modalConfiguration) {
       const { modalProps = {} } = modalConfiguration;
-      renderedComponent = <Modal renderbackdrop={this.renderBackdrop} style={modalStyle()}
+      renderedComponent = <Modal renderbackdrop={ModalManager.renderbackdrop} style={modalStyle()}
                                  { ...Object.assign({}, modalProps, defaultProps) } />;
     }
     return <span ref={el => { this.el = el; }}>{renderedComponent}</span>;
