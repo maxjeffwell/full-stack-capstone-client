@@ -4,8 +4,6 @@ import { Modal } from 'semantic-ui-react';
 
 import { hideModal } from '../actions/modalActions';
 
-let rand = () => Math.floor(Math.random() * 20) - 10;
-
 const backdropStyle = {
   position: 'fixed',
   zIndex: 1040,
@@ -14,19 +12,22 @@ const backdropStyle = {
   left: 0,
   right: 0,
   backgroundColor: '#000',
-  opacity: 0.5
+  opacity: 0.8,
+  boxShadow: '0px 0px 20px 20px rgba(255,255,255,1)',
+  textShadow: '0px 0px 10px rgba(51, 51, 51, 0.9)',
+  transform: 'scale(0.9)',
 };
 
 const modalStyle = function() {
-  let top = 50 + rand();
-  let left = 50 + rand();
-
   return {
-    position: 'fixed',
+    position: 'absolute',
+    textAlign: 'center',
     width: 400,
     zIndex: 1040,
-    top: top + '%',
-    left: left + '%',
+    left: '50%',
+    top: '25%',
+    marginLeft: '-150px',
+    marginRight: '-150px',
     border: '1px solid #2873b4',
     backgroundColor: 'white',
     boxShadow: '0 5px 15px rgba(0,0,0,.5)',
