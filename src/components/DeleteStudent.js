@@ -1,10 +1,11 @@
-import React, { Component, Fragment, createRef, forwardRef } from 'react';
+import React, { Component, createRef, forwardRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import axios from 'axios';
+import FocusLock from 'react-focus-lock';
 
 import { API_BASE_URL } from '../config';
 import { showModal, hideModal } from '../actions/modalActions';
@@ -74,15 +75,15 @@ class DeleteStudent extends Component {
 		const ref = createRef();
 
 		return (
-			<Fragment>
-				<ModalManager />
+				<FocusLock>
+					<ModalManager />
 				<StyledConfirmButton onClick={() => this.props.showModal({
 					header: <StyledHeader>Please confirm your deletion of this student</StyledHeader>,
 					content: <FancyConfirmButton ref={ref}>Confirm Deletion</FancyConfirmButton>
 				})}>
 					Delete Student
 				</StyledConfirmButton>
-			</Fragment>
+				</FocusLock>
 		);
 	}
 }

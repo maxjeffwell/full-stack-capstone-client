@@ -9,13 +9,11 @@ import CreateStudent from './CreateStudent';
 
 const StyledContainer = styled(Container)`
   &&& {
+    display: block;
     font-size: 1.5em;
     font-family: "Roboto", "sans-serif";
     font-weight: bold;
     color: ${props => props.theme.blue};
-    background-color: ${props => props.theme.orange};
-    border: 3px solid ${props => props.theme.green};
-    border-radius: 5px;
     text-decoration: none;
     text-align: center;
     margin: auto;
@@ -26,9 +24,12 @@ const StyledContainer = styled(Container)`
     font-weight: bold;
   }
  &:hover:not([disabled]) {
-      background-color: ${props => props.theme.blue};
-      color: ${props => props.theme.white};
-      border: 5px solid ${props => props.theme.orange};
+      color: ${props => props.theme.blue};
+      text-decoration: underline;
+  }
+  &:active:not([disabled]) {
+      color: rebeccapurple;
+      text-decoration: none;
   }
 `;
 
@@ -43,14 +44,14 @@ const StyledHeader = styled(Header)`
     font-family: 'Roboto', 'sans-serif';
     font-size: 1.25em;
     font-weight: bold;
-    color: ${props => props.theme.blue};
-    background: ${props => props.theme.green};
-    border: 2px solid ${props => props.theme.orange};
+    color: ${props => props.theme.white};
+    background: ${props => props.theme.blue};
+    border: 3px solid ${props => props.theme.orange};
     height: 50%;
     width: fit-content;
     border-radius: 5px;
     text-align: center;
-    padding: 0 5px 22px 5px;
+    padding: 2px 5px 22px 5px;
     white-space: nowrap;
     margin: 15px auto 0;
     }

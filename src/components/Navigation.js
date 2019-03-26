@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
+// import { Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -14,14 +14,14 @@ const StyledNavDiv = styled.div`
 
 const Navigation = ({ toggleSidebar }) => {
   return <StyledNavDiv role="navigation" className="flex-container">
-    <Button id="menu-button" className="flex-item" icon="sidebar"
-            circular onClick={toggleSidebar}
-            disabled
-            color="orange"
-            size="huge"
-    />
+    {/*<Button id="menu-button" className="flex-item" icon="sidebar"*/}
+            {/*circular onClick={toggleSidebar}*/}
+            {/*disabled*/}
+            {/*color="orange"*/}
+            {/*size="huge"*/}
+    {/*/>*/}
     <div className="flex-item">
-      <Link to={'/signin'}/>
+      <Link to='/signin' />
     </div>
   </StyledNavDiv>;
 };

@@ -37,6 +37,10 @@ const StyledMenu = styled(Menu)`
     background-color: ${props => props.theme.blue};
     color: ${props => props.theme.white};
     }
+    &:active:not([disabled]), :focus {
+    color: mediumpurple;
+    background-color: white;
+    }
   }
   &&& header.item {
     width: 75px;
