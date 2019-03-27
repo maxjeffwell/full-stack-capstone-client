@@ -9,7 +9,7 @@ export default class LazyImage extends Component {
   }
 
   static defaultProps = {
-    size: `medium`,
+    size: `tiny`,
   }
 
   state = {

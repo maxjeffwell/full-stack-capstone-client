@@ -1,11 +1,10 @@
-import React, { Component, createRef, forwardRef } from 'react';
+import React, { Component, createRef, forwardRef, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import axios from 'axios';
-import FocusLock from 'react-focus-lock';
 
 import { API_BASE_URL } from '../config';
 import { showModal, hideModal } from '../actions/modalActions';
@@ -15,12 +14,12 @@ import ModalManager from './ModalManager';
 const StyledConfirmButton = styled.button`
 		cursor: pointer;
 		font-family: 'Roboto', 'sans-serif';
+		margin-top: 0;
+		white-space: nowrap;
     font-size: 28px;
     font-weight: 700;
-    text-align: center;
     line-height: 1em;
-    margin-top: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 35px;
     color: ${props => props.theme.white};
     background-color: ${props => props.theme.blue}; 
     border: 2px solid ${props => props.theme.orange};
@@ -34,17 +33,14 @@ const StyledConfirmButton = styled.button`
 const StyledFancyButton = styled.button`
     border: 2px solid red;
     background-color: ${props => props.theme.white};
-    alignment: center;
-    justify-content: center;
     padding: 5px;
+    align-items: center;
     border-radius: 5px;
-    margin: auto;
     font-family: 'Roboto','sans-serif';
     font-size: 1em;
     font-weight: 700;
     color: ${props => props.theme.blue};
     cursor: pointer;
-    white-space: nowrap;
    &:hover:not([disabled]) {
       box-shadow: inset 6.5em 0 0 0 var(--hover);
       background-color: red;
@@ -75,7 +71,7 @@ class DeleteStudent extends Component {
 		const ref = createRef();
 
 		return (
-				<FocusLock>
+			<Fragment>
 					<ModalManager />
 				<StyledConfirmButton onClick={() => this.props.showModal({
 					header: <StyledHeader>Please confirm your deletion of this student</StyledHeader>,
@@ -83,7 +79,7 @@ class DeleteStudent extends Component {
 				})}>
 					Delete Student
 				</StyledConfirmButton>
-				</FocusLock>
+			</Fragment>
 		);
 	}
 }

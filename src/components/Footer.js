@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Header, Container } from 'semantic-ui-react';
+import { Grid, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 const StyledHeader = styled(Header)`
@@ -26,9 +26,7 @@ const StyledHeader = styled(Header)`
 
 const Footer = () => {
   return (
-    <Container>
-      <div className="footer-inner">
-        <Grid relaxed>
+        <Grid container relaxed>
           <Grid.Row verticalAlign="middle">
             <Grid.Column mobile={16}>
                 <StyledHeader as="h3" inverted>
@@ -41,8 +39,6 @@ const Footer = () => {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </div>
-    </Container>
   )
 }
 

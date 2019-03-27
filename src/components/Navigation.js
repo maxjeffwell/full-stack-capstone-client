@@ -1,37 +1,40 @@
 import React from 'react';
-// import { Button } from 'semantic-ui-react';
+// import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
+// import { bindActionCreators } from 'redux';
+// import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { toggleSidebar as toggleSidebarAction } from '../actions';
+// import { toggleSidebar as toggleSidebarAction } from '../actions';
+import LazyImage from './LazyImage';
+import claptrap_vector from '../logo/claptrap_vector.png';
 
-const StyledNavDiv = styled.div`
+const StyledNav = styled.div`
   margin-top: 20px;
 `;
 
+const StyledIcon = styled.i`
+  align-self: center;
+`;
+
 const Navigation = ({ toggleSidebar }) => {
-  return <StyledNavDiv role="navigation" className="flex-container">
-    {/*<Button id="menu-button" className="flex-item" icon="sidebar"*/}
-            {/*circular onClick={toggleSidebar}*/}
-            {/*disabled*/}
-            {/*color="orange"*/}
-            {/*size="huge"*/}
-    {/*/>*/}
-    <div className="flex-item">
-      <Link to='/signin' />
-    </div>
-  </StyledNavDiv>;
+  return <StyledNav role="navigation" className="flex-container">
+    <StyledIcon icon='claptrap' onClick={toggleSidebar}>
+      <Link to="/students" className="students" role="button">
+      <LazyImage src={claptrap_vector} alt="students" />
+      </Link>
+    </StyledIcon>
+  </StyledNav>;
 };
 
-  Navigation.propTypes = {
-    toggleSidebar: PropTypes.func.isRequired
-  };
+  // Navigation.propTypes = {
+  //   toggleSidebar: PropTypes.func.isRequired
+  // };
 
-  const mapDispatchToProps = dispatch => ({
-    toggleSidebar: bindActionCreators(toggleSidebarAction, dispatch)
-  });
+  // const mapDispatchToProps = dispatch => ({
+  //   toggleSidebar: bindActionCreators(toggleSidebarAction, dispatch)
+  // });
 
-  export default connect(null, mapDispatchToProps)(Navigation);
+  // export default connect(null, mapDispatchToProps)(Navigation);
+
+export default Navigation;

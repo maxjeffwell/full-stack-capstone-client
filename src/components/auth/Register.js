@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { reduxForm, Field, focus } from 'redux-form';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -19,36 +19,20 @@ import * as actions from '../../actions';
 const StyledSegment = styled(Segment)`
   &&& {
     display: grid;
-    min-width: 420px;
-    margin-top: 50px;
+    min-width: 372px;
     border: 4px solid ${props => props.theme.orange};
     border-radius: 5px;
     background: ${props => props.theme.white};
-    padding: 25px 20px 25px 15px;
-  }
-`;
-
-const StyledHeader = styled(Header)`
-  &&& {
-    margin-bottom: 20px;
-    margin-right: 5px;
-    font-family: 'Roboto', 'sans-serif';
-    font-size: 2em;
-    font-weight: bold;
-    color: ${props => props.theme.blue};
-    background: ${props => props.theme.green};
-    border: 4px solid ${props => props.theme.orange};
-    width: 100%;
-    max-height: border-box;
-    border-radius: 5px;
-    padding: 0 5px 0 5px; ;
-    white-space: nowrap;
+    margin-top: 25px;
   }
 `;
 
 const StyledForm = styled(Form)`
   &&& {
-    padding: 0px;
+  	display: grid;
+  }
+  &&& .field {
+    text-align: center;
   }
   &&& .icon {
     size: 100px;
@@ -59,16 +43,16 @@ const StyledForm = styled(Form)`
     margin-top: 12px;
     border-top: 3px solid ${props => props.theme.green};
     border-right: 3px solid ${props => props.theme.green};
-    border-bottom: 2px solid ${props => props.theme.green};
-    border-left: 3px solid ${props => props.theme.green};
+    border-bottom: 3px solid ${props => props.theme.green};
+    border-left: 3px solid ${props => props.theme.green}
   }
   &&& .ui.labeled.input:not([class*="corner labeled"]) .label:first-child + input {
     color: ${props => props.theme.blue};
     font-family: 'Roboto', 'sans-serif';
     font-weight: bold;
     font-size: 1.5em;
-    padding-left: 10px;
-    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 10px;
   }
   &&& .ui.button {
     border: 2px solid ${props => props.theme.orange};
@@ -103,7 +87,7 @@ const StyledErrorMessage = styled.div`
 const StyledMessage = styled(Message)`
   &&& {
     display: grid;
-    margin-top: 25px;
+    min-width: 372px;
     margin-bottom: 10px;
     padding: 25px 25px 25px 25px;
     font-family: 'Roboto', 'sans-serif';
@@ -113,9 +97,28 @@ const StyledMessage = styled(Message)`
     background: ${props => props.theme.white};
     line-height: 30px;
     border-radius: 5px;
-    min-width: 420px;
    }
 `;
+
+const StyledHeader = styled(Header)`
+  &&& {
+    font-family: 'Roboto', 'sans-serif';
+    font-size: 2em;
+    font-weight: bold;
+    color: ${props => props.theme.blue};
+    background: ${props => props.theme.green};
+    border: 4px solid ${props => props.theme.orange};
+    width: 100%;
+    height: 50%;
+    border-radius: 5px;
+    padding-top: 1%;
+    padding-bottom: 10%;
+    padding-right: 5px;
+    line-height: 1em;
+    margin-bottom: 15px;
+  }
+`;
+
 
 const passwordLength = length({ min: 7, max: 42 });
 const matchesPassword = matches('password');
@@ -153,42 +156,40 @@ class Register extends Component {
         // can't just add onSubmit as a callback directly to form tag -
         // have to destructure handleSubmit function from our props object
 		return (
-			<Fragment>
-				<div className="signup">
-					<Grid textAlign="center" style={{ height: '100%' }} verticalAlign="middle">
-						<Grid.Column style={{ maxWidth: 450 }}>
+					<Grid centered style={{ height: '100%' }} verticalAlign="middle">
+						<Grid.Column textAlign="center"  style={{ maxWidth: 450 }}>
 
 							<StyledMessage info>
 								DEMO ACCOUNT AVAILABLE
 								<p>If you prefer not to register at this time, an account for demo purposes is available on the login page.</p>
 							</StyledMessage>
-							<StyledSegment>
+
+							<StyledSegment stacked>
 								<StyledHeader as="h1">educationELLy registration</StyledHeader>
+
 								<StyledForm onSubmit={handleSubmit(this.onSubmit)}>
 
-                        {/* now we can add an onSubmit and call handleSubmit and to handleSubmit we'll pass the callback we want to be executed when user submits the form, which is the onSubmit method we just created. we don't call onSubmit as soon as we render the form, however. onSubmit will be called in the future. we pass a reference to the onSubmit function to handleSubmit. */}
+									<Field name="email" component={LabelInputField}
+									       label={{ content: <Icon color="orange" name="user outline" size="large" /> }}
+									       labelPosition="left" placeholder="Email" validate={[required, nonEmpty, isTrimmed]}
+									/>
 
-                        <Field name="email" component={LabelInputField}
-                               label={{ content: <Icon color="orange" name="user outline" size="large" /> }}
-                               labelPosition="left" placeholder="Email" validate={[required, nonEmpty, isTrimmed]}
-                        />
+									<Field name="password" component={LabelInputField} type="password"
+									       label={{ content: <Icon color="orange" name="lock" size="large" /> }}
+									       labelPosition="left" placeholder="Password" validate={[required, passwordLength, isTrimmed]}
+									/>
 
-                        <Field name="password" component={LabelInputField} type="password"
-                               label={{ content: <Icon color="orange" name="lock" size="large" /> }}
-                               labelPosition="left" placeholder="Password" validate={[required, passwordLength, isTrimmed]}
-                        />
+									<Field name="passwordConfirmation" component={LabelInputField} type="password"
+									       label={{ content: <Icon color="orange" name="lock" size="large" /> }}
+									       labelPosition="left" placeholder="Confirm Password" validate={[required, nonEmpty, matchesPassword]}
+									/>
 
-                        <Field name="passwordConfirmation" component={LabelInputField} type="password"
-                               label={{ content: <Icon color="orange" name="lock" size="large" /> }}
-                               labelPosition="left" placeholder="Confirm Password" validate={[required, nonEmpty, matchesPassword]}
-                        />
-
-                        <Form.Field control={Button} primary
-                                    type="submit"
-                                    disabled={pristine || submitting}
-                        >
-	                        Register
-                        </Form.Field>
+									<Form.Field control={Button} primary
+									            type="submit"
+									            disabled={pristine || submitting}
+									>
+										Register
+									</Form.Field>
 
 									<StyledErrorMessage className="form-error" aria-live="polite">
 										{registrationError}
@@ -198,8 +199,6 @@ class Register extends Component {
 							</StyledSegment>
 						</Grid.Column>
 					</Grid>
-				</div>
-			</Fragment>
 		);
 	}
 }
@@ -210,7 +209,7 @@ const mapStateToProps = state => ({
 })
 
 export default compose (
-	connect(mapStateToProps, actions), //apply action creators to Register component
+	connect(mapStateToProps, actions),
 	reduxForm({ form: 'register',
 		onSubmitFail: (errors, dispatch) =>
 			dispatch(focus('register', Object.keys(errors)[0]))

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { reduxForm, Field, focus } from 'redux-form'; // add reduxForm to component export statement and tell it about different field names, then use the field component inside of the component itself
 
@@ -14,9 +14,7 @@ import { required, nonEmpty } from '../../validators';
 export const StyledMessage = styled(Message)`
   &&& {
     display: grid;
-    min-width: 420px;
-    margin-top: 10px;
-    margin-bottom: 25px;
+    min-width: 372px;
     padding: 25px 25px 25px 25px;
     font-family: 'Roboto', 'sans-serif';
     font-weight: bold;
@@ -55,10 +53,9 @@ const StyledHeader = styled(Header)`
 const StyledSegment = styled(Segment)`
   &&& {
     display: grid;
-    min-width: 420px;
+    min-width: 372px;
     border: 4px solid ${props => props.theme.orange};
     border-radius: 5px;
-    padding: 25px 25px 25px 15px;
     background: ${props => props.theme.white};
     margin-top: 25px;
   }
@@ -66,7 +63,10 @@ const StyledSegment = styled(Segment)`
 
 const StyledForm = styled(Form)`
   &&& {
-    padding: 0;
+    display: grid;
+  }
+  &&& .field {
+    text-align: center;
   }
   &&& .icon {
     size: 100px;
@@ -74,7 +74,7 @@ const StyledForm = styled(Form)`
   &&& .input {
     border-top: 3px solid ${props => props.theme.green};
     border-right: 3px solid ${props => props.theme.green};
-    border-bottom: 2px solid ${props => props.theme.green};
+    border-bottom: 3px solid ${props => props.theme.green};
     border-left: 3px solid ${props => props.theme.green};
     border-radius: 5px;
     margin-bottom: 10px;
@@ -85,7 +85,8 @@ const StyledForm = styled(Form)`
     font-family: 'Roboto', 'sans-serif';
     font-weight: bold;
     font-size: 1.5em;
-    padding-left: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
   &&& .ui.button {
     border: 2px solid ${props => props.theme.orange};
@@ -142,54 +143,52 @@ const StyledError = styled.div`
 
         // can't just add onSubmit as a callback directly to form tag. we have to destructure handleSubmit function from our props object
 
-      return (
-        <Fragment>
-          <Grid textAlign="center" style={{ height: '100%' }} verticalAlign="middle">
-          <Grid.Column style={{ maxWidth: 450 }}>
+      return <Grid centered style={{height: '100%'}} verticalAlign="middle">
+	      <Grid.Column textAlign="center" style={{maxWidth: 450}}>
 
-              <StyledMessage info>
-                Please log in with your account email and password. If you have neither registered
-                nor been assigned account credentials, you are welcome to use the available demo account to log in.
-              </StyledMessage>
+		      <StyledMessage info>
+			      Please log in with your account email and password. If you have neither registered
+			      nor been assigned account credentials, you are welcome to use the available demo account to log in.
+		      </StyledMessage>
 
-            <StyledMessage info>
-            DEMO ACCOUNT AVAILABLE
-              <p>Email: demo</p>
-              <p>Password: demopassword</p>
-          </StyledMessage>
+		      <StyledMessage info>
+			      DEMO ACCOUNT AVAILABLE
+			      <p>Email: demo</p>
+			      <p>Password: demopassword</p>
+		      </StyledMessage>
 
-            <StyledSegment stacked>
-              <StyledHeader as="h1">educationELLy login</StyledHeader>
+		      <StyledSegment stacked>
+			      <StyledHeader as="h1">educationELLy login</StyledHeader>
 
-              <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
+			      <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
 
-            {/* now we can add an onSubmit and call handleSubmit and to handleSubmit we'll pass the callback we want to be executed when user submits the form, which is the onSubmit method we just created. we don't call onSubmit as soon as we render the form, however. onSubmit will be called in the future. we pass a reference to the onSubmit function to handleSubmit.*/}
+				      {/* now we can add an onSubmit and call handleSubmit and to handleSubmit we'll pass the callback we want to be executed when user submits the form, which is the onSubmit method we just created. we don't call onSubmit as soon as we render the form, however. onSubmit will be called in the future. we pass a reference to the onSubmit function to handleSubmit.*/}
 
-            <Field name="email" component={LabelInputField}
-                   label={{ content: <Icon color="orange" name="user outline" size="large" /> }}
-                   labelPosition="left" placeholder="Email" validate={[required, nonEmpty]}
-            />
+				      <Field name="email" component={LabelInputField}
+				             label={{content: <Icon color="orange" name="user outline" size="large"/>}}
+				             labelPosition="left" placeholder="Email" validate={[required, nonEmpty]}
+				      />
 
-            <Field name="password" component={LabelInputField} type="password"
-                   label={{ content: <Icon color="orange" name="lock" size="large" /> }}
-                   labelPosition="left" placeholder="Password" validate={[required, nonEmpty]}
-            />
+				      <Field name="password" component={LabelInputField} type="password"
+				             label={{content: <Icon color="orange" name="lock" size="large"/>}}
+				             labelPosition="left" placeholder="Password" validate={[required, nonEmpty]}
+				      />
 
-            <Form.Field control={Button} primary
-                        type="submit"
-                        disabled={pristine || submitting}
-            >
-              Login
-            </Form.Field>
-                <StyledError className='form-error' aria-live="polite">
-                  {registrationError}
-                </StyledError>
-              </StyledForm>
-            </StyledSegment>
-          </Grid.Column>
-          </Grid>
-        </Fragment>
-        );
+				      <Form.Field control={Button} primary
+				                  type="submit"
+				                  disabled={pristine || submitting}
+				      >
+					      Login
+				      </Form.Field>
+
+				      <StyledError className='form-error' aria-live="polite">
+					      {registrationError}
+				      </StyledError>
+
+			      </StyledForm>
+		      </StyledSegment>
+	      </Grid.Column>
+      </Grid>;
     }
 }
 
