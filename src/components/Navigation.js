@@ -1,11 +1,11 @@
 import React from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import { bindActionCreators } from 'redux';
-// import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-// import { toggleSidebar as toggleSidebarAction } from '../actions';
+import { toggleSidebar as toggleSidebarAction } from '../actions';
 import LazyImage from './LazyImage';
 import claptrap_vector from '../logo/claptrap_vector.png';
 
@@ -27,14 +27,12 @@ const Navigation = ({ toggleSidebar }) => {
   </StyledNav>;
 };
 
-  // Navigation.propTypes = {
-  //   toggleSidebar: PropTypes.func.isRequired
-  // };
+  Navigation.propTypes = {
+    toggleSidebar: PropTypes.func.isRequired
+  };
 
-  // const mapDispatchToProps = dispatch => ({
-  //   toggleSidebar: bindActionCreators(toggleSidebarAction, dispatch)
-  // });
+  const mapDispatchToProps = dispatch => ({
+    toggleSidebar: bindActionCreators(toggleSidebarAction, dispatch)
+  });
 
-  // export default connect(null, mapDispatchToProps)(Navigation);
-
-export default Navigation;
+  export default connect(null, mapDispatchToProps)(Navigation);
