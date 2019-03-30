@@ -82,7 +82,7 @@ class CreateStudent extends Component {
                     disabled={pristine || submitting}>
           Create Student
         </Form.Field>
-      </StyledForm>;
+      </StyledForm>
         </Grid.Row>
       </Grid>
     }
