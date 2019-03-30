@@ -17,16 +17,19 @@ const StyledGrid = styled(Grid)`
   }
 `;
 
-const Dashboard = ({ isToggled }) => <StyledGrid centered style={{height: '100%'}} verticalAlign="middle"
-                                                 className={isToggled ? 'toggled' : ''}>
-  <Navigation />
-  <Switch>
-    <Route exact path='/' component={Landing} />
-    <Route exact path='/students' component={Students} />
-  </Switch>
-  <SideBar />
-  <CreateStudent/>
-</StyledGrid>;
+const Dashboard = ({ isToggled }) => (
+
+  <StyledGrid centered style={{height: '100%'}} verticalAlign="middle"
+              className={isToggled ? 'toggled' : ''}>
+    <Navigation/>
+    <Switch>
+      <Route exact path='/' component={Landing}/>
+      <Route exact path='/students' component={Students}/>
+    </Switch>
+    <SideBar/>
+    <CreateStudent/>
+  </StyledGrid>
+);
 
 Dashboard.propTypes = {
   isToggled: PropTypes.bool.isRequired

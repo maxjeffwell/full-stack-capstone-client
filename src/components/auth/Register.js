@@ -111,8 +111,8 @@ const StyledHeader = styled(Header)`
     width: 100%;
     height: 50%;
     border-radius: 5px;
-    padding-top: 3%;
-    padding-bottom: 40px;
+    padding-top: 10px;
+    padding-bottom: 25px;
     padding-right: 5px;
     line-height: 1em;
     margin-bottom: 15px;
@@ -165,7 +165,7 @@ class Register extends Component {
 							</StyledMessage>
 
 							<StyledSegment stacked>
-								<StyledHeader as="h1">educationELLy registration</StyledHeader>
+								<StyledHeader as="h1">registration</StyledHeader>
 
 								<StyledForm onSubmit={handleSubmit(this.onSubmit)}>
 
