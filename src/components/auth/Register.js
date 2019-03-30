@@ -111,8 +111,8 @@ const StyledHeader = styled(Header)`
     width: 100%;
     height: 50%;
     border-radius: 5px;
-    padding-top: 1%;
-    padding-bottom: 10%;
+    padding-top: 3%;
+    padding-bottom: 40px;
     padding-right: 5px;
     line-height: 1em;
     margin-bottom: 15px;

@@ -14,9 +14,6 @@ const StyledMenu = styled(Menu)`
     margin-top: 5px;
     margin-bottom: 30px;
   }
-  &&& header.item {
-    background: ${props => props.theme.green};
-  }
   &&& a.item { 
    font-size: 2em;
    font-weight: 700;
@@ -46,7 +43,7 @@ class Header extends Component {
                       <LazyImage src={logo} />
                     </Menu.Item>
                 </Menu.Menu>
-                <Menu.Menu>
+                <Menu.Menu position="right">
                   <Menu.Item as={Link} name="Instructor Dashboard" to="/dashboard">
                   </Menu.Item>
                 </Menu.Menu>
@@ -68,7 +65,7 @@ class Header extends Component {
                       <LazyImage src={logo} />
                     </Menu.Item>
                 </Menu.Menu>
-                <Menu.Menu>
+                <Menu.Menu position="right">
                   <Menu.Item as={Link} name="educationelly" to="/">
                     educationELLy
                   </Menu.Item>

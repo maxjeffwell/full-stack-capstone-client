@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Grid, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-const StyledLink = styled.a`
-  &&& a.sc-chPdSV.gGDmaF { 
+const StyledLink = styled(Link)`
+  &&& a { 
     font-size: 1.2em;
     font-family: "Roboto", "sans-serif";
     font-weight: bold;
@@ -15,11 +15,11 @@ const StyledLink = styled.a`
     white-space: nowrap;
     justify-self: center;
    }
-  &&& a.sc-chPdSV.gGDmaFg:hover {
+  & :hover, :focus {
       box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
       text-decoration: underline;
   }
-  &&& a.sc-chPdSV.gGDmaF:active, a.sc-chPdSV.gGDmaF:visited {
+  & :visited, :focus {
       color: rebeccapurple;
       text-decoration: none;
   }
@@ -56,7 +56,7 @@ class SideBar extends Component {
                Access Your Student List
              </StyledLink>
          </Grid.Row>
-         <Grid.Row centered verticalAlign="middle">
+         <Grid.Row centered verticalAlign="middle" style={{paddingBottom: '0px'}}>
              <StyledHeader>
                Create A New Student
              </StyledHeader>
