@@ -6,19 +6,29 @@ import Navigation from './Navigation';
 import authRequired from './authRequired';
 import Landing from './Landing';
 import Students from './auth/Students';
-import Sidebar from './Sidebar';
+import SideBar from './Sidebar';
+import CreateStudent from './CreateStudent';
+import { Grid } from "semantic-ui-react";
+import styled from 'styled-components';
+
+const StyledGrid = styled(Grid)`
+  &&& div .ui.centered.grid {
+    margin: auto;
+  }
+`;
 
 const Dashboard = ({ isToggled }) => (
-  <div id="dashboard">
-    <div id="main" className={isToggled ? 'toggled' : ''}>
-      <Navigation />
-      <Switch>
-        <Route exact path='/' component={Landing} />
-        <Route exact path='/students' component={Students} />
-      </Switch>
-    </div>
-    <Sidebar />
-  </div>
+
+  <StyledGrid centered style={{height: '100%'}} verticalAlign="middle"
+              className={isToggled ? 'toggled' : ''}>
+    <Navigation/>
+    <Switch>
+      <Route exact path='/' component={Landing}/>
+      <Route exact path='/students' component={Students}/>
+    </Switch>
+    <SideBar/>
+    <CreateStudent/>
+  </StyledGrid>
 );
 
 Dashboard.propTypes = {

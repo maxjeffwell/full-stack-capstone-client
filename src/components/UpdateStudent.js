@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component  } from 'react';
 import { Field, reduxForm, initialize, focus } from 'redux-form';
-import { Form, Icon, Button } from 'semantic-ui-react';
+import { Grid, Form, Icon, Button } from 'semantic-ui-react';
 import { LabelInputField } from 'react-semantic-redux-form';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -9,7 +9,20 @@ import {API_BASE_URL} from '../config';
 import { required } from '../validators';
 import DeleteStudent from './DeleteStudent';
 
-const StyledForm = styled(Form)`
+export const StyledForm = styled(Form)`
+ &&& form.ui.form {
+    display: grid;
+    min-width: 372px;
+    padding-bottom: 0;
+    align-items: flex-start;
+  }
+  &&& div.field {
+    text-align: center;
+  }
+  &&& .icon {
+    size: 100px;
+  }
+  }
   &&& .ui.labeled.input:not([class*="corner labeled"]) 
   .label:first-child+input {
     font-family: 'Roboto', 'sans-serif';
@@ -21,6 +34,7 @@ const StyledForm = styled(Form)`
     border-top: 2px solid ${props => props.theme.green};
     border-right: 2px solid ${props => props.theme.green};
     border-bottom: 2px solid ${props => props.theme.green};
+    margin-right: auto;
   }
   &&& .ui.label {
     border: 2px solid ${props => props.theme.orange};
@@ -51,87 +65,91 @@ const StyledForm = styled(Form)`
 `;
 
 class UpdateStudent extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            initialValues: null,
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      initialValues: null,
     }
+  }
 
-    componentDidMount() {
-        let token = localStorage.getItem('jwtToken');
-        let config = { headers: {'Authorization': "bearer " +   token}};
+  componentDidMount() {
+    let token = localStorage.getItem('jwtToken');
+    let config = { headers: {'Authorization': "bearer " +   token}};
 
-        axios.get(`${API_BASE_URL}/students/${this.props.match.params.id}`, config)
-            .then(res => {
-                this.props.dispatch(initialize('UpdatesStudent', res.data));
-            });
-    }
+    axios.get(`${API_BASE_URL}/students/${this.props.match.params.id}`, config)
+      .then(res => {
+        this.props.dispatch(initialize('UpdatesStudent', res.data));
+      });
+  }
 
-    onSubmit = formProps => {
-        axios.put(`${API_BASE_URL}/students/${this.props.match.params.id}`, formProps)
-          .then(() => this.props.history.push('/students'));
-    };
+  onSubmit = formProps => {
+    axios.put(`${API_BASE_URL}/students/${this.props.match.params.id}`, formProps)
+      .then(() => this.props.history.push('/students'));
+  };
 
-    render() {
-        const { handleSubmit, pristine, submitting } = this.props;
-        return (
-          <Fragment>
-            <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
+  render() {
+    const { handleSubmit, pristine, submitting } = this.props;
+    return <Grid textAlign="center"
+                 style={{width: 'auto'}}>
+      <Grid.Row centered columns={1}>
+        <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
 
-              <Field name="fullName" component={LabelInputField}
-                     label={{ content: <Icon color="green" name="student" size="large" /> }}
-                     labelPosition="left"
-                     placeholder="Student Name"
-                     validate={ required }
-              />
+          <Field name="fullName" component={LabelInputField}
+                 label={{content: <Icon color="green" name="student" size="large"/>}}
+                 labelPosition="left"
+                 placeholder="Student Name"
+                 validate={required}
+          />
 
-              <Field name="school" component={LabelInputField}
-                     label={{ content: <Icon color="blue" name="university" size="large" /> }}
-                     labelPosition="left"
-                     placeholder="School Name"
-              />
+          <Field name="school" component={LabelInputField}
+                 label={{content: <Icon color="blue" name="university" size="large"/>}}
+                 labelPosition="left"
+                 placeholder="School Name"
+          />
 
-              <Field name="teacher" component={LabelInputField}
-                     label={{ content: <Icon color="orange" name="header" size="large" /> }}
-                     labelPosition="left"
-                     placeholder="Teacher Name"
-              />
+          <Field name="teacher" component={LabelInputField}
+                 label={{content: <Icon color="orange" name="header" size="large"/>}}
+                 labelPosition="left"
+                 placeholder="Teacher Name"
+          />
 
-              <Field name="gradeLevel" component={LabelInputField}
-                     label={{ content: <Icon color="green" name="level up" size="large" /> }}
-                     labelPosition="left"
-                     placeholder="Grade Level"
-              />
+          <Field name="gradeLevel" component={LabelInputField}
+                 label={{content: <Icon color="green" name="level up" size="large"/>}}
+                 labelPosition="left"
+                 placeholder="Grade Level"
+          />
 
-              <Field name="ellStatus" component={LabelInputField}
-                     label={{ content: <Icon color="blue" name="language" size="large" /> }}
-                     labelPosition="left"
-                     placeholder="Current ELL Status"
-              />
+          <Field name="ellStatus" component={LabelInputField}
+                 label={{content: <Icon color="blue" name="language" size="large"/>}}
+                 labelPosition="left"
+                 placeholder="Current ELL Status"
+          />
 
-              <Field name="compositeLevel" component={LabelInputField}
-                     label={{ content: <Icon color="orange" name="bullseye" size="large" /> }}
-                     labelPosition="left"
-                     placeholder="Composite Level"
-              />
+          <Field name="compositeLevel" component={LabelInputField}
+                 label={{content: <Icon color="orange" name="bullseye" size="large"/>}}
+                 labelPosition="left"
+                 placeholder="Composite Level"
+          />
 
-              <Field name="designation" component={LabelInputField}
-                     label={{ content: <Icon color="green" name="certificate" size="large" /> }}
-                     labelPosition="left"
-                     placeholder="Current Designation"
-              />
+          <Field name="designation" component={LabelInputField}
+                 label={{content: <Icon color="green" name="certificate" size="large"/>}}
+                 labelPosition="left"
+                 placeholder="Current Designation"
+          />
 
-              <Form.Field control={Button} primary
-                          type="submit"
-                          disabled={pristine || submitting}>
-                Update
-              </Form.Field>
-            </StyledForm>
-            <DeleteStudent />
-          </Fragment>
-        );
-    }
+          <Form.Field control={Button} primary
+                      style={{whiteSpace: "noWrap"}}
+                      type="submit"
+                      disabled={pristine || submitting}>
+            Update Student
+          </Form.Field>
+        </StyledForm>
+      </Grid.Row>
+      <Grid.Row centered columns={1} style={{paddingTop: '5px', paddingBottom: '0'}}>
+        <DeleteStudent />
+      </Grid.Row>
+      </Grid>
+  }
 }
 
 export default reduxForm({form: 'UpdatesStudent',

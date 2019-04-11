@@ -39,12 +39,12 @@ html {
 	}
 	}
 	
-body {
-	padding: 0;
-	margin: 0;
+body {  
+  margin: auto;
 	font-size: 1.5rem;
 	line-height: 2;
 	font-family: Roboto, sans-serif;
+	width: 100%;
 	}
 `;
 
