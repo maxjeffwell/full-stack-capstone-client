@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "author": "Jeff Maxwell <maxjeffwell@gmail.com>",
   "license": "GNU GPLv3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/npm/npm.git"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "eslint-config-airbnb": "^17.1.0",
