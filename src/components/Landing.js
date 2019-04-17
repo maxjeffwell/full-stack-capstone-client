@@ -56,7 +56,7 @@ const Landing = () => (
           and to create, update, and delete student ELL information!
       </li>
       <li>
-          To create an account, please click on the Register button in the right hand corner.
+          To create an account, please click on the Register button in the navigation bar above.
           Using the demo account, you will be able to access all of educationELLy's current features
       </li>
     </StyledParagraph>
