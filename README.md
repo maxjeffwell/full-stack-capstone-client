@@ -15,15 +15,29 @@ password: demopassword
 ```
 ## Screenshots
 
-[![educationELLy Landing Page](https://i.gyazo.com/9f261d982b86d4c58d9e787db42972ea.png)](https://gyazo.com/9f261d982b86d4c58d9e787db42972ea)
+[![educationELLy Desktop Landing Page](https://i.gyazo.com/e98b1d2276640f2cb0a54adee95896c2.png)](https://gyazo.com/e98b1d2276640f2cb0a54adee95896c2)
 
-[![educationELLy Registration Page](https://i.gyazo.com/15343e6fc9ab4b75daaf68e819d6c672.png)](https://gyazo.com/15343e6fc9ab4b75daaf68e819d6c672)
+[![educationELLy Desktop Login Page](https://i.gyazo.com/2d67665682bed2ed50fad959e1b6f26f.png)](https://gyazo.com/2d67665682bed2ed50fad959e1b6f26f)
 
-[![educationELLy Login Page](https://i.gyazo.com/7bf3966ef1f82a8870268357977a0684.png)](https://gyazo.com/7bf3966ef1f82a8870268357977a0684)
+[![educationELLy Desktop Registration Page](https://i.gyazo.com/ed654f3e775d938c17018d9bb540ffa1.png)](https://gyazo.com/ed654f3e775d938c17018d9bb540ffa1)
 
-[![educationELLy Student List Page](https://i.gyazo.com/56c518f5cadba3482bba048bdd6187a9.png)](https://gyazo.com/56c518f5cadba3482bba048bdd6187a9)
+[![educationELLy Desktop Instructor Dashboard Page](https://i.gyazo.com/9edd9b0e825a85b5b4c6f30a1e277f70.png)](https://gyazo.com/9edd9b0e825a85b5b4c6f30a1e277f70)
 
-[![educationELLy Update Student Page](https://i.gyazo.com/60b899e1d34962bb2f17127f830dfbf0.png)](https://gyazo.com/60b899e1d34962bb2f17127f830dfbf0)
+[![educationELLy Desktop Update Student Page](https://i.gyazo.com/489ca40991dbdb5227b7a4814448d1a9.png)](https://gyazo.com/489ca40991dbdb5227b7a4814448d1a9)
+
+[![educationELLy Desktop Create Student Page](https://i.gyazo.com/504eb28443de1f891f0a3d267649b4c7.png)](https://gyazo.com/504eb28443de1f891f0a3d267649b4c7)
+
+[![educationELLy Desktop Logout Page](https://i.gyazo.com/419dafbb3a134cb97c0dd89b93066b65.png)](https://gyazo.com/419dafbb3a134cb97c0dd89b93066b65)
+
+[![educationELLy Mobile Landing Page](https://i.gyazo.com/9d94bf0e1eda5b7f2aa34806d781101e.png)](https://gyazo.com/9d94bf0e1eda5b7f2aa34806d781101e)
+
+[![educationELLy Mobile Login Page](https://i.gyazo.com/752835350a1245d984441da9bc1b18bf.png)](https://gyazo.com/752835350a1245d984441da9bc1b18bf)
+
+[![educationELLy Mobile Registration Page](https://i.gyazo.com/7f1a30a7ac45cd2838a6a863df2f707f.png)](https://gyazo.com/7f1a30a7ac45cd2838a6a863df2f707f)
+
+[![educationELLy Mobile Student Card with Header](https://i.gyazo.com/f424c97ceed872696aed619f4b8af006.png)](https://gyazo.com/f424c97ceed872696aed619f4b8af006)
+
+[![educationELLy Mobile Update Student Page](https://i.gyazo.com/53e57d7b52365af84cbeab01ec67e934.png)](https://gyazo.com/53e57d7b52365af84cbeab01ec67e934)
 
 ## Technology Stack
 **Front End**
@@ -35,7 +49,6 @@ password: demopassword
 **Back End** [Server Github Repo](https://github.com/maxjeffwell/full-stack-capstone-server)
 
 * API built with Express Server
-  * with middleware yay
 * Security
   * JWT authentication and password hashing with bcrypt.js
 
@@ -61,6 +74,7 @@ password: demopassword
 by Jeff Maxwell maxjeffwell@gmail.com |
 [https://github.com/maxjeffwell](https://github.com/maxjeffwell)
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 Distributed under the GNU GPLv3 License.
     See ``LICENSE`` for more information.
 
