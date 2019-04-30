@@ -29,7 +29,7 @@ password: demopassword
 
 [![educationELLy Desktop Create Student Page](https://i.gyazo.com/504eb28443de1f891f0a3d267649b4c7.png)](https://gyazo.com/504eb28443de1f891f0a3d267649b4c7)
 
-[![educationELLy Desktop Logout Page](https://i.gyazo.com/419dafbb3a134cb97c0dd89b93066b65.png)](https://gyazo.com/419dafbb3a134cb97c0dd89b93066b65)
+[![educationELLy Delete Confirmation Modal](https://i.gyazo.com/6559db4cf59b06e47d00c81b04192ec2.png)](https://gyazo.com/6559db4cf59b06e47d00c81b04192ec2)
 
 [![educationELLy Mobile Landing Page](https://i.gyazo.com/9d94bf0e1eda5b7f2aa34806d781101e.png)](https://gyazo.com/9d94bf0e1eda5b7f2aa34806d781101e)
 
