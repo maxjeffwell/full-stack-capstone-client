@@ -23,6 +23,8 @@ password: demopassword
 
 [![educationELLy Desktop Instructor Dashboard Page](https://i.gyazo.com/9edd9b0e825a85b5b4c6f30a1e277f70.png)](https://gyazo.com/9edd9b0e825a85b5b4c6f30a1e277f70)
 
+[![educationELLy Desktop Student List Page](https://i.gyazo.com/3bedb6168f8df87c6777ef2285418882.png)](https://gyazo.com/3bedb6168f8df87c6777ef2285418882)
+
 [![educationELLy Desktop Update Student Page](https://i.gyazo.com/489ca40991dbdb5227b7a4814448d1a9.png)](https://gyazo.com/489ca40991dbdb5227b7a4814448d1a9)
 
 [![educationELLy Desktop Create Student Page](https://i.gyazo.com/504eb28443de1f891f0a3d267649b4c7.png)](https://gyazo.com/504eb28443de1f891f0a3d267649b4c7)
