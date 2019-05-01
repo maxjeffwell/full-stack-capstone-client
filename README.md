@@ -1,4 +1,4 @@
-<h1 align="center"><font color="#2873b4">educationELLy</font></h1>
+<h1 align="center">educationELLy</h1>
 
 ![React](https://img.shields.io/badge/React-badge.svg?style=popout&logo=react&labelColor=2873b4&logoColor=fb9438&color=86c64e)
 ![Redux](https://img.shields.io/badge/Redux-badge.svg?style=popout&logo=redux&labelColor=2873b4&logoColor=fb9438&color=86c64e)
@@ -62,11 +62,9 @@ password: demopassword
 
 **Hosting / SaaS / DBaaS / CICD**
 >
-![Github](https://img.shields.io/badge/Github-badge.svg?style=flat&logo=github&labelColor=2873b4&logoColor=fb9438&color=86c64e)
-<br>
-![TravisCI](https://img.shields.io/badge/TravisCI-badge.svg?style=flat&logo=travis-ci&labelColor=2873b4&logoColor=fb9438&color=86c64e)
-<br>
-![Heroku](https://img.shields.io/badge/Heroku-badge.svg?style=flat&logo=heroku&labelColor=2873b4&logoColor=fb9438&color=86c64e)
+* ![Github](https://img.shields.io/badge/Github-badge.svg?style=plastic&logo=github&labelColor=2873b4&logoColor=fb9438&color=86c64e)
+* ![TravisCI](https://img.shields.io/badge/TravisCI-badge.svg?style=plastic&logo=travis-ci&labelColor=2873b4&logoColor=fb9438&color=86c64e)
+* ![Heroku](https://img.shields.io/badge/Heroku-badge.svg?style=plastic&logo=heroku&labelColor=2873b4&logoColor=fb9438&color=86c64e)
 >
 
 **Relevant source code to key parts of client-side educationELLy**
@@ -82,7 +80,7 @@ password: demopassword
 by Jeff Maxwell maxjeffwell@gmail.com |
 [https://github.com/maxjeffwell](https://github.com/maxjeffwell)
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square&labelColor=fb9438)](https://www.gnu.org/licenses/gpl-3.0)
 Distributed under the GNU GPLv3 License.
     See ``LICENSE`` for more information.
 
