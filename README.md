@@ -1,4 +1,7 @@
-# educationELLy
+<h1 align="center"><font color="#2873b4">educationELLy</font></h1>
+
+![React](https://img.shields.io/badge/React-badge.svg?style=popout&logo=react&labelColor=2873b4&logoColor=fb9438&color=86c64e)
+![Redux](https://img.shields.io/badge/Redux-badge.svg?style=popout&logo=redux&labelColor=2873b4&logoColor=fb9438&color=86c64e)
 
 > **educationELLy** aims to engage regular classroom teachers in the English language learning process by providing them with quick access to relevant information about the ELL students in their classes. By making ELL student information accessible to mainstream teachers and ELL teachers alike, educationELLy keeps an ELL student's teachers updated on his or her English language proficiency and provides a centralized platform through which all teachers can participate in the feedback process. educationELLy bridges the gap between ELL teachers and regular teachers and facilitates the creation of a more integrated curriculum for English language learners. With educationELLy, all teachers become language teachers.
 
@@ -58,10 +61,13 @@ password: demopassword
 * MongoDB connected to Express via Mongoose
 
 **Hosting / SaaS / DBaaS / CICD**
-* Github
-* TravisCI
-* Heroku
-* mLab
+>
+![Github](https://img.shields.io/badge/Github-badge.svg?style=flat&logo=github&labelColor=2873b4&logoColor=fb9438&color=86c64e)
+<br>
+![TravisCI](https://img.shields.io/badge/TravisCI-badge.svg?style=flat&logo=travis-ci&labelColor=2873b4&logoColor=fb9438&color=86c64e)
+<br>
+![Heroku](https://img.shields.io/badge/Heroku-badge.svg?style=flat&logo=heroku&labelColor=2873b4&logoColor=fb9438&color=86c64e)
+>
 
 **Relevant source code to key parts of client-side educationELLy**
 
