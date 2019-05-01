@@ -67,9 +67,9 @@ password: demopassword
 
 * [Action creators and ajax request to backend api](../master/src/actions/index.js)
 
- * [Data layer control for redux](../master/src/index.js)
+   * [Data layer control for redux](../master/src/index.js)
 
- * [Client-side authentication](../master/src/reducers/auth.js)
+   * [Client-side authentication](../master/src/reducers/auth.js)
 
 ## Meta
 
