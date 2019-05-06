@@ -49,11 +49,7 @@ password: demopassword
 * React Styled-Components
 * React component testing with Enzyme
 
-**Back End**
-
-[Server Github Repo](https://github.com/maxjeffwell/full-stack-capstone-server)
-
-[API Documentation](https://documenter.getpostman.com/view/4941848/S1Lu29ZF)
+**Back End** [Server Github Repo](https://github.com/maxjeffwell/full-stack-capstone-server) [API Documentation](https://documenter.getpostman.com/view/4941848/S1Lu29ZF)
 
 * API built with Express Server
 * Security
