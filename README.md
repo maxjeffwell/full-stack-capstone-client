@@ -1,4 +1,4 @@
-## educationELLy
+# educationELLy
 
 ![React](https://img.shields.io/badge/React-badge.svg?style=popout&logo=react&labelColor=2873b4&logoColor=fb9438&color=86c64e)
 ![Redux](https://img.shields.io/badge/Redux-badge.svg?style=popout&logo=redux&labelColor=2873b4&logoColor=fb9438&color=86c64e)
