@@ -49,21 +49,20 @@ password: demopassword
 * React Styled-Components
 * React component testing with Enzyme
 
-**Back End** [Server Github Repo](https://github.com/maxjeffwell/full-stack-capstone-server) [API Documentation](https://documenter.getpostman.com/view/4941848/S1Lu29ZF)
+**Back End** [Server Github Repo](https://github.com/maxjeffwell/full-stack-capstone-server) | [API Documentation](https://documenter.getpostman.com/view/4941848/S1Lu29ZF)
 
 * API built with Express Server
 * Security
   * JWT authentication and password hashing with bcrypt.js
 
 **Data Persistence**
-* MongoDB connected to Express via Mongoose
+* MongoDB connected to Express via Mongoose and hosted on mLab
 
-**Hosting / SaaS / DBaaS / CICD**
->
+**Hosting / SaaS / CICD**
 * ![Github](https://img.shields.io/badge/Github-badge.svg?style=plastic&logo=github&labelColor=2873b4&logoColor=fb9438&color=86c64e)
 * ![TravisCI](https://img.shields.io/badge/TravisCI-badge.svg?style=plastic&logo=travis-ci&labelColor=2873b4&logoColor=fb9438&color=86c64e)
 * ![Heroku](https://img.shields.io/badge/Heroku-badge.svg?style=plastic&logo=heroku&labelColor=2873b4&logoColor=fb9438&color=86c64e)
->
+
 
 **Relevant source code to key parts of client-side educationELLy**
 
