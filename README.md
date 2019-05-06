@@ -71,7 +71,7 @@ password: demopassword
 
 **Relevant source code to key parts of client-side educationELLy**
 
-* [Action creators and ajax request to backend api](../master/src/actions/index.js)
+   * [Action creators and ajax request to backend api](../master/src/actions/index.js)
 
    * [Data layer control for redux](../master/src/index.js)
 
