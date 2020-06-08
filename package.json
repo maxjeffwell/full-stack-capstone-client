@@ -21,7 +21,7 @@
     "react-semantic-redux-form": "^1.2.6",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
-    "redux-form": "^8.3.5",
+    "redux-form": "^8.3.6",
     "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
@@ -48,7 +48,7 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-flowtype": "^4.7.0",
-    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-import": "^2.21.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0"
   },
