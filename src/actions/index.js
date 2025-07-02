@@ -30,20 +30,44 @@ export const signin = (formProps, callback) => async dispatch => {
 
 export const fetchStudents = () => async dispatch => {
     let token = localStorage.getItem('jwtToken');
-    let config = { headers: {'Authorization': "bearer " + token} };
+    if (!token) {
+        dispatch({ type: AUTH_ERROR, payload: 'No authentication token found' });
+        return;
+    }
+    let config = { headers: {'Authorization': `Bearer ${token}`} };
 
-    const res = await axios.get(`${API_BASE_URL}/students`, config);
-
-    dispatch({ type: FETCH_STUDENTS, payload: res.data });
+    try {
+        const res = await axios.get(`${API_BASE_URL}/students`, config);
+        dispatch({ type: FETCH_STUDENTS, payload: res.data });
+    } catch(e) {
+        if (e.response && e.response.status === 401) {
+            localStorage.removeItem('jwtToken');
+            dispatch({ type: AUTH_ERROR, payload: 'Session expired. Please log in again.' });
+        } else {
+            dispatch({ type: AUTH_ERROR, payload: 'Failed to fetch students' });
+        }
+    }
 };
 
 export const fetchStudent = id => async dispatch => {
     let token = localStorage.getItem('jwtToken');
-    let config = { headers: {'Authorization': "bearer " + token} };
+    if (!token) {
+        dispatch({ type: AUTH_ERROR, payload: 'No authentication token found' });
+        return;
+    }
+    let config = { headers: {'Authorization': `Bearer ${token}`} };
 
-    const res = await axios.get(`${API_BASE_URL}/students/${id}`, config)
-
-    dispatch({ type: FETCH_STUDENT, payload: res.data });
+    try {
+        const res = await axios.get(`${API_BASE_URL}/students/${id}`, config);
+        dispatch({ type: FETCH_STUDENT, payload: res.data });
+    } catch(e) {
+        if (e.response && e.response.status === 401) {
+            localStorage.removeItem('jwtToken');
+            dispatch({ type: AUTH_ERROR, payload: 'Session expired. Please log in again.' });
+        } else {
+            dispatch({ type: AUTH_ERROR, payload: 'Failed to fetch student' });
+        }
+    }
 };
 
 export const signout = () => {
@@ -62,11 +86,23 @@ export const registerUserRequest = () => ({
 
 export const deleteStudent = (id) => async dispatch => {
     let token = localStorage.getItem('jwtToken');
-    let config = { headers: {'Authorization': "bearer " + token} };
+    if (!token) {
+        dispatch({ type: AUTH_ERROR, payload: 'No authentication token found' });
+        return;
+    }
+    let config = { headers: {'Authorization': `Bearer ${token}`} };
 
-    await axios.delete(`${API_BASE_URL}/students/${id}`, config);
-
-    return dispatch({ type: DELETE_STUDENT, payload: id });
+    try {
+        await axios.delete(`${API_BASE_URL}/students/${id}`, config);
+        dispatch({ type: DELETE_STUDENT, payload: id });
+    } catch(e) {
+        if (e.response && e.response.status === 401) {
+            localStorage.removeItem('jwtToken');
+            dispatch({ type: AUTH_ERROR, payload: 'Session expired. Please log in again.' });
+        } else {
+            dispatch({ type: AUTH_ERROR, payload: 'Failed to delete student' });
+        }
+    }
 };
 
 

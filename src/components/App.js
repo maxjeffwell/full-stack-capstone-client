@@ -13,6 +13,7 @@ import Signout from './auth/Signout';
 import CreateStudent from './CreateStudent';
 import UpdateStudent from './UpdateStudent';
 import ModalManager from './ModalManager';
+import authRequired from './authRequired';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -59,13 +60,19 @@ class App extends Component {
                   <Switch>
                       <Route exact path='/' component={Landing} />
                       <Route exact path='/signup' component={Register} />
-                      <Route path='/students/:id/update' render={(props) => <UpdateStudent {...props} />} />
+                      <Route path='/students/:id/update' render={(props) => {
+                          const ProtectedUpdateStudent = authRequired(UpdateStudent);
+                          return <ProtectedUpdateStudent {...props} />;
+                      }} />
                       <Route exact path='/students/:id/update' render={ModalManager} />
-                      <Route exact path='/students' component={Students} />
+                      <Route exact path='/students' component={authRequired(Students)} />
                       <Route exact path='/signin' component={Signin} />
-                      <Route exact path='/dashboard' component={Dashboard} />
+                      <Route exact path='/dashboard' component={authRequired(Dashboard)} />
                       <Route exact path='/signout' component={Signout} />
-                      <Route path='/students/new' render={(props) => <CreateStudent {...props} />} />
+                      <Route path='/students/new' render={(props) => {
+                          const ProtectedCreateStudent = authRequired(CreateStudent);
+                          return <ProtectedCreateStudent {...props} />;
+                      }} />
                   </Switch>
               </Container>
           </BrowserRouter>
