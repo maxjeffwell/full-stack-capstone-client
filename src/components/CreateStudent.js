@@ -1,96 +1,128 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { compose } from 'redux';
-import { Field, reduxForm, focus } from 'redux-form';
-import {Form, Icon, Button, Grid} from 'semantic-ui-react';
-import { LabelInputField } from 'react-semantic-redux-form';
-import axios from 'axios';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { Form, Icon, Button, Grid } from 'semantic-ui-react';
 
-import { API_BASE_URL } from '../config';
-import { required, nonEmpty } from '../validators';
+import { createStudent } from '../store/actions';
+import { validationRules } from '../validators/hookFormValidators';
+import { LabeledFormInput } from './forms/FormInput';
 import { StyledForm } from './UpdateStudent';
 
-class CreateStudent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      initialValues: null,
+const CreateStudent = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting, isDirty },
+    setFocus
+  } = useForm({
+    defaultValues: {
+      fullName: '',
+      school: '',
+      teacher: '',
+      gradeLevel: '',
+      ellStatus: '',
+      compositeLevel: '',
+      designation: ''
+    },
+    mode: 'onBlur'
+  });
+
+  React.useEffect(() => {
+    // Focus on first field with error
+    const firstErrorField = Object.keys(errors)[0];
+    if (firstErrorField) {
+      setFocus(firstErrorField);
     }
-  }
-  onSubmit = formProps => {
-      axios.post(`${API_BASE_URL}/students`, formProps)
-        .then(() => this.props.history.push('/students'));
-    };
+  }, [errors, setFocus]);
 
-    render() {
-      const { handleSubmit, pristine, submitting } = this.props;
-      return  <Grid textAlign="center"
-                    style={{marginLeft: '1.5em', width: 'auto',
-                      justifyContent: 'inherit', alignItems: 'stretch',
-                      paddingTop: '0px'}}>
-        <Grid.Row centered columns={1}>
-      <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
-
-        <Field name="fullName" component={LabelInputField}
-               label={{content: <Icon color="green" name="student" size="large"/>}}
-               labelPosition="left"
-               placeholder="Student Name"
-               validate={[required, nonEmpty]}
-        />
-
-        <Field name="school" component={LabelInputField}
-               label={{content: <Icon color="blue" name="university" size="large"/>}}
-               labelPosition="left"
-               placeholder="School Name"
-        />
-
-        <Field name="teacher" component={LabelInputField}
-               label={{content: <Icon color="orange" name="header" size="large"/>}}
-               labelPosition="left"
-               placeholder="Teacher Name"
-        />
-
-        <Field name="gradeLevel" component={LabelInputField}
-               label={{content: <Icon color="green" name="level up" size="large"/>}}
-               labelPosition="left"
-               placeholder="Grade Level"
-        />
-
-        <Field name="ellStatus" component={LabelInputField}
-               label={{content: <Icon color="blue" name="language" size="large"/>}}
-               labelPosition="left"
-               placeholder="Current ELL Status"
-               validate={[required, nonEmpty]}
-        />
-
-        <Field name="compositeLevel" component={LabelInputField}
-               label={{content: <Icon color="orange" name="bullseye" size="large"/>}}
-               labelPosition="left"
-               placeholder="Composite Level"
-        />
-
-        <Field name="designation" component={LabelInputField}
-               label={{content: <Icon color="green" name="certificate" size="large"/>}}
-               labelPosition="left"
-               placeholder="Current Designation"
-               validate={[required, nonEmpty]}
-        />
-
-        <Form.Field control={Button} primary
-                    type="submit"
-                    style={{marginBottom: '25px'}}
-                    disabled={pristine || submitting}>
-          Create Student
-        </Form.Field>
-      </StyledForm>
-        </Grid.Row>
-      </Grid>
+  const onSubmit = async (formData) => {
+    try {
+      await dispatch(createStudent(formData)).unwrap();
+      navigate('/students');
+    } catch (error) {
+      console.error('Error creating student:', error);
+      // Error handling is done in the slice
+      if (error === 'Not authenticated') {
+        navigate('/signin');
+      }
     }
-}
+  };
 
-export default compose(
-  reduxForm({form: 'CreateStudent',
-    fields: ['fullName', 'school', 'teacher', 'gradeLevel', 'ellStatus', 'compositeLevel', 'designation'],
-    onSubmitFail: (errors, dispatch) => dispatch(focus('CreateStudent', Object.keys(errors)[0]))
-  })(withRouter(CreateStudent)));
+  return (
+    <Grid textAlign="center"
+          style={{marginLeft: '1.5em', width: 'auto',
+            justifyContent: 'inherit', alignItems: 'stretch',
+            paddingTop: '0px'}}>
+      <Grid.Row style={{marginTop: '10px', justifyContent: 'center'}}>
+        <h1>Create New Student</h1>
+      </Grid.Row>
+      <Grid.Row style={{marginTop: '10px', justifyContent: 'center'}}>
+        <StyledForm onSubmit={handleSubmit(onSubmit)}>
+          <Form.Group>
+            <LabeledFormInput
+              control={control}
+              name="fullName"
+              rules={validationRules.nonEmpty}
+              label={{content: <Icon color="blue" name="user outline" size="large" />}}
+              labelPosition="left"
+              placeholder="enter student full name"
+            />
+          </Form.Group>
+          <Form.Group>
+            <LabeledFormInput
+              control={control}
+              name="school"
+              rules={validationRules.nonEmpty}
+              label={{content: <Icon color="green" name="building outline" size="large" />}}
+              labelPosition="left"
+              placeholder="enter school"
+            />
+          </Form.Group>
+          <Form.Group>
+            <LabeledFormInput
+              control={control}
+              name="teacher"
+              rules={validationRules.nonEmpty}
+              label={{content: <Icon color="orange" name="smile outline" size="large" />}}
+              labelPosition="left"
+              placeholder="enter teacher"
+            />
+          </Form.Group>
+          <Form.Group>
+            <LabeledFormInput
+              control={control}
+              name="gradeLevel"
+              rules={validationRules.nonEmpty}
+              label={{content: <Icon color="orange" name="graduation cap" size="large" />}}
+              labelPosition="left"
+              placeholder="enter grade level"
+            />
+          </Form.Group>
+          <Form.Group>
+            <LabeledFormInput
+              control={control}
+              name="ellStatus"
+              rules={validationRules.nonEmpty}
+              label={{content: <Icon color="blue" name="world" size="large" />}}
+              labelPosition="left"
+              placeholder="enter ELL Status"
+            />
+          </Form.Group>
+          <Button 
+            type="submit"
+            disabled={!isDirty || isSubmitting}
+            loading={isSubmitting}
+          >
+            Save Student
+          </Button>
+        </StyledForm>
+      </Grid.Row>
+    </Grid>
+  );
+};
 
+export default CreateStudent;

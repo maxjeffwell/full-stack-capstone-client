@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { reduxForm, Field, focus } from 'redux-form'; // add reduxForm to component export statement and tell it about different field names, then use the field component inside of the component itself
-
+import React from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { Form, Icon, Button, Grid, Segment, Header, Message } from 'semantic-ui-react';
-import { LabelInputField } from 'react-semantic-redux-form';
 import styled from 'styled-components';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import * as actions from '../../actions';
-import { required, nonEmpty } from '../../validators';
+import * as actions from '../../store/actions';
+import { validationRules } from '../../validators/hookFormValidators';
+import { LabeledFormInput } from '../forms/FormInput';
 
 export const StyledMessage = styled(Message)`
   &&& {
@@ -117,87 +115,105 @@ const StyledError = styled.div`
   }
 `;
 
- class Signin extends Component {
-    onSubmit = (formProps) => { // arrow function makes it so we don't have to worry about binding the context of onSubmit
+const Signin = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const errorMessage = useSelector(state => state.auth.errorMessage);
+  const isAuthenticated = useSelector(state => state.auth.authenticated);
+  
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting, isDirty },
+    setFocus
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: ''
+    },
+    mode: 'onBlur'
+  });
 
-      this.props.signin(formProps, () => { // call the signin action creator
-            this.props.history.push('/dashboard')
-      });
-
-      // when we use reduxForm we get a function on our props object called handleSubmit. Use this function to take email and password out of the form and provide it to the onSubmit callback
-    };
-
-    render() {
-
-      if (this.props.auth) {
-        return <Redirect to="/dashboard" />;
-      }
-
-      let registrationError = '';
-
-      if (this.props.errorMessage) {
-        registrationError = this.props.errorMessage;
-      }
-
-      const { handleSubmit, pristine, submitting } = this.props;
-
-        // can't just add onSubmit as a callback directly to form tag. we have to destructure handleSubmit function from our props object
-
-      return <Grid centered style={{height: '100%'}} verticalAlign="middle">
-	      <Grid.Column textAlign="center" style={{maxWidth: 450}}>
-
-		      <StyledMessage info>
-			      Please log in with your account email and password. If you have neither registered
-			      nor been assigned account credentials, you are welcome to use the available demo account to log in.
-		      </StyledMessage>
-
-		      <StyledMessage info>
-			      DEMO ACCOUNT AVAILABLE
-			      <p>Email: demo</p>
-			      <p>Password: demopassword</p>
-		      </StyledMessage>
-
-		      <StyledSegment stacked>
-			      <StyledHeader as="h1">educationELLy login</StyledHeader>
-
-			      <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
-
-				      {/* now we can add an onSubmit and call handleSubmit and to handleSubmit we'll pass the callback we want to be executed when user submits the form, which is the onSubmit method we just created. we don't call onSubmit as soon as we render the form, however. onSubmit will be called in the future. we pass a reference to the onSubmit function to handleSubmit.*/}
-
-				      <Field name="email" component={LabelInputField}
-				             label={{content: <Icon color="orange" name="user outline" size="large"/>}}
-				             labelPosition="left" placeholder="Email" validate={[required, nonEmpty]}
-				      />
-
-				      <Field name="password" component={LabelInputField} type="password"
-				             label={{content: <Icon color="orange" name="lock" size="large"/>}}
-				             labelPosition="left" placeholder="Password" validate={[required, nonEmpty]}
-				      />
-
-				      <Form.Field control={Button} primary
-				                  type="submit"
-				                  disabled={pristine || submitting}
-				      >
-					      Login
-				      </Form.Field>
-
-				      <StyledError className='form-error' aria-live="polite">
-					      {registrationError}
-				      </StyledError>
-
-			      </StyledForm>
-		      </StyledSegment>
-	      </Grid.Column>
-      </Grid>;
+  React.useEffect(() => {
+    // Focus on email field when there are errors
+    if (errors.email) {
+      setFocus('email');
+    } else if (errors.password && !errors.email) {
+      setFocus('password');
     }
-}
+  }, [errors, setFocus]);
 
-const mapStateToProps = state => ({
-    errorMessage: state.auth.errorMessage,
-    auth: state.auth.authenticated
-});
+  const onSubmit = (formData) => {
+    dispatch(actions.signin({
+      formData,
+      callback: () => navigate('/dashboard')
+    }));
+  };
 
-export default compose (
-  connect(mapStateToProps, actions),reduxForm({ form: 'signin',
-    onSubmitFail: (errors, dispatch) =>
-      dispatch(focus('signin', 'email')) }))(Signin);
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return (
+    <Grid centered style={{height: '100%'}} verticalAlign="middle">
+      <Grid.Column textAlign="center" style={{maxWidth: 450}}>
+
+        <StyledMessage info>
+          Please log in with your account email and password. If you have neither registered
+          nor been assigned account credentials, you are welcome to use the available demo account to log in.
+        </StyledMessage>
+
+        <StyledMessage info>
+          DEMO ACCOUNT AVAILABLE
+          <p>Email: demo</p>
+          <p>Password: demopassword</p>
+        </StyledMessage>
+
+        <StyledSegment stacked>
+          <StyledHeader as="h1">educationELLy login</StyledHeader>
+
+          <StyledForm onSubmit={handleSubmit(onSubmit)}>
+            
+            <LabeledFormInput
+              name="email"
+              control={control}
+              rules={validationRules.nonEmpty}
+              label={{content: <Icon color="orange" name="user outline" size="large"/>}}
+              labelPosition="left"
+              placeholder="Email"
+            />
+
+            <LabeledFormInput
+              name="password"
+              control={control}
+              rules={validationRules.nonEmpty}
+              type="password"
+              label={{content: <Icon color="orange" name="lock" size="large"/>}}
+              labelPosition="left"
+              placeholder="Password"
+            />
+
+            <Form.Field 
+              control={Button} 
+              primary
+              type="submit"
+              disabled={!isDirty || isSubmitting}
+              loading={isSubmitting}
+            >
+              Login
+            </Form.Field>
+
+            {errorMessage && (
+              <StyledError className='form-error' aria-live="polite">
+                {errorMessage}
+              </StyledError>
+            )}
+
+          </StyledForm>
+        </StyledSegment>
+      </Grid.Column>
+    </Grid>
+  );
+};
+
+export default Signin;

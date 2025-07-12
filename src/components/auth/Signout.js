@@ -1,27 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { StyledMessage } from './Signin';
-import * as actions from '../../actions';
+import { signout } from '../../store/actions';
 
-class Signout extends Component { // create class based component in order to use lifecycle method
-    componentDidMount() {
-        this.props.signout();
+const Signout = () => {
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        // Sign user out by removing authenticated JWT from reducer
+        dispatch(signout());
+    }, [dispatch]);
 
-        // as soon as component is rendered call action creator and that signs user out of app by
-        // removing authenticated JWT from reducer
-    }
-
-    render() {
-
-        return (
-
-          <StyledMessage success>
+    return (
+        <StyledMessage success>
             You have successfully logged out.
-          </StyledMessage>
-              );
-    };
-}
+        </StyledMessage>
+    );
+};
 
-export default connect(null, actions)(Signout);
-
+export default Signout;

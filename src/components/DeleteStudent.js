@@ -1,15 +1,9 @@
-import React, { Component, createRef, forwardRef, Fragment } from 'react';
-import { withRouter } from 'react-router-dom';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import axios from 'axios';
 
-import { API_BASE_URL } from '../config';
-import { showModal, hideModal } from '../actions/modalActions';
-import { deleteStudent } from '../actions/index';
-import ModalManager from './ModalManager';
+import { showModal, hideModal, deleteStudent } from '../store/actions';
 
 const StyledConfirmButton = styled.button`
 		cursor: pointer;
@@ -48,56 +42,96 @@ const StyledFancyButton = styled.button`
     }
 `;
 
-const StyledHeader = styled.h1`
-	font-family: 'Roboto', 'sans-serif';
-	font-weight: 700;
-	font-size: 1.25em;
-	color: ${props => props.theme.blue};
-`;
+const FancyButton = React.forwardRef((props, ref) => (
+  <StyledFancyButton {...props} ref={ref} />
+));
 
-class DeleteStudent extends Component {
+FancyButton.displayName = 'FancyButton';
 
-	render() {
+const ConfirmButton = React.forwardRef((props, ref) => (
+  <StyledConfirmButton {...props} ref={ref} />
+));
 
-		const FancyConfirmButton = forwardRef((props, ref) => (
-			<StyledFancyButton ref={ref} className="FancyButton"
-			        onClick={() => axios.delete(`${API_BASE_URL}/students/${this.props.match.params.id}`)
-				        .then(this.props.hideModal)
-				        .then(() => this.props.history.push('/students'))}>
-				{props.children}
-			</StyledFancyButton>
-		));
+ConfirmButton.displayName = 'ConfirmButton';
 
-		const ref = createRef();
+const DeleteStudent = ({ id }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const deleteButtonRef = useRef(null);
+  const confirmButtonRef = useRef(null);
 
-		return (
-			<Fragment>
-					<ModalManager />
-				<StyledConfirmButton onClick={() => this.props.showModal({
-					header: <StyledHeader>Please confirm your deletion of this student</StyledHeader>,
-					content: <FancyConfirmButton ref={ref}>Confirm Deletion</FancyConfirmButton>
-				})}>
-					Delete Student
-				</StyledConfirmButton>
-			</Fragment>
-		);
-	}
-}
+  const confirmDelete = () => {
+    dispatch(
+      showModal({
+        modalType: 'DELETE_STUDENT_MODAL',
+        modalProps: {
+          open: true,
+          closeOnEscape: false,
+          closeOnDimmerClick: false,
+          children: (
+            <div
+              style={{
+                padding: 40,
+                textAlign: 'center',
+                backgroundColor: 'lightgreen',
+                borderRadius: 5,
+                fontFamily: 'Roboto, sans-serif',
+              }}
+            >
+              <p style={{ fontSize: 20, fontWeight: 900, lineHeight: 2 }}>
+                Are you sure you want to delete this student? This action cannot be
+                undone.
+              </p>
+              <ConfirmButton
+                ref={confirmButtonRef}
+                type="submit"
+                onClick={() => deleteConfirmed(id)}
+              >
+                <i className="icon delete" />
+                Delete
+              </ConfirmButton>
+              <br />
+              <ConfirmButton
+                ref={confirmButtonRef}
+                type="button"
+                onClick={deleteCancelled}
+              >
+                <i className="icon cancel" />
+                Cancel
+              </ConfirmButton>
+            </div>
+          ),
+        },
+      })
+    );
+  };
 
-function mapStateToProps(state) {
-	return {
-		students: state.students.students
-	}
-}
-function mapDispatchToProps(dispatch) {
-	return {
-		showModal: bindActionCreators(showModal, dispatch),
-		hideModal: bindActionCreators(hideModal, dispatch),
-		deleteStudent: bindActionCreators(deleteStudent, dispatch)
-	}
-}
+  const deleteConfirmed = async (studentId) => {
+    try {
+      await dispatch(deleteStudent(studentId)).unwrap();
+      dispatch(hideModal());
+      navigate('/students');
+    } catch (error) {
+      console.error('Error deleting student:', error);
+      dispatch(hideModal());
+    }
+  };
 
-export default compose (
-	connect(mapStateToProps, mapDispatchToProps))(withRouter(DeleteStudent));
+  const deleteCancelled = () => {
+    dispatch(hideModal());
+  };
 
+  return (
+    <>
+      <FancyButton
+        ref={deleteButtonRef}
+        type="button"
+        onClick={confirmDelete}
+      >
+        DELETE
+      </FancyButton>
+    </>
+  );
+};
 
+export default DeleteStudent;

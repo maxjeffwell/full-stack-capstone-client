@@ -3,7 +3,6 @@
 // the other records the student data a user has fetched
 
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
 import toggleReducer from './toggleReducer';
 import authReducer from './auth';
 import studentsReducer from './studentsReducer';
@@ -16,6 +15,5 @@ export const rootReducer = combineReducers({
     isSidebarToggled: toggleReducer,
     students: studentsReducer,
     signup: signupReducer,
-    form: formReducer,
     modals: ModalReducer
 });

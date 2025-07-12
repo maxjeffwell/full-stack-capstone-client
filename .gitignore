@@ -2,6 +2,9 @@
 /node_modules
 
 \.idea/
+.claude
+CLAUDE.md
+SECURITY_IMPROVEMENTS.md
 
 # testing
 /coverage

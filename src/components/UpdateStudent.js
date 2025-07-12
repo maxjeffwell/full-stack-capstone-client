@@ -1,12 +1,14 @@
-import React, { Component  } from 'react';
-import { Field, reduxForm, initialize, focus } from 'redux-form';
+import React, { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Form, Icon, Button } from 'semantic-ui-react';
-import { LabelInputField } from 'react-semantic-redux-form';
-import axios from 'axios';
 import styled from 'styled-components';
 
-import {API_BASE_URL} from '../config';
-import { required } from '../validators';
+import { fetchStudent, updateStudent } from '../store/actions';
+import { selectStudentById } from '../store/slices/studentsSlice';
+import { validationRules } from '../validators/hookFormValidators';
+import { LabeledFormInput } from './forms/FormInput';
 import DeleteStudent from './DeleteStudent';
 
 export const StyledForm = styled(Form)`
@@ -48,115 +50,147 @@ export const StyledForm = styled(Form)`
     font-size: 1.5em;
     font-weight: bold;
     border: none;
-    display: inline;
-  }
-  &&& .ui.button {
-    font-family: 'Roboto', 'sans-serif';
-    font-size: 28px;
-    color: ${props => props.theme.white};
-    background-color: ${props => props.theme.blue}; 
-    border: 2px solid ${props => props.theme.orange};
-    border-radius: 5px;
-    padding: 10px;
-     &:hover:not([disabled]) {
-      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-    }
   }
 `;
 
-class UpdateStudent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      initialValues: null,
+const UpdateStudent = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const student = useSelector(state => selectStudentById(state, id));
+  
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting, isDirty },
+    setFocus,
+    reset
+  } = useForm({
+    defaultValues: {
+      fullName: '',
+      school: '',
+      teacher: '',
+      gradeLevel: '',
+      ellStatus: '',
+      compositeLevel: '',
+      designation: ''
+    },
+    mode: 'onBlur'
+  });
+
+  useEffect(() => {
+    // Fetch student data if not already in store
+    if (!student) {
+      dispatch(fetchStudent(id))
+        .unwrap()
+        .catch(error => {
+          console.error('Error fetching student:', error);
+          if (error === 'Not authenticated') {
+            navigate('/signin');
+          }
+        });
+    } else {
+      // Reset form with student data
+      reset(student);
     }
-  }
+  }, [id, student, dispatch, navigate, reset]);
 
-  componentDidMount() {
-    let token = localStorage.getItem('jwtToken');
-    let config = { headers: {'Authorization': "bearer " +   token}};
+  useEffect(() => {
+    // Focus on first field with error
+    const firstErrorField = Object.keys(errors)[0];
+    if (firstErrorField) {
+      setFocus(firstErrorField);
+    }
+  }, [errors, setFocus]);
 
-    axios.get(`${API_BASE_URL}/students/${this.props.match.params.id}`, config)
-      .then(res => {
-        this.props.dispatch(initialize('UpdatesStudent', res.data));
-      });
-  }
-
-  onSubmit = formProps => {
-    axios.put(`${API_BASE_URL}/students/${this.props.match.params.id}`, formProps)
-      .then(() => this.props.history.push('/students'));
+  const onSubmit = async (formData) => {
+    try {
+      await dispatch(updateStudent({ id, ...formData })).unwrap();
+      navigate('/students');
+    } catch (error) {
+      console.error('Error updating student:', error);
+      if (error === 'Not authenticated') {
+        navigate('/signin');
+      }
+    }
   };
 
-  render() {
-    const { handleSubmit, pristine, submitting } = this.props;
-    return <Grid textAlign="center"
-                 style={{width: 'auto'}}>
+  return (
+    <Grid textAlign="center" style={{width: 'auto'}}>
       <Grid.Row centered columns={1}>
-        <StyledForm onSubmit={handleSubmit(this.onSubmit)}>
+        <StyledForm onSubmit={handleSubmit(onSubmit)}>
 
-          <Field name="fullName" component={LabelInputField}
-                 label={{content: <Icon color="green" name="student" size="large"/>}}
-                 labelPosition="left"
-                 placeholder="Student Name"
-                 validate={required}
+          <LabeledFormInput
+            name="fullName"
+            control={control}
+            rules={validationRules.required}
+            label={{content: <Icon color="green" name="student" size="large"/>}}
+            labelPosition="left"
+            placeholder="enter full student name"
           />
 
-          <Field name="school" component={LabelInputField}
-                 label={{content: <Icon color="blue" name="university" size="large"/>}}
-                 labelPosition="left"
-                 placeholder="School Name"
+          <LabeledFormInput
+            name="school"
+            control={control}
+            label={{content: <Icon color="blue" name="building outline" size="large"/>}}
+            labelPosition="left"
+            placeholder="enter school"
           />
 
-          <Field name="teacher" component={LabelInputField}
-                 label={{content: <Icon color="orange" name="header" size="large"/>}}
-                 labelPosition="left"
-                 placeholder="Teacher Name"
+          <LabeledFormInput
+            name="teacher"
+            control={control}
+            label={{content: <Icon color="orange" name="apple" size="large"/>}}
+            labelPosition="left"
+            placeholder="enter teacher"
           />
 
-          <Field name="gradeLevel" component={LabelInputField}
-                 label={{content: <Icon color="green" name="level up" size="large"/>}}
-                 labelPosition="left"
-                 placeholder="Grade Level"
+          <LabeledFormInput
+            name="gradeLevel"
+            control={control}
+            label={{content: <Icon color="green" name="chart line" size="large"/>}}
+            labelPosition="left"
+            placeholder="enter grade level"
           />
 
-          <Field name="ellStatus" component={LabelInputField}
-                 label={{content: <Icon color="blue" name="language" size="large"/>}}
-                 labelPosition="left"
-                 placeholder="Current ELL Status"
+          <LabeledFormInput
+            name="ellStatus"
+            control={control}
+            label={{content: <Icon color="orange" name="world" size="large"/>}}
+            labelPosition="left"
+            placeholder="enter ELL Status"
           />
 
-          <Field name="compositeLevel" component={LabelInputField}
-                 label={{content: <Icon color="orange" name="bullseye" size="large"/>}}
-                 labelPosition="left"
-                 placeholder="Composite Level"
+          <LabeledFormInput
+            name="compositeLevel"
+            control={control}
+            label={{content: <Icon color="green" name="percent" size="large"/>}}
+            labelPosition="left"
+            placeholder="enter composite level (overall)"
           />
 
-          <Field name="designation" component={LabelInputField}
-                 label={{content: <Icon color="green" name="certificate" size="large"/>}}
-                 labelPosition="left"
-                 placeholder="Current Designation"
+          <LabeledFormInput
+            name="designation"
+            control={control}
+            label={{content: <Icon color="blue" name="universal access" size="large"/>}}
+            labelPosition="left"
+            placeholder="enter ELL, Special Education, or Intervention designation"
           />
 
-          <Form.Field control={Button} primary
-                      style={{whiteSpace: "noWrap"}}
-                      type="submit"
-                      disabled={pristine || submitting}>
-            Update Student
-          </Form.Field>
+          <Button 
+            disabled={!isDirty || isSubmitting} 
+            loading={isSubmitting}
+            type="submit"
+          >
+            Save Student
+          </Button>
         </StyledForm>
       </Grid.Row>
-      <Grid.Row centered columns={1} style={{paddingTop: '5px', paddingBottom: '0'}}>
-        <DeleteStudent />
+      <Grid.Row>
+        <DeleteStudent id={id} />
       </Grid.Row>
-      </Grid>
-  }
-}
+    </Grid>
+  );
+};
 
-export default reduxForm({form: 'UpdatesStudent',
-  fields: ['fullName', 'school', 'teacher', 'gradeLevel', 'ellStatus', 'compositeLevel', 'designation'],
-  onSubmitFail: (errors, dispatch) =>
-    dispatch(focus('UpdatesStudent', Object.keys(errors)[0]))
-})(UpdateStudent);
-
-
-
+export default UpdateStudent;

@@ -1,12 +1,11 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Card } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import { fetchStudents } from '../../actions';
-import { bindActionCreators } from 'redux';
+import { fetchStudents } from '../../store/actions';
+import { selectAllStudents, selectStudentsLoading } from '../../store/slices/studentsSlice';
 
 const StyledCard = styled(Card)`
   &&& .ui.card.student-card {
@@ -48,71 +47,79 @@ const StyledButton = styled.button`
     font-family: 'Roboto','sans-serif';
     font-size: 1em;
     font-weight: 500;
-    color: ${props => props.theme.blue};
-    cursor: pointer;
-    white-space: nowrap;
-   &:hover:not([disabled]) {
-      box-shadow: inset 6.5em 0 0 0 var(--hover);
-      background-color: ${props => props.theme.blue};
-      color: ${props => props.theme.white};
+    margin-bottom: 2px;
+    margin-top: 2px;
+    color: ${props => props.theme.white};
+  a {
+    color: ${props => props.theme.white};
+    &:hover{
+      color: ${props => props.theme.orange};
     }
   }
+    &:hover:not([disabled]) {
+      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
 `;
 
-class Students extends Component {
+const Students = () => {
+  const dispatch = useDispatch();
+  const students = useSelector(selectAllStudents);
+  const loading = useSelector(selectStudentsLoading);
 
-  componentDidMount() {
-      this.props.fetchStudents();
-  }
+  useEffect(() => {
+    dispatch(fetchStudents());
+  }, [dispatch]);
 
-  renderStudentData() {
-      return this.props.students.map(student => {
-        return (
-          <Fragment key={student._id}>
-          <StyledCard className="student-card" key={student._id}>
-            <Card.Content>
-              <Card.Header>Student: {student.fullName}</Card.Header>
-              <Card.Header>School: {student.school}</Card.Header>
-              <Card.Header>Teacher: {student.teacher}</Card.Header>
-              <Card.Header>Grade: {student.gradeLevel}</Card.Header>
-              <Card.Header>ELL Status: {student.ellStatus}</Card.Header>
-              <Card.Header>Composite Level: {student.compositeLevel}</Card.Header>
-              <Card.Header>Designation: {student.designation}</Card.Header>
-              <Card.Header>Native Language: {student.nativeLanguage}</Card.Header>
-              <Card.Header>Country of Birth: {student.countryOfBirth}</Card.Header>
-            </Card.Content>
-            <Card.Content extra>
-              <Link to={`/students/${student._id}/update`}>
-                <StyledButton>
-                  Edit Student
-                </StyledButton>
-              </Link>
-            </Card.Content>
-          </StyledCard>
-          </Fragment>
-        );
-      });
+  const renderStudentsList = () => {
+    if (loading) {
+      return <div>Loading students...</div>;
     }
 
-    render()
-    {
+    if (!students || students.length === 0) {
+      return <div>No students found.</div>;
+    }
+
+    return students.map(student => {
+      const studentId = student.id || student._id;
+      
       return (
-        <Card.Group stackable={true} itemsPerRow={4}>
-          {this.renderStudentData()}
-        </Card.Group>
+        <StyledCard key={studentId} className="student-card">
+          <Card.Content>
+            <Card.Header>
+              Student Name: {student.fullName}
+            </Card.Header>
+            <Card.Description>
+              School: {student.school}
+              <br />
+              Teacher: {student.teacher}
+              <br />
+              Grade: {student.gradeLevel}
+              <br />
+              ELL Status: {student.ellStatus}
+              <br />
+              WIDA ACCESS Overall Composite: {student.compositeLevel}
+              <br />
+              IEP | 504 | Intervention Plan: {student.designation}
+            </Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            <Link to={`/students/${studentId}/update`}>
+              <StyledButton>Update Student</StyledButton>
+            </Link>
+          </Card.Content>
+        </StyledCard>
       );
-    }
-  }
+    });
+  };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchStudents: bindActionCreators(fetchStudents, dispatch)
-  }};
-
-function mapStateToProps(state) {
-     return {
-       students: state.students.students
-     }
+  return (
+    <>
+      <h3>This Student List contains the most current information about each student.</h3>
+      <Card.Group>
+        {renderStudentsList()}
+      </Card.Group>
+    </>
+  );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Students);
+export default Students;

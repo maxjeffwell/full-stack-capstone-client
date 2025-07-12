@@ -1,29 +1,22 @@
 // Higher Order Component
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-export default ChildComponent => {
-    class ComposedComponent extends Component {
-        componentDidMount() { // rendered component
-            this.shouldNavigateAway();
-        }
-        componentDidUpdate() { // updated component
-            this.shouldNavigateAway();
-        }
-        shouldNavigateAway() {
-            if (!this.props.auth) {
-                this.props.history.push('/');
+const authRequired = (ChildComponent) => {
+    return (props) => {
+        const navigate = useNavigate();
+        const auth = useSelector(state => state.auth.authenticated);
+
+        useEffect(() => {
+            if (!auth) {
+                navigate('/');
             }
-        }
-        render() {
-            return <ChildComponent {...this.props} />;
-        }
-    }
-    function mapStateToProps(state) {
-        return { auth: state.auth.authenticated };
+        }, [auth, navigate]);
 
-        // auth piece of state is a boolean saying yes signed in or no. Here, it references an object with an authenticated       //  property to check if user is logged in
-    }
-    return connect(mapStateToProps)(ComposedComponent);
+        return auth ? <ChildComponent {...props} /> : null;
+    };
 };
+
+export default authRequired;

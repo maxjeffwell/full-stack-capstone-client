@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Menu } from 'semantic-ui-react';
 import styled from 'styled-components';
 
+import { selectAuth } from '../store/slices/authSlice';
 import LazyImage from './LazyImage';
 import logo from '../logo/logo.png';
 
@@ -33,9 +34,11 @@ const StyledMenu = styled(Menu)`
     }
 `;
 
-class Header extends Component {
-    showLinks() {
-        if (this.props.auth) {
+const Header = () => {
+    const isAuthenticated = useSelector(selectAuth);
+
+    const showLinks = () => {
+        if (isAuthenticated) {
             return (
               <StyledMenu stackable size="small" borderless>
                 <Menu.Menu position="left">
@@ -48,52 +51,45 @@ class Header extends Component {
                   </Menu.Item>
                 </Menu.Menu>
                 <Menu.Menu position="right">
-                  <Menu.Item  as={Link} name="Student List" to="/students">
+                  <Menu.Item as={Link} name="Student List" to="/students">
                   </Menu.Item>
                 </Menu.Menu>
                 <Menu.Menu position="right">
-                  <Menu.Item as={Link} name="Logout" to="/signout">
+                  <Menu.Item as={Link} name="Add New Student" to="/students/new">
+                  </Menu.Item>
+                </Menu.Menu>
+                <Menu.Menu position="right">
+                  <Menu.Item as={Link} name="Log Out" to="/signout">
                   </Menu.Item>
                 </Menu.Menu>
               </StyledMenu>
-        );
+            );
         } else {
             return (
               <StyledMenu stackable size="small" borderless>
                 <Menu.Menu position="left">
-                    <Menu.Item as="header">
-                      <LazyImage src={logo} />
-                    </Menu.Item>
-                </Menu.Menu>
-                <Menu.Menu position="right">
-                  <Menu.Item as={Link} name="educationelly" to="/">
-                    educationELLy
+                  <Menu.Item as="header">
+                    <LazyImage src={logo} />
                   </Menu.Item>
                 </Menu.Menu>
                 <Menu.Menu position="right">
-                    <Menu.Item as={Link} name="Register" to="/Signup">
-                    </Menu.Item>
+                  <Menu.Item as={Link} name="Register" to="/signup">
+                  </Menu.Item>
                 </Menu.Menu>
                 <Menu.Menu position="right">
-                    <Menu.Item as={Link} name="Login" to="/Signin">
-                    </Menu.Item>
+                  <Menu.Item as={Link} name="Log In" to="/signin">
+                  </Menu.Item>
                 </Menu.Menu>
               </StyledMenu>
             );
         }
     };
 
-    render() {
-        return (
-            <Menu.Header>
-            {this.showLinks()}
-            </Menu.Header>
-        );
-    };
-}
+    return (
+        <>
+            {showLinks()}
+        </>
+    );
+};
 
-function mapStateToProps(state) {
-    return { auth: state.auth.authenticated };
-}
-
-export default connect(mapStateToProps)(Header);
+export default Header;

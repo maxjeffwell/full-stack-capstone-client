@@ -1,20 +1,13 @@
-import React, { Component } from 'react';
-import { reduxForm, Field, focus } from 'redux-form';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-
-// compose allows us to write out multiple higher order components in a better formatted way
-// add reduxForm to component export statement and tell it about different field names,
-// then we can use the field component inside of the component itself
-
+import React from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { Form, Icon, Button, Grid, Segment, Header, Message } from 'semantic-ui-react';
-import { LabelInputField } from 'react-semantic-redux-form';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { required, nonEmpty, matches, length, isTrimmed } from '../../validators';
-
-import * as actions from '../../actions';
+import * as actions from '../../store/actions';
+import { validationRules, combineRules } from '../../validators/hookFormValidators';
+import { LabeledFormInput } from '../forms/FormInput';
 
 const StyledSegment = styled(Segment)`
   &&& {
@@ -119,99 +112,115 @@ const StyledHeader = styled(Header)`
   }
 `;
 
+const Register = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const errorMessage = useSelector(state => state.signup.errorMessage);
+  const isAuthenticated = useSelector(state => state.auth.authenticated);
+  
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting, isDirty },
+    setFocus
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+      passwordConfirmation: ''
+    },
+    mode: 'onBlur'
+  });
 
-const passwordLength = length({ min: 7, max: 42 });
-const matchesPassword = matches('password');
+  React.useEffect(() => {
+    // Focus on first field with error
+    const firstErrorField = Object.keys(errors)[0];
+    if (firstErrorField) {
+      setFocus(firstErrorField);
+    }
+  }, [errors, setFocus]);
 
-class Register extends Component {
+  const onSubmit = (formData) => {
+    dispatch(actions.signup({
+      formData,
+      callback: () => navigate('/dashboard')
+    }));
+  };
 
-	onSubmit = (formProps) => {
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
-        // arrow function makes it so we don't have to worry about binding the context of onSubmit
+  return (
+    <Grid centered style={{ height: '100%' }} verticalAlign="middle">
+      <Grid.Column textAlign="center"  style={{ maxWidth: 450 }}>
 
-		this.props.signup(formProps, () => {
-			this.props.history.push('/dashboard')
-		});
+        <StyledMessage info>
+          DEMO ACCOUNT AVAILABLE
+          <p>If you prefer not to register at this time, an account for demo purposes is available on the login page.</p>
+        </StyledMessage>
 
-        // call the signup action creator
-        // when using reduxForm we get a function on our props object called handleSubmit.
-        // Use this function to take email and password out of the form and provide it to the onSubmit callback
+        <StyledSegment stacked>
+          <StyledHeader as="h1">registration</StyledHeader>
 
-	};
+          <StyledForm onSubmit={handleSubmit(onSubmit)}>
 
-	render() {
+            <LabeledFormInput
+              name="email"
+              control={control}
+              rules={combineRules(
+                validationRules.email,
+                validationRules.isTrimmed
+              )}
+              label={{ content: <Icon color="orange" name="user outline" size="large" /> }}
+              labelPosition="left"
+              placeholder="Email"
+            />
 
-		if (this.props.auth) {
-			return <Redirect to="/dashboard" />;
-		}
+            <LabeledFormInput
+              name="password"
+              control={control}
+              rules={combineRules(
+                validationRules.password(7, 42),
+                validationRules.isTrimmed
+              )}
+              type="password"
+              label={{ content: <Icon color="orange" name="lock" size="large" /> }}
+              labelPosition="left"
+              placeholder="Password"
+            />
 
-		let registrationError = '';
+            <LabeledFormInput
+              name="passwordConfirmation"
+              control={control}
+              rules={validationRules.passwordConfirmation}
+              type="password"
+              label={{ content: <Icon color="orange" name="lock" size="large" /> }}
+              labelPosition="left"
+              placeholder="Confirm Password"
+            />
 
-		if (this.props.errorMessage) {
-			registrationError = this.props.errorMessage;
-		}
+            <Form.Field 
+              control={Button} 
+              primary
+              type="submit"
+              disabled={!isDirty || isSubmitting}
+              loading={isSubmitting}
+            >
+              Register
+            </Form.Field>
 
-		const { handleSubmit, pristine, submitting } = this.props;
+            {errorMessage && (
+              <StyledErrorMessage className="form-error" aria-live="polite">
+                {errorMessage}
+              </StyledErrorMessage>
+            )}
 
-        // can't just add onSubmit as a callback directly to form tag -
-        // have to destructure handleSubmit function from our props object
-		return (
-					<Grid centered style={{ height: '100%' }} verticalAlign="middle">
-						<Grid.Column textAlign="center"  style={{ maxWidth: 450 }}>
+          </StyledForm>
+        </StyledSegment>
+      </Grid.Column>
+    </Grid>
+  );
+};
 
-							<StyledMessage info>
-								DEMO ACCOUNT AVAILABLE
-								<p>If you prefer not to register at this time, an account for demo purposes is available on the login page.</p>
-							</StyledMessage>
-
-							<StyledSegment stacked>
-								<StyledHeader as="h1">registration</StyledHeader>
-
-								<StyledForm onSubmit={handleSubmit(this.onSubmit)}>
-
-									<Field name="email" component={LabelInputField}
-									       label={{ content: <Icon color="orange" name="user outline" size="large" /> }}
-									       labelPosition="left" placeholder="Email" validate={[required, nonEmpty, isTrimmed]}
-									/>
-
-									<Field name="password" component={LabelInputField} type="password"
-									       label={{ content: <Icon color="orange" name="lock" size="large" /> }}
-									       labelPosition="left" placeholder="Password" validate={[required, passwordLength, isTrimmed]}
-									/>
-
-									<Field name="passwordConfirmation" component={LabelInputField} type="password"
-									       label={{ content: <Icon color="orange" name="lock" size="large" /> }}
-									       labelPosition="left" placeholder="Confirm Password" validate={[required, nonEmpty, matchesPassword]}
-									/>
-
-									<Form.Field control={Button} primary
-									            type="submit"
-									            disabled={pristine || submitting}
-									>
-										Register
-									</Form.Field>
-
-									<StyledErrorMessage className="form-error" aria-live="polite">
-										{registrationError}
-									</StyledErrorMessage>
-
-								</StyledForm>
-							</StyledSegment>
-						</Grid.Column>
-					</Grid>
-		);
-	}
-}
-
-const mapStateToProps = state => ({
-	errorMessage: state.signup.errorMessage,
-	auth: state.auth.authenticated
-})
-
-export default compose (
-	connect(mapStateToProps, actions),
-	reduxForm({ form: 'register',
-		onSubmitFail: (errors, dispatch) =>
-			dispatch(focus('register', Object.keys(errors)[0]))
-	})
-)(Register);
+export default Register;

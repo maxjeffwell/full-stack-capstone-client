@@ -2,20 +2,15 @@
 // render root component but limit react configuration here
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 // BrowserRouter tells react router what to do - looks at current url and changes components visible on screen
 // Route is a react component used to set a rule between a certain route in the application and a set of
 // components that will be available on screen
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import reduxThunk from 'redux-thunk';
-
 import { ThemeProvider  } from 'styled-components';
 import WebFont from 'webfontloader';
-
-import { composeWithDevTools } from 'redux-devtools-extension';
 
 import 'semantic-ui-css/components/button.css';
 import 'semantic-ui-css/components/container.css';
@@ -31,8 +26,9 @@ import 'semantic-ui-css/components/menu.css';
 import 'semantic-ui-css/components/input.css';
 import 'semantic-ui-css/components/sidebar.css';
 
-import { rootReducer } from './reducers';
+import { store } from './store';
 import App from './components/App';
+import authService from './utils/auth';
 
 WebFont.load({
     google: {
@@ -41,19 +37,8 @@ WebFont.load({
     timeout: 2000
 });
 
-const store = createStore(
-  rootReducer,
-
-      // use starting state object to get initializing state inside redux store, pass to store the key of auth
-      // piece of state and then value to be initialized when redux store is created (authenticated) and assign to
-      // it whatever is returned from localStorage
-
-  {
-    auth: { authenticated: localStorage.getItem('jwtToken') }
-    }, composeWithDevTools(
-      applyMiddleware(reduxThunk)
-  )
-);
+// Migrate any existing localStorage tokens to sessionStorage
+authService.migrateTokens();
 
 const theme = {
   orange: '#fb9438',
@@ -62,7 +47,9 @@ const theme = {
   white: '#f5f5f5',
 };
 
-ReactDOM.render (
+// React 18 new rendering API
+const container = document.getElementById('root');
+const root = createRoot(container);
 
     // ReactDOM - two arguments - root component and where we want to render that component inside of the DOM
     // root component is the app component
@@ -70,11 +57,11 @@ ReactDOM.render (
     // provider is a react component (provided by react-redux store) that can read changes from redux store
     // anytime redux store state changes the provider component informs all of its children components
 
+root.render(
   <ThemeProvider theme={theme}>
-  <Provider store={store}>
-    <App />
-  </Provider>
-  </ThemeProvider>,
-document.querySelector('#root')
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </ThemeProvider>
 );
 

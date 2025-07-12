@@ -1,7 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
 import Navigation from './Navigation';
 import authRequired from './authRequired';
 import Landing from './Landing';
@@ -10,6 +9,7 @@ import SideBar from './Sidebar';
 import CreateStudent from './CreateStudent';
 import { Grid } from "semantic-ui-react";
 import styled from 'styled-components';
+import { selectIsSidebarToggled } from '../store/slices/toggleSlice';
 
 const StyledGrid = styled(Grid)`
   &&& div .ui.centered.grid {
@@ -17,26 +17,25 @@ const StyledGrid = styled(Grid)`
   }
 `;
 
-const Dashboard = ({ isToggled }) => (
+const Dashboard = () => {
+  const isToggled = useSelector(selectIsSidebarToggled);
 
-  <StyledGrid centered style={{height: '100%'}} verticalAlign="middle"
-              className={isToggled ? 'toggled' : ''}>
-    <Navigation/>
-    <Switch>
-      <Route exact path='/' component={Landing}/>
-      <Route exact path='/students' component={Students}/>
-    </Switch>
-    <SideBar/>
-    <CreateStudent/>
-  </StyledGrid>
-);
-
-Dashboard.propTypes = {
-  isToggled: PropTypes.bool.isRequired
+  return (
+    <StyledGrid 
+      centered 
+      style={{height: '100%'}} 
+      verticalAlign="middle"
+      className={isToggled ? 'toggled' : ''}
+    >
+      <Navigation/>
+      <Routes>
+        <Route path='/' element={<Landing/>}/>
+        <Route path='/students' element={<Students/>}/>
+      </Routes>
+      <SideBar/>
+      <CreateStudent/>
+    </StyledGrid>
+  );
 };
 
-const mapStateToProps = state => ({
-  isToggled: state.isSidebarToggled
-});
-
-export default connect(mapStateToProps)(authRequired(Dashboard));
+export default authRequired(Dashboard);
