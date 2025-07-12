@@ -9,11 +9,10 @@ import studentsReducer from './studentsReducer';
 import signupReducer from './signupReducer';
 import ModalReducer from './modalReducer';
 
-
 export const rootReducer = combineReducers({
-    auth: authReducer,
-    isSidebarToggled: toggleReducer,
-    students: studentsReducer,
-    signup: signupReducer,
-    modals: ModalReducer
+  auth: authReducer,
+  isSidebarToggled: toggleReducer,
+  students: studentsReducer,
+  signup: signupReducer,
+  modals: ModalReducer,
 });

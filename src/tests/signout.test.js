@@ -6,7 +6,7 @@ import Signout from '../components/auth/Signout';
 const mockSignout = jest.fn();
 jest.mock('../store/actions', () => ({
   ...jest.requireActual('../store/actions'),
-  signout: () => mockSignout()
+  signout: () => mockSignout(),
 }));
 
 describe('<Signout />', () => {
@@ -16,7 +16,9 @@ describe('<Signout />', () => {
 
   it('Should render without crashing', () => {
     render(<Signout />);
-    expect(screen.getByText('You have successfully logged out.')).toBeInTheDocument();
+    expect(
+      screen.getByText('You have successfully logged out.')
+    ).toBeInTheDocument();
   });
 
   it('Should call signout action on mount', () => {
@@ -26,7 +28,7 @@ describe('<Signout />', () => {
 
   it('Should display success message', () => {
     render(<Signout />);
-    
+
     const message = screen.getByText('You have successfully logged out.');
     expect(message).toBeInTheDocument();
     expect(message.closest('.message')).toHaveClass('success');

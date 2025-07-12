@@ -12,12 +12,12 @@ import { StyledForm } from './UpdateStudent';
 const CreateStudent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting, isDirty },
-    setFocus
+    setFocus,
   } = useForm({
     defaultValues: {
       fullName: '',
@@ -26,9 +26,9 @@ const CreateStudent = () => {
       gradeLevel: '',
       ellStatus: '',
       compositeLevel: '',
-      designation: ''
+      designation: '',
     },
-    mode: 'onBlur'
+    mode: 'onBlur',
   });
 
   React.useEffect(() => {
@@ -39,7 +39,7 @@ const CreateStudent = () => {
     }
   }, [errors, setFocus]);
 
-  const onSubmit = async (formData) => {
+  const onSubmit = async formData => {
     try {
       await dispatch(createStudent(formData)).unwrap();
       navigate('/students');
@@ -53,21 +53,29 @@ const CreateStudent = () => {
   };
 
   return (
-    <Grid textAlign="center"
-          style={{marginLeft: '1.5em', width: 'auto',
-            justifyContent: 'inherit', alignItems: 'stretch',
-            paddingTop: '0px'}}>
-      <Grid.Row style={{marginTop: '10px', justifyContent: 'center'}}>
+    <Grid
+      textAlign="center"
+      style={{
+        marginLeft: '1.5em',
+        width: 'auto',
+        justifyContent: 'inherit',
+        alignItems: 'stretch',
+        paddingTop: '0px',
+      }}
+    >
+      <Grid.Row style={{ marginTop: '10px', justifyContent: 'center' }}>
         <h1>Create New Student</h1>
       </Grid.Row>
-      <Grid.Row style={{marginTop: '10px', justifyContent: 'center'}}>
+      <Grid.Row style={{ marginTop: '10px', justifyContent: 'center' }}>
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
           <Form.Group>
             <LabeledFormInput
               control={control}
               name="fullName"
               rules={validationRules.nonEmpty}
-              label={{content: <Icon color="blue" name="user outline" size="large" />}}
+              label={{
+                content: <Icon color="blue" name="user outline" size="large" />,
+              }}
               labelPosition="left"
               placeholder="enter student full name"
             />
@@ -77,7 +85,11 @@ const CreateStudent = () => {
               control={control}
               name="school"
               rules={validationRules.nonEmpty}
-              label={{content: <Icon color="green" name="building outline" size="large" />}}
+              label={{
+                content: (
+                  <Icon color="green" name="building outline" size="large" />
+                ),
+              }}
               labelPosition="left"
               placeholder="enter school"
             />
@@ -87,7 +99,11 @@ const CreateStudent = () => {
               control={control}
               name="teacher"
               rules={validationRules.nonEmpty}
-              label={{content: <Icon color="orange" name="smile outline" size="large" />}}
+              label={{
+                content: (
+                  <Icon color="orange" name="smile outline" size="large" />
+                ),
+              }}
               labelPosition="left"
               placeholder="enter teacher"
             />
@@ -97,7 +113,11 @@ const CreateStudent = () => {
               control={control}
               name="gradeLevel"
               rules={validationRules.nonEmpty}
-              label={{content: <Icon color="orange" name="graduation cap" size="large" />}}
+              label={{
+                content: (
+                  <Icon color="orange" name="graduation cap" size="large" />
+                ),
+              }}
               labelPosition="left"
               placeholder="enter grade level"
             />
@@ -107,12 +127,14 @@ const CreateStudent = () => {
               control={control}
               name="ellStatus"
               rules={validationRules.nonEmpty}
-              label={{content: <Icon color="blue" name="world" size="large" />}}
+              label={{
+                content: <Icon color="blue" name="world" size="large" />,
+              }}
               labelPosition="left"
               placeholder="enter ELL Status"
             />
           </Form.Group>
-          <Button 
+          <Button
             type="submit"
             disabled={!isDirty || isSubmitting}
             loading={isSubmitting}

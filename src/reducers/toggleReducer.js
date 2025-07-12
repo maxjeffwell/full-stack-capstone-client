@@ -1,6 +1,6 @@
-import { TOGGLE_SIDEBAR }  from '../actions/types';
+import { TOGGLE_SIDEBAR } from '../actions/types';
 
-export default function (state=false, { type }) {
+const toggleReducer = (state = false, { type }) => {
   switch (type) {
     case TOGGLE_SIDEBAR:
       return !state;
@@ -8,3 +8,5 @@ export default function (state=false, { type }) {
       return state;
   }
 };
+
+export default toggleReducer;

@@ -1,36 +1,65 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-import { Visibility, Image, Loader } from 'semantic-ui-react'
+import React, { useState, useCallback, memo } from 'react';
+import PropTypes from 'prop-types';
+import { Visibility, Image, Loader } from 'semantic-ui-react';
 
-export default class LazyImage extends Component {
-  static propTypes = {
-    src: PropTypes.string.isRequired,
-    size: PropTypes.string,
+const LazyImage = memo(({ src, size = 'tiny', alt, ...imageProps }) => {
+  const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  const showImage = useCallback(() => {
+    setShow(true);
+  }, []);
+
+  const handleLoad = useCallback(() => {
+    setLoading(false);
+  }, []);
+
+  const handleError = useCallback(() => {
+    setLoading(false);
+    setError(true);
+  }, []);
+
+  if (!show) {
+    return (
+      <Visibility as="span" fireOnMount onOnScreen={showImage}>
+        <Loader active inline="centered" size={size} />
+      </Visibility>
+    );
   }
 
-  static defaultProps = {
-    size: `tiny`,
+  if (error) {
+    return (
+      <div style={{ padding: '10px', textAlign: 'center', color: '#999' }}>
+        Failed to load image
+      </div>
+    );
   }
 
-  state = {
-    show: false,
-  }
+  return (
+    <>
+      {loading && <Loader active inline="centered" size={size} />}
+      <Image
+        {...imageProps}
+        src={src}
+        alt={alt}
+        onLoad={handleLoad}
+        onError={handleError}
+        style={{
+          display: loading ? 'none' : 'block',
+          ...imageProps.style,
+        }}
+      />
+    </>
+  );
+});
 
-  showImage = () => {
-    this.setState({
-      show: true,
-    })
-  }
+LazyImage.propTypes = {
+  src: PropTypes.string.isRequired,
+  size: PropTypes.string,
+  alt: PropTypes.string.isRequired,
+};
 
-  render() {
-    const { size } = this.props
-    if (!this.state.show) {
-      return (
-        <Visibility as="span" fireOnMount onOnScreen={this.showImage}>
-          <Loader active inline="centered" size={size} />
-        </Visibility>
-      )
-    }
-    return <Image {...this.props} />
-  }
-}
+LazyImage.displayName = 'LazyImage';
+
+export default LazyImage;

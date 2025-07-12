@@ -7,7 +7,7 @@ import Landing from './Landing';
 import Students from './auth/Students';
 import SideBar from './Sidebar';
 import CreateStudent from './CreateStudent';
-import { Grid } from "semantic-ui-react";
+import { Grid } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { selectIsSidebarToggled } from '../store/slices/toggleSlice';
 
@@ -21,19 +21,20 @@ const Dashboard = () => {
   const isToggled = useSelector(selectIsSidebarToggled);
 
   return (
-    <StyledGrid 
-      centered 
-      style={{height: '100%'}} 
+    <StyledGrid
+      centered
+      style={{ height: '100%' }}
       verticalAlign="middle"
       className={isToggled ? 'toggled' : ''}
+      data-testid="dashboard-grid"
     >
-      <Navigation/>
+      <Navigation />
       <Routes>
-        <Route path='/' element={<Landing/>}/>
-        <Route path='/students' element={<Students/>}/>
+        <Route path="/" element={<Landing />} />
+        <Route path="/students" element={<Students />} />
       </Routes>
-      <SideBar/>
-      <CreateStudent/>
+      <SideBar />
+      <CreateStudent />
     </StyledGrid>
   );
 };

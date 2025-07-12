@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Menu } from 'semantic-ui-react';
@@ -15,81 +15,79 @@ const StyledMenu = styled(Menu)`
     margin-top: 5px;
     margin-bottom: 30px;
   }
-  &&& a.item { 
-   font-size: 2em;
-   font-weight: 700;
-   font-family: 'Roboto', 'sans-serif';
-   color: ${props => props.theme.blue};
-   text-align: center;
-   white-space: nowrap;
-   } 
-   &&& :hover:not([disabled]), :focus {
+  &&& a.item {
+    font-size: 2em;
+    font-weight: 700;
+    font-family: 'Roboto', 'sans-serif';
+    color: ${props => props.theme.blue};
+    text-align: center;
+    white-space: nowrap;
+  }
+  &&& :hover:not([disabled]),
+  :focus {
     box-shadow: inset 6.5em 0 0 0 var(--hover);
     background-color: ${props => props.theme.blue};
     color: ${props => props.theme.white};
-    }
-    &&& :active:not([disabled]), :focus {
+  }
+  &&& :active:not([disabled]),
+  :focus {
     color: mediumpurple;
     background-color: white;
-    }
+  }
 `;
 
-const Header = () => {
-    const isAuthenticated = useSelector(selectAuth);
+const Header = memo(() => {
+  const isAuthenticated = useSelector(selectAuth);
 
-    const showLinks = () => {
-        if (isAuthenticated) {
-            return (
-              <StyledMenu stackable size="small" borderless>
-                <Menu.Menu position="left">
-                    <Menu.Item as="header">
-                      <LazyImage src={logo} />
-                    </Menu.Item>
-                </Menu.Menu>
-                <Menu.Menu position="right">
-                  <Menu.Item as={Link} name="Instructor Dashboard" to="/dashboard">
-                  </Menu.Item>
-                </Menu.Menu>
-                <Menu.Menu position="right">
-                  <Menu.Item as={Link} name="Student List" to="/students">
-                  </Menu.Item>
-                </Menu.Menu>
-                <Menu.Menu position="right">
-                  <Menu.Item as={Link} name="Add New Student" to="/students/new">
-                  </Menu.Item>
-                </Menu.Menu>
-                <Menu.Menu position="right">
-                  <Menu.Item as={Link} name="Log Out" to="/signout">
-                  </Menu.Item>
-                </Menu.Menu>
-              </StyledMenu>
-            );
-        } else {
-            return (
-              <StyledMenu stackable size="small" borderless>
-                <Menu.Menu position="left">
-                  <Menu.Item as="header">
-                    <LazyImage src={logo} />
-                  </Menu.Item>
-                </Menu.Menu>
-                <Menu.Menu position="right">
-                  <Menu.Item as={Link} name="Register" to="/signup">
-                  </Menu.Item>
-                </Menu.Menu>
-                <Menu.Menu position="right">
-                  <Menu.Item as={Link} name="Log In" to="/signin">
-                  </Menu.Item>
-                </Menu.Menu>
-              </StyledMenu>
-            );
-        }
-    };
+  const navigation = useMemo(() => {
+    const logoItem = (
+      <Menu.Menu position="left" key="logo">
+        <Menu.Item as="header">
+          <LazyImage src={logo} alt="educationELLy logo" />
+        </Menu.Item>
+      </Menu.Menu>
+    );
+
+    if (isAuthenticated) {
+      return (
+        <StyledMenu stackable size="small" borderless>
+          {logoItem}
+          <Menu.Menu position="right">
+            <Menu.Item as={Link} name="Instructor Dashboard" to="/dashboard">
+              Instructor Dashboard
+            </Menu.Item>
+            <Menu.Item as={Link} name="Student List" to="/students">
+              Student List
+            </Menu.Item>
+            <Menu.Item as={Link} name="Add New Student" to="/students/new">
+              Add New Student
+            </Menu.Item>
+            <Menu.Item as={Link} name="Log Out" to="/signout">
+              Log Out
+            </Menu.Item>
+          </Menu.Menu>
+        </StyledMenu>
+      );
+    }
 
     return (
-        <>
-            {showLinks()}
-        </>
+      <StyledMenu stackable size="small" borderless>
+        {logoItem}
+        <Menu.Menu position="right">
+          <Menu.Item as={Link} name="Register" to="/signup">
+            Register
+          </Menu.Item>
+          <Menu.Item as={Link} name="Log In" to="/signin">
+            Log In
+          </Menu.Item>
+        </Menu.Menu>
+      </StyledMenu>
     );
-};
+  }, [isAuthenticated]);
+
+  return navigation;
+});
+
+Header.displayName = 'Header';
 
 export default Header;

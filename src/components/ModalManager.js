@@ -39,13 +39,13 @@ const ModalManager = () => {
   }
 
   const { modalProps } = modal;
-  
+
   return (
     <>
       <div style={backdropStyle} />
-      <Modal 
-        open={true} 
-        onClose={() => dispatch(hideModal())} 
+      <Modal
+        open={true}
+        onClose={() => dispatch(hideModal())}
         style={modalStyle}
         {...modalProps}
       >

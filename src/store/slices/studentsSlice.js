@@ -1,4 +1,8 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  createEntityAdapter,
+} from '@reduxjs/toolkit';
 import axios from 'axios';
 import { API_BASE_URL } from '../../config';
 import authService from '../../utils/auth';
@@ -7,7 +11,7 @@ import { setError } from './authSlice';
 // Create entity adapter for normalized state
 const studentsAdapter = createEntityAdapter({
   // Assuming students have an 'id' field
-  selectId: (student) => student.id || student._id,
+  selectId: student => student.id || student._id,
 });
 
 // Initial state
@@ -34,7 +38,9 @@ export const fetchStudents = createAsyncThunk(
         authService.clearTokens();
         dispatch(setError('Session expired. Please log in again.'));
       }
-      return rejectWithValue(error.response?.data?.message || 'Failed to fetch students');
+      return rejectWithValue(
+        error.response?.data?.message || 'Failed to fetch students'
+      );
     }
   }
 );
@@ -55,7 +61,9 @@ export const fetchStudent = createAsyncThunk(
         authService.clearTokens();
         dispatch(setError('Session expired. Please log in again.'));
       }
-      return rejectWithValue(error.response?.data?.message || 'Failed to fetch student');
+      return rejectWithValue(
+        error.response?.data?.message || 'Failed to fetch student'
+      );
     }
   }
 );
@@ -69,14 +77,19 @@ export const createStudent = createAsyncThunk(
     }
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/students`, studentData);
+      const response = await axios.post(
+        `${API_BASE_URL}/students`,
+        studentData
+      );
       return response.data;
     } catch (error) {
       if (error.response?.status === 401) {
         authService.clearTokens();
         dispatch(setError('Session expired. Please log in again.'));
       }
-      return rejectWithValue(error.response?.data?.message || 'Failed to create student');
+      return rejectWithValue(
+        error.response?.data?.message || 'Failed to create student'
+      );
     }
   }
 );
@@ -90,14 +103,19 @@ export const updateStudent = createAsyncThunk(
     }
 
     try {
-      const response = await axios.put(`${API_BASE_URL}/students/${id}`, studentData);
+      const response = await axios.put(
+        `${API_BASE_URL}/students/${id}`,
+        studentData
+      );
       return response.data;
     } catch (error) {
       if (error.response?.status === 401) {
         authService.clearTokens();
         dispatch(setError('Session expired. Please log in again.'));
       }
-      return rejectWithValue(error.response?.data?.message || 'Failed to update student');
+      return rejectWithValue(
+        error.response?.data?.message || 'Failed to update student'
+      );
     }
   }
 );
@@ -118,7 +136,9 @@ export const deleteStudent = createAsyncThunk(
         authService.clearTokens();
         dispatch(setError('Session expired. Please log in again.'));
       }
-      return rejectWithValue(error.response?.data?.message || 'Failed to delete student');
+      return rejectWithValue(
+        error.response?.data?.message || 'Failed to delete student'
+      );
     }
   }
 );
@@ -128,17 +148,17 @@ const studentsSlice = createSlice({
   name: 'students',
   initialState,
   reducers: {
-    clearSelectedStudent: (state) => {
+    clearSelectedStudent: state => {
       state.selectedStudent = null;
     },
-    clearError: (state) => {
+    clearError: state => {
       state.error = null;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       // Fetch all students
-      .addCase(fetchStudents.pending, (state) => {
+      .addCase(fetchStudents.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -151,7 +171,7 @@ const studentsSlice = createSlice({
         state.error = action.payload;
       })
       // Fetch one student
-      .addCase(fetchStudent.pending, (state) => {
+      .addCase(fetchStudent.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -165,7 +185,7 @@ const studentsSlice = createSlice({
         state.error = action.payload;
       })
       // Create student
-      .addCase(createStudent.pending, (state) => {
+      .addCase(createStudent.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -178,7 +198,7 @@ const studentsSlice = createSlice({
         state.error = action.payload;
       })
       // Update student
-      .addCase(updateStudent.pending, (state) => {
+      .addCase(updateStudent.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -191,7 +211,7 @@ const studentsSlice = createSlice({
         state.error = action.payload;
       })
       // Delete student
-      .addCase(deleteStudent.pending, (state) => {
+      .addCase(deleteStudent.pending, state => {
         state.loading = true;
         state.error = null;
       })
@@ -217,8 +237,8 @@ export const {
   selectAll: selectAllStudents,
   selectById: selectStudentById,
   selectIds: selectStudentIds,
-} = studentsAdapter.getSelectors((state) => state.students);
+} = studentsAdapter.getSelectors(state => state.students);
 
-export const selectStudentsLoading = (state) => state.students.loading;
-export const selectStudentsError = (state) => state.students.error;
-export const selectSelectedStudent = (state) => state.students.selectedStudent;
+export const selectStudentsLoading = state => state.students.loading;
+export const selectStudentsError = state => state.students.error;
+export const selectSelectedStudent = state => state.students.selectedStudent;

@@ -1,7 +1,15 @@
 import React from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Form, Icon, Button, Grid, Segment, Header, Message } from 'semantic-ui-react';
+import {
+  Form,
+  Icon,
+  Button,
+  Grid,
+  Segment,
+  Header,
+  Message,
+} from 'semantic-ui-react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -21,14 +29,14 @@ export const StyledMessage = styled(Message)`
     background: ${props => props.theme.white};
     line-height: 30px;
     border-radius: 5px;
-   }
-   &&& p:first-child {
+  }
+  &&& p:first-child {
     margin-top: 10px;
     margin-bottom: 2px;
-   }
-   &&& p:last-child {
+  }
+  &&& p:last-child {
     margin-top: 2px;
-   }
+  }
 `;
 
 const StyledHeader = styled(Header)`
@@ -46,7 +54,7 @@ const StyledHeader = styled(Header)`
     height: 50%;
     border-radius: 5px;
   }
-  `;
+`;
 
 const StyledSegment = styled(Segment)`
   &&& {
@@ -78,7 +86,10 @@ const StyledForm = styled(Form)`
     margin-bottom: 10px;
     margin-top: 12px;
   }
-  &&& .ui.labeled.input:not([class*="corner labeled"]) .label:first-child + input {
+  &&&
+    .ui.labeled.input:not([class*='corner labeled'])
+    .label:first-child
+    + input {
     color: ${props => props.theme.blue};
     font-family: 'Roboto', 'sans-serif';
     font-weight: bold;
@@ -90,10 +101,12 @@ const StyledForm = styled(Form)`
     border: 2px solid ${props => props.theme.orange};
     border-radius: 5px;
     font-size: 2em;
-    font-family: 'Roboto','sans-serif';
+    font-family: 'Roboto', 'sans-serif';
     color: ${props => props.theme.white};
-     &:hover:not([disabled]) {
-      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    &:hover:not([disabled]) {
+      box-shadow:
+        0 12px 16px 0 rgba(0, 0, 0, 0.24),
+        0 17px 50px 0 rgba(0, 0, 0, 0.19);
     }
   }
   &&& .ui.label.label {
@@ -102,7 +115,7 @@ const StyledForm = styled(Form)`
   }
   &&& .ui.red {
     color: red;
-    font-family: 'Roboto','sans-serif';
+    font-family: 'Roboto', 'sans-serif';
     font-size: 1.5em;
   }
 `;
@@ -120,18 +133,18 @@ const Signin = () => {
   const dispatch = useDispatch();
   const errorMessage = useSelector(state => state.auth.errorMessage);
   const isAuthenticated = useSelector(state => state.auth.authenticated);
-  
+
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting, isDirty },
-    setFocus
+    setFocus,
   } = useForm({
     defaultValues: {
       email: '',
-      password: ''
+      password: '',
     },
-    mode: 'onBlur'
+    mode: 'onBlur',
   });
 
   React.useEffect(() => {
@@ -143,11 +156,13 @@ const Signin = () => {
     }
   }, [errors, setFocus]);
 
-  const onSubmit = (formData) => {
-    dispatch(actions.signin({
-      formData,
-      callback: () => navigate('/dashboard')
-    }));
+  const onSubmit = formData => {
+    dispatch(
+      actions.signin({
+        formData,
+        callback: () => navigate('/dashboard'),
+      })
+    );
   };
 
   if (isAuthenticated) {
@@ -155,12 +170,12 @@ const Signin = () => {
   }
 
   return (
-    <Grid centered style={{height: '100%'}} verticalAlign="middle">
-      <Grid.Column textAlign="center" style={{maxWidth: 450}}>
-
+    <Grid centered style={{ height: '100%' }} verticalAlign="middle">
+      <Grid.Column textAlign="center" style={{ maxWidth: 450 }}>
         <StyledMessage info>
-          Please log in with your account email and password. If you have neither registered
-          nor been assigned account credentials, you are welcome to use the available demo account to log in.
+          Please log in with your account email and password. If you have
+          neither registered nor been assigned account credentials, you are
+          welcome to use the available demo account to log in.
         </StyledMessage>
 
         <StyledMessage info>
@@ -173,12 +188,15 @@ const Signin = () => {
           <StyledHeader as="h1">educationELLy login</StyledHeader>
 
           <StyledForm onSubmit={handleSubmit(onSubmit)}>
-            
             <LabeledFormInput
               name="email"
               control={control}
               rules={validationRules.nonEmpty}
-              label={{content: <Icon color="orange" name="user outline" size="large"/>}}
+              label={{
+                content: (
+                  <Icon color="orange" name="user outline" size="large" />
+                ),
+              }}
               labelPosition="left"
               placeholder="Email"
             />
@@ -188,13 +206,15 @@ const Signin = () => {
               control={control}
               rules={validationRules.nonEmpty}
               type="password"
-              label={{content: <Icon color="orange" name="lock" size="large"/>}}
+              label={{
+                content: <Icon color="orange" name="lock" size="large" />,
+              }}
               labelPosition="left"
               placeholder="Password"
             />
 
-            <Form.Field 
-              control={Button} 
+            <Form.Field
+              control={Button}
               primary
               type="submit"
               disabled={!isDirty || isSubmitting}
@@ -204,11 +224,10 @@ const Signin = () => {
             </Form.Field>
 
             {errorMessage && (
-              <StyledError className='form-error' aria-live="polite">
+              <StyledError className="form-error" aria-live="polite">
                 {errorMessage}
               </StyledError>
             )}
-
           </StyledForm>
         </StyledSegment>
       </Grid.Column>

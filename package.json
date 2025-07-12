@@ -23,15 +23,32 @@
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.5",
     "styled-components": "^6.1.13",
+    "web-vitals": "^5.0.3",
     "webfontloader": "^1.6.28"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "test:coverage": "react-scripts test --env=jsdom --coverage --watchAll=false",
+    "test:ci": "react-scripts test --env=jsdom --coverage --watchAll=false --ci",
     "eject": "react-scripts eject",
-    "lint": "eslint src",
-    "audit:fix": "npm audit fix --force"
+    "lint": "eslint src --ext .js,.jsx",
+    "lint:fix": "eslint src --ext .js,.jsx --fix",
+    "format": "prettier --write src/**/*.{js,jsx,json,css,scss,md}",
+    "format:check": "prettier --check src/**/*.{js,jsx,json,css,scss,md}",
+    "type-check": "echo 'No TypeScript in this project'",
+    "validate": "npm run lint && npm run format:check && npm run test:ci",
+    "commit": "cz",
+    "deps:check": "depcheck",
+    "deps:update": "npx npm-check-updates",
+    "deps:upgrade": "npx npm-check-updates -u && npm install",
+    "audit": "npm audit",
+    "audit:fix": "npm audit fix --force",
+    "clean": "rm -rf node_modules package-lock.json && npm install",
+    "analyze": "npm run build && npx serve -s build",
+    "check-tools": "node scripts/check-tools.js",
+    "prepare": "husky"
   },
   "browserslist": {
     "production": [
@@ -52,11 +69,20 @@
     "@types/react": "^18.3.17",
     "@types/react-dom": "^18.3.5",
     "babel-plugin-styled-components": "^2.1.4",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "depcheck": "^1.4.7",
     "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.5",
     "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-prettier": "^5.5.1",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.1.0",
-    "msw": "^2.10.4"
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "msw": "^2.10.4",
+    "npm-check-updates": "^18.0.1",
+    "prettier": "^3.6.2"
   },
   "heroku-run-build-script": true,
   "jest": {
@@ -65,6 +91,23 @@
     ],
     "moduleNameMapper": {
       "axios": "axios/dist/node/axios.cjs"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "src/**/*.{json,css,scss,md}": [
+      "prettier --write"
+    ],
+    "*.{js,jsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
     }
   }
 }

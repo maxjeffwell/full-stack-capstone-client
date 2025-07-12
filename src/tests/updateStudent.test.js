@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, waitFor } from './test-utils';
-import userEvent from '@testing-library/user-event';
 import UpdateStudent from '../components/UpdateStudent';
 const mockStudent = {
   id: '123',
@@ -10,18 +9,18 @@ const mockStudent = {
   gradeLevel: '3rd',
   ellStatus: 'Level 2',
   compositeLevel: '3.5',
-  designation: 'IEP'
+  designation: 'IEP',
 };
 
 // Mock useParams
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useParams: () => ({ id: '123' }),
-  useNavigate: () => jest.fn()
+  useNavigate: () => jest.fn(),
 }));
 
 // Mock authRequired HOC to bypass authentication
-jest.mock('../components/authRequired', () => (Component) => Component);
+jest.mock('../components/authRequired', () => Component => Component);
 
 describe('<UpdateStudent />', () => {
   it('Should render without crashing', () => {
@@ -29,15 +28,17 @@ describe('<UpdateStudent />', () => {
       students: {
         ids: ['123'],
         entities: {
-          '123': mockStudent
+          123: mockStudent,
         },
         loading: false,
-        error: null
-      }
+        error: null,
+      },
     };
-    
+
     render(<UpdateStudent />, { preloadedState });
-    expect(screen.getByRole('button', { name: /save student/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /save student/i })
+    ).toBeInTheDocument();
   });
 
   it('Should display all form fields', () => {
@@ -45,21 +46,27 @@ describe('<UpdateStudent />', () => {
       students: {
         ids: ['123'],
         entities: {
-          '123': mockStudent
+          123: mockStudent,
         },
         loading: false,
-        error: null
-      }
+        error: null,
+      },
     };
-    
+
     render(<UpdateStudent />, { preloadedState });
-    
-    expect(screen.getByPlaceholderText('enter full student name')).toBeInTheDocument();
+
+    expect(
+      screen.getByPlaceholderText('enter full student name')
+    ).toBeInTheDocument();
     expect(screen.getByPlaceholderText('enter school')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('enter teacher')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('enter grade level')).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText('enter grade level')
+    ).toBeInTheDocument();
     expect(screen.getByPlaceholderText('enter ELL Status')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('enter composite level (overall)')).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText('enter composite level (overall)')
+    ).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/designation/i)).toBeInTheDocument();
   });
 
@@ -68,13 +75,13 @@ describe('<UpdateStudent />', () => {
       students: {
         ids: ['123'],
         entities: {
-          '123': mockStudent
+          123: mockStudent,
         },
         loading: false,
-        error: null
-      }
+        error: null,
+      },
     };
-    
+
     render(<UpdateStudent />, { preloadedState });
     expect(screen.getByText('DELETE')).toBeInTheDocument();
   });
@@ -84,18 +91,26 @@ describe('<UpdateStudent />', () => {
       students: {
         ids: ['123'],
         entities: {
-          '123': mockStudent
+          123: mockStudent,
         },
         loading: false,
-        error: null
-      }
+        error: null,
+      },
     };
-    
+
     render(<UpdateStudent />, { preloadedState });
-    
+
     await waitFor(() => {
       expect(screen.getByDisplayValue('John Doe')).toBeInTheDocument();
-      expect(screen.getByDisplayValue('Lincoln Elementary')).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(
+        screen.getByDisplayValue('Lincoln Elementary')
+      ).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
       expect(screen.getByDisplayValue('Ms. Smith')).toBeInTheDocument();
     });
   });

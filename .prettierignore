@@ -1,0 +1,14 @@
+build/
+dist/
+node_modules/
+coverage/
+*.log
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+package-lock.json
+yarn.lock
+public/manifest.json
+public/robots.txt

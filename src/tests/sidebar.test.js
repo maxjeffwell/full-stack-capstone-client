@@ -11,23 +11,23 @@ describe('<Sidebar />', () => {
 
   it('Should be visible when toggled', () => {
     const toggledState = {
-      isSidebarToggled: true
+      isSidebarToggled: true,
     };
-    
-    const { container } = render(<Sidebar />, { preloadedState: toggledState });
-    const sidebar = container.querySelector('.ui.sidebar');
+
+    render(<Sidebar />, { preloadedState: toggledState });
+    const sidebar = screen.getByTestId('sidebar');
     expect(sidebar).toHaveClass('visible');
   });
 
   it('Should not be visible when not toggled', () => {
-    const { container } = render(<Sidebar />);
-    const sidebar = container.querySelector('.ui.sidebar');
+    render(<Sidebar />);
+    const sidebar = screen.getByTestId('sidebar');
     expect(sidebar).not.toHaveClass('visible');
   });
 
   it('Should contain navigation menu items', () => {
     render(<Sidebar />);
-    
+
     // Check for menu items (assuming sidebar has navigation links)
     const sidebar = document.querySelector('.ui.sidebar');
     expect(sidebar.querySelector('.menu')).toBeInTheDocument();

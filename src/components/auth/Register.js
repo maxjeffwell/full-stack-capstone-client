@@ -1,12 +1,23 @@
 import React from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Form, Icon, Button, Grid, Segment, Header, Message } from 'semantic-ui-react';
+import {
+  Form,
+  Icon,
+  Button,
+  Grid,
+  Segment,
+  Header,
+  Message,
+} from 'semantic-ui-react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as actions from '../../store/actions';
-import { validationRules, combineRules } from '../../validators/hookFormValidators';
+import {
+  validationRules,
+  combineRules,
+} from '../../validators/hookFormValidators';
 import { LabeledFormInput } from '../forms/FormInput';
 
 const StyledSegment = styled(Segment)`
@@ -22,7 +33,7 @@ const StyledSegment = styled(Segment)`
 
 const StyledForm = styled(Form)`
   &&& {
-  	display: grid;
+    display: grid;
   }
   &&& .field {
     text-align: center;
@@ -37,9 +48,12 @@ const StyledForm = styled(Form)`
     border-top: 3px solid ${props => props.theme.green};
     border-right: 3px solid ${props => props.theme.green};
     border-bottom: 3px solid ${props => props.theme.green};
-    border-left: 3px solid ${props => props.theme.green}
+    border-left: 3px solid ${props => props.theme.green};
   }
-  &&& .ui.labeled.input:not([class*="corner labeled"]) .label:first-child + input {
+  &&&
+    .ui.labeled.input:not([class*='corner labeled'])
+    .label:first-child
+    + input {
     color: ${props => props.theme.blue};
     font-family: 'Roboto', 'sans-serif';
     font-weight: bold;
@@ -51,11 +65,13 @@ const StyledForm = styled(Form)`
     border: 2px solid ${props => props.theme.orange};
     border-radius: 5px;
     font-size: 2em;
-    font-family: 'Roboto','sans-serif';
+    font-family: 'Roboto', 'sans-serif';
     color: ${props => props.theme.white};
     margin-top: 15px;
     &:hover:not([disabled]) {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+      box-shadow:
+        0 12px 16px 0 rgba(0, 0, 0, 0.24),
+        0 17px 50px 0 rgba(0, 0, 0, 0.19);
     }
   }
   &&& .ui.label.label {
@@ -63,9 +79,9 @@ const StyledForm = styled(Form)`
     padding-left: 10px;
   }
   &&& .ui.red {
-  color: red;
-  font-family: 'Roboto','sans-serif';
-  font-size: 1.5em;
+    color: red;
+    font-family: 'Roboto', 'sans-serif';
+    font-size: 1.5em;
   }
 `;
 
@@ -90,7 +106,7 @@ const StyledMessage = styled(Message)`
     background: ${props => props.theme.white};
     line-height: 30px;
     border-radius: 5px;
-   }
+  }
 `;
 
 const StyledHeader = styled(Header)`
@@ -117,19 +133,19 @@ const Register = () => {
   const dispatch = useDispatch();
   const errorMessage = useSelector(state => state.signup.errorMessage);
   const isAuthenticated = useSelector(state => state.auth.authenticated);
-  
+
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting, isDirty },
-    setFocus
+    setFocus,
   } = useForm({
     defaultValues: {
       email: '',
       password: '',
-      passwordConfirmation: ''
+      passwordConfirmation: '',
     },
-    mode: 'onBlur'
+    mode: 'onBlur',
   });
 
   React.useEffect(() => {
@@ -140,11 +156,13 @@ const Register = () => {
     }
   }, [errors, setFocus]);
 
-  const onSubmit = (formData) => {
-    dispatch(actions.signup({
-      formData,
-      callback: () => navigate('/dashboard')
-    }));
+  const onSubmit = formData => {
+    dispatch(
+      actions.signup({
+        formData,
+        callback: () => navigate('/dashboard'),
+      })
+    );
   };
 
   if (isAuthenticated) {
@@ -153,18 +171,19 @@ const Register = () => {
 
   return (
     <Grid centered style={{ height: '100%' }} verticalAlign="middle">
-      <Grid.Column textAlign="center"  style={{ maxWidth: 450 }}>
-
+      <Grid.Column textAlign="center" style={{ maxWidth: 450 }}>
         <StyledMessage info>
           DEMO ACCOUNT AVAILABLE
-          <p>If you prefer not to register at this time, an account for demo purposes is available on the login page.</p>
+          <p>
+            If you prefer not to register at this time, an account for demo
+            purposes is available on the login page.
+          </p>
         </StyledMessage>
 
         <StyledSegment stacked>
           <StyledHeader as="h1">registration</StyledHeader>
 
           <StyledForm onSubmit={handleSubmit(onSubmit)}>
-
             <LabeledFormInput
               name="email"
               control={control}
@@ -172,7 +191,11 @@ const Register = () => {
                 validationRules.email,
                 validationRules.isTrimmed
               )}
-              label={{ content: <Icon color="orange" name="user outline" size="large" /> }}
+              label={{
+                content: (
+                  <Icon color="orange" name="user outline" size="large" />
+                ),
+              }}
               labelPosition="left"
               placeholder="Email"
             />
@@ -185,7 +208,9 @@ const Register = () => {
                 validationRules.isTrimmed
               )}
               type="password"
-              label={{ content: <Icon color="orange" name="lock" size="large" /> }}
+              label={{
+                content: <Icon color="orange" name="lock" size="large" />,
+              }}
               labelPosition="left"
               placeholder="Password"
             />
@@ -195,13 +220,15 @@ const Register = () => {
               control={control}
               rules={validationRules.passwordConfirmation}
               type="password"
-              label={{ content: <Icon color="orange" name="lock" size="large" /> }}
+              label={{
+                content: <Icon color="orange" name="lock" size="large" />,
+              }}
               labelPosition="left"
               placeholder="Confirm Password"
             />
 
-            <Form.Field 
-              control={Button} 
+            <Form.Field
+              control={Button}
               primary
               type="submit"
               disabled={!isDirty || isSubmitting}
@@ -215,7 +242,6 @@ const Register = () => {
                 {errorMessage}
               </StyledErrorMessage>
             )}
-
           </StyledForm>
         </StyledSegment>
       </Grid.Column>

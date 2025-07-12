@@ -17,20 +17,21 @@ export const signin = createAsyncThunk(
     try {
       const response = await axios.post(`${API_BASE_URL}/signin`, formData);
       const { token, refreshToken } = response.data;
-      
+
       // Store tokens securely
       authService.setToken(token);
       if (refreshToken) {
         authService.setTokens(token, refreshToken);
       }
-      
+
       // Execute callback if provided
       if (callback) callback();
-      
+
       return { token };
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || 'Invalid login email or password. Please try logging in again.'
+        error.response?.data?.message ||
+          'Invalid login email or password. Please try logging in again.'
       );
     }
   }
@@ -42,20 +43,21 @@ export const signup = createAsyncThunk(
     try {
       const response = await axios.post(`${API_BASE_URL}/signup`, formData);
       const { token, refreshToken } = response.data;
-      
+
       // Store tokens securely
       authService.setToken(token);
       if (refreshToken) {
         authService.setTokens(token, refreshToken);
       }
-      
+
       // Execute callback if provided
       if (callback) callback();
-      
+
       return { token };
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || 'This email is in use. Please register using a different email.'
+        error.response?.data?.message ||
+          'This email is in use. Please register using a different email.'
       );
     }
   }
@@ -66,22 +68,22 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    signout: (state) => {
+    signout: state => {
       authService.clearTokens();
       state.authenticated = '';
       state.errorMessage = '';
     },
-    clearError: (state) => {
+    clearError: state => {
       state.errorMessage = '';
     },
     setError: (state, action) => {
       state.errorMessage = action.payload;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       // Signin cases
-      .addCase(signin.pending, (state) => {
+      .addCase(signin.pending, state => {
         state.loading = true;
         state.errorMessage = '';
       })
@@ -95,7 +97,7 @@ const authSlice = createSlice({
         state.errorMessage = action.payload;
       })
       // Signup cases
-      .addCase(signup.pending, (state) => {
+      .addCase(signup.pending, state => {
         state.loading = true;
         state.errorMessage = '';
       })
@@ -118,6 +120,6 @@ export const { signout, clearError, setError } = authSlice.actions;
 export default authSlice.reducer;
 
 // Selectors
-export const selectAuth = (state) => state.auth.authenticated;
-export const selectAuthError = (state) => state.auth.errorMessage;
-export const selectAuthLoading = (state) => state.auth.loading;
+export const selectAuth = state => state.auth.authenticated;
+export const selectAuthError = state => state.auth.errorMessage;
+export const selectAuthLoading = state => state.auth.loading;

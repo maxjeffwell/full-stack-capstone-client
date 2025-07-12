@@ -9,6 +9,6 @@ export function showModal(modalProps) {
 
 export function hideModal() {
   return {
-    type: HIDE_MODAL
+    type: HIDE_MODAL,
   };
 }

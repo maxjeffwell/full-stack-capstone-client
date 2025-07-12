@@ -22,10 +22,10 @@ describe('<Navigation />', () => {
 
   it('Should toggle sidebar when clicked', () => {
     const { store } = render(<Navigation />);
-    
+
     const navIcon = screen.getByAltText('students').parentElement.parentElement;
     fireEvent.click(navIcon);
-    
+
     // Check that toggleSidebar action was dispatched
     const state = store.getState();
     expect(state.isSidebarToggled).toBe(true);

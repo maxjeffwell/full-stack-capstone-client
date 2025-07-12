@@ -21,6 +21,7 @@ Object.defineProperty(window, 'matchMedia', {
 
 // Mock IntersectionObserver for components that use it
 global.IntersectionObserver = class IntersectionObserver {
+  // eslint-disable-next-line no-useless-constructor
   constructor() {}
   disconnect() {}
   observe() {}

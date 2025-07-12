@@ -8,7 +8,7 @@ const signupSlice = createSlice({
     errorMessage: '',
   },
   reducers: {
-    registerUserRequest: (state) => {
+    registerUserRequest: state => {
       state.loading = true;
       state.errorMessage = '';
     },
@@ -16,17 +16,17 @@ const signupSlice = createSlice({
       state.loading = false;
       state.errorMessage = action.payload;
     },
-    clearSignupError: (state) => {
+    clearSignupError: state => {
       state.errorMessage = '';
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(signup.pending, (state) => {
+      .addCase(signup.pending, state => {
         state.loading = true;
         state.errorMessage = '';
       })
-      .addCase(signup.fulfilled, (state) => {
+      .addCase(signup.fulfilled, state => {
         state.loading = false;
         state.errorMessage = '';
       })
@@ -38,11 +38,12 @@ const signupSlice = createSlice({
 });
 
 // Export actions
-export const { registerUserRequest, registerUserError, clearSignupError } = signupSlice.actions;
+export const { registerUserRequest, registerUserError, clearSignupError } =
+  signupSlice.actions;
 
 // Export reducer
 export default signupSlice.reducer;
 
 // Selectors
-export const selectSignupLoading = (state) => state.signup.loading;
-export const selectSignupError = (state) => state.signup.errorMessage;
+export const selectSignupLoading = state => state.signup.loading;
+export const selectSignupError = state => state.signup.errorMessage;

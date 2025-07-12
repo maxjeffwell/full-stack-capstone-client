@@ -1,6 +1,7 @@
 {
   "short_name": "educationELLy",
-  "name": "educationELLy",
+  "name": "educationELLy - ELL Student Management",
+  "description": "A comprehensive platform for managing English Language Learning (ELL) students and tracking their progress.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +21,9 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#2873b4",
+  "background_color": "#f5f5f5",
+  "orientation": "portrait-primary",
+  "categories": ["education", "productivity"],
+  "lang": "en-US"
 }

@@ -58,13 +58,13 @@ const UpdateStudent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const student = useSelector(state => selectStudentById(state, id));
-  
+
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting, isDirty },
     setFocus,
-    reset
+    reset,
   } = useForm({
     defaultValues: {
       fullName: '',
@@ -73,9 +73,9 @@ const UpdateStudent = () => {
       gradeLevel: '',
       ellStatus: '',
       compositeLevel: '',
-      designation: ''
+      designation: '',
     },
-    mode: 'onBlur'
+    mode: 'onBlur',
   });
 
   useEffect(() => {
@@ -103,7 +103,7 @@ const UpdateStudent = () => {
     }
   }, [errors, setFocus]);
 
-  const onSubmit = async (formData) => {
+  const onSubmit = async formData => {
     try {
       await dispatch(updateStudent({ id, ...formData })).unwrap();
       navigate('/students');
@@ -116,15 +116,16 @@ const UpdateStudent = () => {
   };
 
   return (
-    <Grid textAlign="center" style={{width: 'auto'}}>
+    <Grid textAlign="center" style={{ width: 'auto' }}>
       <Grid.Row centered columns={1}>
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
-
           <LabeledFormInput
             name="fullName"
             control={control}
             rules={validationRules.required}
-            label={{content: <Icon color="green" name="student" size="large"/>}}
+            label={{
+              content: <Icon color="green" name="student" size="large" />,
+            }}
             labelPosition="left"
             placeholder="enter full student name"
           />
@@ -132,7 +133,11 @@ const UpdateStudent = () => {
           <LabeledFormInput
             name="school"
             control={control}
-            label={{content: <Icon color="blue" name="building outline" size="large"/>}}
+            label={{
+              content: (
+                <Icon color="blue" name="building outline" size="large" />
+              ),
+            }}
             labelPosition="left"
             placeholder="enter school"
           />
@@ -140,7 +145,9 @@ const UpdateStudent = () => {
           <LabeledFormInput
             name="teacher"
             control={control}
-            label={{content: <Icon color="orange" name="apple" size="large"/>}}
+            label={{
+              content: <Icon color="orange" name="apple" size="large" />,
+            }}
             labelPosition="left"
             placeholder="enter teacher"
           />
@@ -148,7 +155,9 @@ const UpdateStudent = () => {
           <LabeledFormInput
             name="gradeLevel"
             control={control}
-            label={{content: <Icon color="green" name="chart line" size="large"/>}}
+            label={{
+              content: <Icon color="green" name="chart line" size="large" />,
+            }}
             labelPosition="left"
             placeholder="enter grade level"
           />
@@ -156,7 +165,9 @@ const UpdateStudent = () => {
           <LabeledFormInput
             name="ellStatus"
             control={control}
-            label={{content: <Icon color="orange" name="world" size="large"/>}}
+            label={{
+              content: <Icon color="orange" name="world" size="large" />,
+            }}
             labelPosition="left"
             placeholder="enter ELL Status"
           />
@@ -164,7 +175,9 @@ const UpdateStudent = () => {
           <LabeledFormInput
             name="compositeLevel"
             control={control}
-            label={{content: <Icon color="green" name="percent" size="large"/>}}
+            label={{
+              content: <Icon color="green" name="percent" size="large" />,
+            }}
             labelPosition="left"
             placeholder="enter composite level (overall)"
           />
@@ -172,13 +185,17 @@ const UpdateStudent = () => {
           <LabeledFormInput
             name="designation"
             control={control}
-            label={{content: <Icon color="blue" name="universal access" size="large"/>}}
+            label={{
+              content: (
+                <Icon color="blue" name="universal access" size="large" />
+              ),
+            }}
             labelPosition="left"
             placeholder="enter ELL, Special Education, or Intervention designation"
           />
 
-          <Button 
-            disabled={!isDirty || isSubmitting} 
+          <Button
+            disabled={!isDirty || isSubmitting}
             loading={isSubmitting}
             type="submit"
           >

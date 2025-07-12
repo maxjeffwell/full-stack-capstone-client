@@ -12,44 +12,47 @@ class AuthService {
   setupInterceptors() {
     // Request interceptor to add token to all requests
     axios.interceptors.request.use(
-      (config) => {
+      config => {
         const token = this.getToken();
         if (token && config.url.startsWith(API_BASE_URL)) {
           config.headers.Authorization = `Bearer ${token}`;
         }
-        
+
         // Add CSRF token if available
         const csrfToken = this.getCSRFToken();
         if (csrfToken) {
           config.headers['X-CSRF-Token'] = csrfToken;
         }
-        
+
         return config;
       },
-      (error) => {
+      error => {
         return Promise.reject(error);
       }
     );
 
     // Response interceptor to handle token expiration
     axios.interceptors.response.use(
-      (response) => response,
-      async (error) => {
+      response => response,
+      async error => {
         const originalRequest = error.config;
-        
+
         if (error.response?.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
-          
+
           try {
             const refreshToken = this.getRefreshToken();
             if (refreshToken) {
-              const response = await axios.post(`${API_BASE_URL}/refresh-token`, {
-                refreshToken
-              });
-              
+              const response = await axios.post(
+                `${API_BASE_URL}/refresh-token`,
+                {
+                  refreshToken,
+                }
+              );
+
               const { token, refreshToken: newRefreshToken } = response.data;
               this.setTokens(token, newRefreshToken);
-              
+
               originalRequest.headers.Authorization = `Bearer ${token}`;
               return axios(originalRequest);
             }
@@ -59,7 +62,7 @@ class AuthService {
             return Promise.reject(refreshError);
           }
         }
-        
+
         return Promise.reject(error);
       }
     );
@@ -98,7 +101,7 @@ class AuthService {
   isAuthenticated() {
     const token = this.getToken();
     if (!token) return false;
-    
+
     try {
       // Decode JWT to check expiration
       const payload = JSON.parse(atob(token.split('.')[1]));
@@ -115,14 +118,14 @@ class AuthService {
     if (metaTag) {
       return metaTag.getAttribute('content');
     }
-    
+
     // Fallback to cookie
     const value = `; ${document.cookie}`;
     const parts = value.split(`; csrf-token=`);
     if (parts.length === 2) {
       return parts.pop().split(';').shift();
     }
-    
+
     return null;
   }
 
@@ -136,4 +139,6 @@ class AuthService {
   }
 }
 
-export default new AuthService();
+const authService = new AuthService();
+
+export default authService;

@@ -19,9 +19,9 @@ describe('<Footer />', () => {
   });
 
   it('Should have proper semantic HTML', () => {
-    const { container } = render(<Footer />);
-    
-    const footer = container.querySelector('footer');
+    render(<Footer />);
+
+    const footer = screen.getByRole('contentinfo');
     expect(footer).toBeInTheDocument();
     expect(footer).toHaveClass('footer');
   });

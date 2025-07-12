@@ -19,6 +19,6 @@ export const { showModal, hideModal } = modalSlice.actions;
 export default modalSlice.reducer;
 
 // Selectors
-export const selectModal = (state) => state.modals;
-export const selectModalType = (state) => state.modals?.modalType;
-export const selectModalProps = (state) => state.modals?.modalProps;
+export const selectModal = state => state.modals;
+export const selectModalType = state => state.modals?.modalType;
+export const selectModalProps = state => state.modals?.modalProps;

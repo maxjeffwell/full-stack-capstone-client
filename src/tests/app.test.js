@@ -12,7 +12,7 @@ describe('<App />', () => {
 
   it('Should render header with navigation links', () => {
     render(<App />);
-    
+
     // Check for unauthenticated user links
     expect(screen.getByText('Register')).toBeInTheDocument();
     expect(screen.getByText('Log In')).toBeInTheDocument();
@@ -20,14 +20,14 @@ describe('<App />', () => {
 
   it('Should render the landing page by default', () => {
     render(<App />);
-    
+
     // Landing page should be shown at root path
     expect(screen.getByText(/Welcome to educationELLy/i)).toBeInTheDocument();
   });
 
   it('Should apply global styles', () => {
     const { container } = render(<App />);
-    
+
     // Check that styled-components styles are applied
     expect(container.firstChild).toHaveStyle(`
       font-family: Roboto, sans-serif

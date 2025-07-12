@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from './test-utils';
+import { render, screen } from './test-utils';
 import Students from '../components/auth/Students';
 
 const mockStudents = [
@@ -11,7 +11,7 @@ const mockStudents = [
     gradeLevel: '3rd',
     ellStatus: 'Level 2',
     compositeLevel: '3.5',
-    designation: 'IEP'
+    designation: 'IEP',
   },
   {
     id: '2',
@@ -21,8 +21,8 @@ const mockStudents = [
     gradeLevel: '6th',
     ellStatus: 'Level 4',
     compositeLevel: '4.2',
-    designation: '504 Plan'
-  }
+    designation: '504 Plan',
+  },
 ];
 
 describe('<Students />', () => {
@@ -41,16 +41,16 @@ describe('<Students />', () => {
       students: {
         ids: ['1', '2'],
         entities: {
-          '1': mockStudents[0],
-          '2': mockStudents[1]
+          1: mockStudents[0],
+          2: mockStudents[1],
         },
         loading: false,
-        error: null
-      }
+        error: null,
+      },
     };
-    
+
     render(<Students />, { preloadedState });
-    
+
     expect(screen.getByText('Student Name: John Doe')).toBeInTheDocument();
     expect(screen.getByText('Student Name: Jane Smith')).toBeInTheDocument();
   });
@@ -60,15 +60,15 @@ describe('<Students />', () => {
       students: {
         ids: ['1'],
         entities: {
-          '1': mockStudents[0]
+          1: mockStudents[0],
         },
         loading: false,
-        error: null
-      }
+        error: null,
+      },
     };
-    
+
     render(<Students />, { preloadedState });
-    
+
     expect(screen.getByText('School: Lincoln Elementary')).toBeInTheDocument();
     expect(screen.getByText('Teacher: Ms. Smith')).toBeInTheDocument();
     expect(screen.getByText('Grade: 3rd')).toBeInTheDocument();
@@ -81,10 +81,10 @@ describe('<Students />', () => {
         ids: [],
         entities: {},
         loading: false,
-        error: null
-      }
+        error: null,
+      },
     };
-    
+
     render(<Students />, { preloadedState });
     expect(screen.getByText('No students found.')).toBeInTheDocument();
   });
@@ -94,19 +94,25 @@ describe('<Students />', () => {
       students: {
         ids: ['1', '2'],
         entities: {
-          '1': mockStudents[0],
-          '2': mockStudents[1]
+          1: mockStudents[0],
+          2: mockStudents[1],
         },
         loading: false,
-        error: null
-      }
+        error: null,
+      },
     };
-    
+
     render(<Students />, { preloadedState });
-    
+
     const updateLinks = screen.getAllByText('Update Student');
     expect(updateLinks).toHaveLength(2);
-    expect(updateLinks[0].closest('a')).toHaveAttribute('href', '/students/1/update');
-    expect(updateLinks[1].closest('a')).toHaveAttribute('href', '/students/2/update');
+    expect(updateLinks[0].closest('a')).toHaveAttribute(
+      'href',
+      '/students/1/update'
+    );
+    expect(updateLinks[1].closest('a')).toHaveAttribute(
+      'href',
+      '/students/2/update'
+    );
   });
 });

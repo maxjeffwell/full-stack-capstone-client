@@ -17,14 +17,14 @@ const StyledIcon = styled.i`
 
 const Navigation = () => {
   const dispatch = useDispatch();
-  
+
   const handleToggleSidebar = () => {
     dispatch(toggleSidebar());
   };
 
   return (
     <StyledNav role="navigation" className="flex-container">
-      <StyledIcon icon='claptrap' onClick={handleToggleSidebar}>
+      <StyledIcon icon="claptrap" onClick={handleToggleSidebar}>
         <Link to="/students" className="students" role="button">
           <LazyImage src={claptrap_vector} alt="students" />
         </Link>

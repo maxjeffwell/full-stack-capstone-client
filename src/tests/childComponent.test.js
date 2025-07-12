@@ -11,15 +11,15 @@ describe('authRequired HOC', () => {
     const mockNavigate = jest.fn();
     jest.mock('react-router-dom', () => ({
       ...jest.requireActual('react-router-dom'),
-      useNavigate: () => mockNavigate
+      useNavigate: () => mockNavigate,
     }));
-    
+
     render(<ProtectedComponent />, {
       preloadedState: {
-        auth: { authenticated: false }
-      }
+        auth: { authenticated: false },
+      },
     });
-    
+
     // Component should not render content when not authenticated
     expect(screen.queryByText('Protected Content')).not.toBeInTheDocument();
   });
@@ -27,23 +27,23 @@ describe('authRequired HOC', () => {
   it('Should render wrapped component when authenticated', () => {
     render(<ProtectedComponent />, {
       preloadedState: {
-        auth: { authenticated: true }
-      }
+        auth: { authenticated: true },
+      },
     });
-    
+
     expect(screen.getByText('Protected Content')).toBeInTheDocument();
   });
 
   it('Should pass props to wrapped component', () => {
     const TestComponentWithProps = ({ message }) => <div>{message}</div>;
     const ProtectedComponentWithProps = authRequired(TestComponentWithProps);
-    
+
     render(<ProtectedComponentWithProps message="Hello World" />, {
       preloadedState: {
-        auth: { authenticated: true }
-      }
+        auth: { authenticated: true },
+      },
     });
-    
+
     expect(screen.getByText('Hello World')).toBeInTheDocument();
   });
 });

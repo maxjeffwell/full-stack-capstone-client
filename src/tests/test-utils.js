@@ -43,9 +43,7 @@ export function renderWithProviders(
     return (
       <Provider store={store}>
         <BrowserRouter>
-          <ThemeProvider theme={theme}>
-            {children}
-          </ThemeProvider>
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
         </BrowserRouter>
       </Provider>
     );

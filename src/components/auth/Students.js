@@ -1,15 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Card } from 'semantic-ui-react';
+import { Card, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { fetchStudents } from '../../store/actions';
-import { selectAllStudents, selectStudentsLoading } from '../../store/slices/studentsSlice';
+import {
+  selectAllStudents,
+  selectStudentsLoading,
+} from '../../store/slices/studentsSlice';
+import LoadingSpinner from '../LoadingSpinner';
 
 const StyledCard = styled(Card)`
   &&& .ui.card.student-card {
-  min-width: 250px;
+    min-width: 250px;
   }
   &&& .content {
     overflow: auto;
@@ -19,7 +23,7 @@ const StyledCard = styled(Card)`
   &&& .content .header:not(.ui) {
     color: ${props => props.theme.blue};
     font-family: 'Roboto', 'sans-serif';
-    font-size: .75em;
+    font-size: 0.75em;
     font-weight: 600;
     line-height: 1.25em;
     margin-bottom: 5px;
@@ -35,33 +39,68 @@ const StyledCard = styled(Card)`
     text-align: center;
     border-top: none;
   }
- `;
+`;
 
 const StyledButton = styled.button`
-    border: 2px solid ${props => props.theme.orange};
-    background-color: ${props => props.theme.green};
-    alignment: left;
-    justify-content: space-around;
-    padding: 0 5px;
-    border-radius: 5px;
-    font-family: 'Roboto','sans-serif';
-    font-size: 1em;
-    font-weight: 500;
-    margin-bottom: 2px;
-    margin-top: 2px;
-    color: ${props => props.theme.white};
+  border: 2px solid ${props => props.theme.orange};
+  background-color: ${props => props.theme.green};
+  alignment: left;
+  justify-content: space-around;
+  padding: 0 5px;
+  border-radius: 5px;
+  font-family: 'Roboto', 'sans-serif';
+  font-size: 1em;
+  font-weight: 500;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  color: ${props => props.theme.white};
   a {
     color: ${props => props.theme.white};
-    &:hover{
+    &:hover {
       color: ${props => props.theme.orange};
     }
   }
-    &:hover:not([disabled]) {
-      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-    }
+  &:hover:not([disabled]) {
+    box-shadow:
+      0 12px 16px 0 rgba(0, 0, 0, 0.24),
+      0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  }
 `;
 
-const Students = () => {
+// Memoized StudentCard component to prevent unnecessary re-renders
+const StudentCard = memo(({ student }) => {
+  const studentId = student.id || student._id;
+
+  return (
+    <StyledCard className="student-card">
+      <Card.Content>
+        <Card.Header>Student Name: {student.fullName}</Card.Header>
+        <Card.Description>
+          School: {student.school}
+          <br />
+          Teacher: {student.teacher}
+          <br />
+          Grade: {student.gradeLevel}
+          <br />
+          ELL Status: {student.ellStatus}
+          <br />
+          WIDA ACCESS Overall Composite: {student.compositeLevel}
+          <br />
+          IEP | 504 | Intervention Plan: {student.designation}
+        </Card.Description>
+      </Card.Content>
+      <Card.Content extra>
+        <Link to={`/students/${studentId}/update`}>
+          <StyledButton>Update Student</StyledButton>
+        </Link>
+      </Card.Content>
+    </StyledCard>
+  );
+});
+
+StudentCard.displayName = 'StudentCard';
+
+const Students = memo(() => {
   const dispatch = useDispatch();
   const students = useSelector(selectAllStudents);
   const loading = useSelector(selectStudentsLoading);
@@ -70,56 +109,52 @@ const Students = () => {
     dispatch(fetchStudents());
   }, [dispatch]);
 
-  const renderStudentsList = () => {
-    if (loading) {
-      return <div>Loading students...</div>;
-    }
-
+  // Memoize the students list to prevent recalculation on every render
+  const studentsList = useMemo(() => {
     if (!students || students.length === 0) {
-      return <div>No students found.</div>;
+      return [];
     }
+    return students;
+  }, [students]);
 
-    return students.map(student => {
+  // Memoize the rendered student cards
+  const renderedStudents = useMemo(() => {
+    return studentsList.map(student => {
       const studentId = student.id || student._id;
-      
-      return (
-        <StyledCard key={studentId} className="student-card">
-          <Card.Content>
-            <Card.Header>
-              Student Name: {student.fullName}
-            </Card.Header>
-            <Card.Description>
-              School: {student.school}
-              <br />
-              Teacher: {student.teacher}
-              <br />
-              Grade: {student.gradeLevel}
-              <br />
-              ELL Status: {student.ellStatus}
-              <br />
-              WIDA ACCESS Overall Composite: {student.compositeLevel}
-              <br />
-              IEP | 504 | Intervention Plan: {student.designation}
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <Link to={`/students/${studentId}/update`}>
-              <StyledButton>Update Student</StyledButton>
-            </Link>
-          </Card.Content>
-        </StyledCard>
-      );
+      return <StudentCard key={studentId} student={student} />;
     });
-  };
+  }, [studentsList]);
+
+  if (loading) {
+    return <LoadingSpinner message="Loading students..." />;
+  }
+
+  if (studentsList.length === 0) {
+    return (
+      <div style={{ textAlign: 'center', padding: '2rem' }}>
+        <Header as="h3">No students found.</Header>
+        <p>Add your first student to get started!</p>
+        <Link to="/students/new">
+          <StyledButton>Add New Student</StyledButton>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <>
-      <h3>This Student List contains the most current information about each student.</h3>
-      <Card.Group>
-        {renderStudentsList()}
+      <Header as="h3">Student List ({studentsList.length} students)</Header>
+      <p>
+        This Student List contains the most current information about each
+        student.
+      </p>
+      <Card.Group itemsPerRow={3} stackable>
+        {renderedStudents}
       </Card.Group>
     </>
   );
-};
+});
+
+Students.displayName = 'Students';
 
 export default Students;

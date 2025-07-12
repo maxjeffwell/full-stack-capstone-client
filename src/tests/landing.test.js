@@ -15,21 +15,23 @@ describe('<Landing />', () => {
 
   it('Should display the app description', () => {
     render(<Landing />);
-    expect(screen.getByText(/mainstream classroom teachers/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/mainstream classroom teachers/i)
+    ).toBeInTheDocument();
     expect(screen.getByText(/English Language Learning/i)).toBeInTheDocument();
   });
 
   it('Should have proper semantic HTML structure', () => {
-    const { container } = render(<Landing />);
-    
-    const main = container.querySelector('main');
+    render(<Landing />);
+
+    const main = screen.getByRole('main');
     expect(main).toBeInTheDocument();
     expect(main).toHaveClass('landing');
   });
 
   it('Should be accessible with proper heading hierarchy', () => {
     render(<Landing />);
-    
+
     const heading = screen.getByRole('heading', { level: 1 });
     expect(heading).toHaveTextContent('Welcome to educationELLy');
   });

@@ -1,6 +1,7 @@
 // Script to help with batch conversion of remaining test files
 // This is a reference for the conversions needed
 
+// eslint-disable-next-line no-unused-vars
 const conversions = {
   'navigation.test.js': `import React from 'react';
 import { render, screen, fireEvent } from './test-utils';
@@ -258,7 +259,10 @@ describe('<ChildComponent />', () => {
     // It should either be removed or updated with actual component tests
     expect(true).toBe(true);
   });
-});`
+});`,
 };
 
-console.log('Conversion templates created. Use these to update the remaining test files.');
+// eslint-disable-next-line no-console
+console.log(
+  'Conversion templates created. Use these to update the remaining test files.'
+);

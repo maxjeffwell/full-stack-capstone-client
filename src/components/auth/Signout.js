@@ -5,18 +5,16 @@ import { StyledMessage } from './Signin';
 import { signout } from '../../store/actions';
 
 const Signout = () => {
-    const dispatch = useDispatch();
-    
-    useEffect(() => {
-        // Sign user out by removing authenticated JWT from reducer
-        dispatch(signout());
-    }, [dispatch]);
+  const dispatch = useDispatch();
 
-    return (
-        <StyledMessage success>
-            You have successfully logged out.
-        </StyledMessage>
-    );
+  useEffect(() => {
+    // Sign user out by removing authenticated JWT from reducer
+    dispatch(signout());
+  }, [dispatch]);
+
+  return (
+    <StyledMessage success>You have successfully logged out.</StyledMessage>
+  );
 };
 
 export default Signout;

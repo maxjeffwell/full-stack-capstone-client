@@ -9,9 +9,12 @@ import { createRoot } from 'react-dom/client';
 // components that will be available on screen
 
 import { Provider } from 'react-redux';
-import { ThemeProvider  } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import WebFont from 'webfontloader';
 
+// Import only the Semantic UI components we actually use
+import 'semantic-ui-css/components/reset.css';
+import 'semantic-ui-css/components/site.css';
 import 'semantic-ui-css/components/button.css';
 import 'semantic-ui-css/components/container.css';
 import 'semantic-ui-css/components/grid.css';
@@ -25,16 +28,35 @@ import 'semantic-ui-css/components/card.css';
 import 'semantic-ui-css/components/menu.css';
 import 'semantic-ui-css/components/input.css';
 import 'semantic-ui-css/components/sidebar.css';
+import 'semantic-ui-css/components/dimmer.css';
+import 'semantic-ui-css/components/loader.css';
 
 import { store } from './store';
 import App from './components/App';
 import authService from './utils/auth';
+import {
+  measureWebVitals,
+  logBundleSize,
+  logMemoryUsage,
+} from './utils/performance';
 
+// Optimized font loading with fallback
 WebFont.load({
-    google: {
-        families: ['Roboto: 400', 'sans-serif']
-    },
-    timeout: 2000
+  google: {
+    families: ['Roboto: 400', 'sans-serif'],
+  },
+  timeout: 2000,
+  loading: () => {
+    // Optional: show loading state
+  },
+  active: () => {
+    // Font loaded successfully
+    document.documentElement.classList.add('fonts-loaded');
+  },
+  inactive: () => {
+    // Font failed to load, use fallback
+    document.documentElement.classList.add('fonts-failed');
+  },
 });
 
 // Migrate any existing localStorage tokens to sessionStorage
@@ -51,11 +73,11 @@ const theme = {
 const container = document.getElementById('root');
 const root = createRoot(container);
 
-    // ReactDOM - two arguments - root component and where we want to render that component inside of the DOM
-    // root component is the app component
-    // create redux store at top level of app and connect it to react by placing provider tag
-    // provider is a react component (provided by react-redux store) that can read changes from redux store
-    // anytime redux store state changes the provider component informs all of its children components
+// ReactDOM - two arguments - root component and where we want to render that component inside of the DOM
+// root component is the app component
+// create redux store at top level of app and connect it to react by placing provider tag
+// provider is a react component (provided by react-redux store) that can read changes from redux store
+// anytime redux store state changes the provider component informs all of its children components
 
 root.render(
   <ThemeProvider theme={theme}>
@@ -65,3 +87,39 @@ root.render(
   </ThemeProvider>
 );
 
+// Performance monitoring (development only)
+if (process.env.NODE_ENV === 'development') {
+  // Log bundle and memory usage
+  setTimeout(() => {
+    logBundleSize();
+    logMemoryUsage();
+  }, 1000);
+
+  // Set up periodic memory monitoring
+  setInterval(logMemoryUsage, 30000); // Every 30 seconds
+}
+
+// Measure web vitals
+measureWebVitals(metric => {
+  if (process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line no-console
+    console.log('Web Vital:', metric);
+  }
+  // In production, you might want to send these to an analytics service
+});
+
+// Register service worker for caching and offline support
+if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then(registration => {
+        // eslint-disable-next-line no-console
+        console.log('SW registered: ', registration);
+      })
+      .catch(registrationError => {
+        // eslint-disable-next-line no-console
+        console.log('SW registration failed: ', registrationError);
+      });
+  });
+}

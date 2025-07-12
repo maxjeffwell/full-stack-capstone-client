@@ -1,78 +1,101 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import { createGlobalStyle } from 'styled-components';
 
 import Header from './Header';
-import Landing from './Landing';
-import Register from './auth/Register';
-import Students from './auth/Students';
-import Signin from './auth/Signin';
-import Dashboard from './Dashboard';
-import Signout from './auth/Signout';
-import CreateStudent from './CreateStudent';
-import UpdateStudent from './UpdateStudent';
+import LoadingSpinner from './LoadingSpinner';
+import ErrorBoundary from './ErrorBoundary';
 import ModalManager from './ModalManager';
 import authRequired from './authRequired';
 import SessionManagerWrapper from './SessionManagerWrapper';
 
+// Lazy load components for code splitting
+const Landing = React.lazy(() => import('./Landing'));
+const Register = React.lazy(() => import('./auth/Register'));
+const Students = React.lazy(() => import('./auth/Students'));
+const Signin = React.lazy(() => import('./auth/Signin'));
+const Dashboard = React.lazy(() => import('./Dashboard'));
+const Signout = React.lazy(() => import('./auth/Signout'));
+const CreateStudent = React.lazy(() => import('./CreateStudent'));
+const UpdateStudent = React.lazy(() => import('./UpdateStudent'));
+
 const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    src: url('https://fonts.googleapis.com/css?family=Roboto');
+  html {
+    box-sizing: border-box;
+    font-size: 14px;
   }
 
-html {
-  box-sizing: border-box;
-  font-size: 14px;
+  *, *:before, *:after {
+    box-sizing: inherit;
   }
-
-*, *:before, *:after {
-		box-sizing: inherit; // then inherit box sizing on everything else
-	}
-	
-	i {
-	color: #2873b4;
-	:hover{
-	cursor: pointer;
-	color: red;
-	}
-	}
-	
-body {  
-  margin: auto;
-	font-size: 1.5rem;
-	line-height: 2;
-	font-family: Roboto, sans-serif;
-	width: 100%;
-	}
+  
+  i {
+    color: #2873b4;
+    transition: color 0.2s ease;
+    
+    :hover{
+      cursor: pointer;
+      color: red;
+    }
+  }
+  
+  body {  
+    margin: auto;
+    font-size: 1.5rem;
+    line-height: 2;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    width: 100%;
+    font-display: swap; /* Improve font loading performance */
+  }
+  
+  /* Font loading optimization */
+  .fonts-loaded body {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+  .fonts-failed body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+  /* Improve rendering performance */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 `;
 
 const App = () => {
-    return (
-        <BrowserRouter>
-            <Container>
-                <GlobalStyle />
-                <Header />
-                <Routes>
-                    <Route path='/' element={<Landing />} />
-                    <Route path='/signup' element={<Register />} />
-                    <Route path='/students/:id/update' element={authRequired(UpdateStudent)} />
-                    <Route path='/students' element={authRequired(Students)} />
-                    <Route path='/signin' element={<Signin />} />
-                    <Route path='/dashboard' element={authRequired(Dashboard)} />
-                    <Route path='/signout' element={<Signout />} />
-                    <Route path='/students/new' element={authRequired(CreateStudent)} />
-                </Routes>
-                <ModalManager />
-                <SessionManagerWrapper />
-            </Container>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <Container>
+        <GlobalStyle />
+        <ErrorBoundary>
+          <Header />
+          <Suspense fallback={<LoadingSpinner message="Loading page..." />}>
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/signup" element={<Register />} />
+              <Route
+                path="/students/:id/update"
+                element={authRequired(UpdateStudent)}
+              />
+              <Route path="/students" element={authRequired(Students)} />
+              <Route path="/signin" element={<Signin />} />
+              <Route path="/dashboard" element={authRequired(Dashboard)} />
+              <Route path="/signout" element={<Signout />} />
+              <Route
+                path="/students/new"
+                element={authRequired(CreateStudent)}
+              />
+            </Routes>
+          </Suspense>
+          <ModalManager />
+          <SessionManagerWrapper />
+        </ErrorBoundary>
+      </Container>
+    </BrowserRouter>
+  );
 };
 
 export default App;
-
-
