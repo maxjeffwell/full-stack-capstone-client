@@ -86,7 +86,22 @@ class AuthService {
   }
 
   getToken() {
-    return sessionStorage.getItem(TOKEN_KEY);
+    const token = sessionStorage.getItem(TOKEN_KEY);
+    console.log('getToken - sessionStorage token:', token);
+
+    // Fallback to localStorage if not in sessionStorage
+    if (!token) {
+      const localStorageToken = localStorage.getItem(TOKEN_KEY);
+      console.log('getToken - localStorage token:', localStorageToken);
+      if (localStorageToken) {
+        console.log('Migrating token from localStorage to sessionStorage');
+        this.setToken(localStorageToken);
+        localStorage.removeItem(TOKEN_KEY);
+        return localStorageToken;
+      }
+    }
+
+    return token;
   }
 
   getRefreshToken() {
@@ -100,15 +115,76 @@ class AuthService {
 
   isAuthenticated() {
     const token = this.getToken();
+    console.log('isAuthenticated - token exists:', !!token);
     if (!token) return false;
 
     try {
+      // Check token format
+      const parts = token.split('.');
+      console.log('Token parts:', parts.length);
+
+      if (parts.length !== 3) {
+        console.error(
+          'Invalid token format - expected 3 parts, got:',
+          parts.length
+        );
+        return false;
+      }
+
       // Decode JWT to check expiration
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const exp = payload.exp * 1000; // Convert to milliseconds
-      return Date.now() < exp;
-    } catch {
-      return false;
+      const payload = JSON.parse(atob(parts[1]));
+      console.log('Token payload:', payload);
+
+      // Check if token has expiration
+      if (!payload.exp) {
+        console.warn('Token has no expiration field - treating as valid');
+        return true;
+      }
+
+      // Handle different timestamp formats
+      let exp = payload.exp;
+
+      // If exp is already in milliseconds (very large number)
+      if (exp > 9999999999) {
+        console.log('Exp appears to be in milliseconds already');
+      } else {
+        // Convert seconds to milliseconds
+        exp = exp * 1000;
+      }
+
+      const now = Date.now();
+      const isValid = now < exp;
+
+      // Only create Date objects if the timestamp is valid
+      try {
+        console.log('Token expiration check:', {
+          exp: new Date(exp).toISOString(),
+          now: new Date(now).toISOString(),
+          isValid,
+          timeUntilExpiry: isValid
+            ? `${Math.floor((exp - now) / 1000 / 60)} minutes`
+            : 'Expired',
+        });
+      } catch (dateError) {
+        console.log('Token expiration check (raw values):', {
+          exp,
+          now,
+          isValid,
+          expRaw: payload.exp,
+        });
+      }
+
+      return isValid;
+    } catch (error) {
+      console.error('isAuthenticated - error decoding token:', error);
+      console.error('Token that failed:', token);
+
+      // As a last resort, if we have a token but can't validate it,
+      // let's try to use it anyway and let the server decide
+      console.warn(
+        'Token validation failed - will attempt to use token anyway'
+      );
+      return true;
     }
   }
 
@@ -132,9 +208,23 @@ class AuthService {
   // Migrate existing localStorage tokens to sessionStorage
   migrateTokens() {
     const localToken = localStorage.getItem(TOKEN_KEY);
+    const localRefreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+
+    console.log('migrateTokens - found in localStorage:', {
+      token: !!localToken,
+      refreshToken: !!localRefreshToken,
+    });
+
     if (localToken) {
       sessionStorage.setItem(TOKEN_KEY, localToken);
       localStorage.removeItem(TOKEN_KEY);
+      console.log('Migrated token to sessionStorage');
+    }
+
+    if (localRefreshToken) {
+      sessionStorage.setItem(REFRESH_TOKEN_KEY, localRefreshToken);
+      localStorage.removeItem(REFRESH_TOKEN_KEY);
+      console.log('Migrated refresh token to sessionStorage');
     }
   }
 }

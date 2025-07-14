@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { Card, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import { fetchStudents } from '../../store/actions';
 import {
+  fetchStudents,
   selectAllStudents,
   selectStudentsLoading,
 } from '../../store/slices/studentsSlice';
@@ -104,9 +104,22 @@ const Students = memo(() => {
   const dispatch = useDispatch();
   const students = useSelector(selectAllStudents);
   const loading = useSelector(selectStudentsLoading);
+  const error = useSelector(state => state.students.error);
 
   useEffect(() => {
-    dispatch(fetchStudents());
+    console.log('Students component mounted, fetching students...');
+    dispatch(fetchStudents())
+      .unwrap()
+      .then(data => {
+        console.log('Students fetched successfully:', data);
+      })
+      .catch(err => {
+        console.error('Failed to fetch students:', err);
+        // If authentication failed, provide option to re-login
+        if (err === 'Not authenticated') {
+          console.log('Authentication failed - token may be expired');
+        }
+      });
   }, [dispatch]);
 
   // Memoize the students list to prevent recalculation on every render
@@ -127,6 +140,33 @@ const Students = memo(() => {
 
   if (loading) {
     return <LoadingSpinner message="Loading students..." />;
+  }
+
+  if (error) {
+    const isAuthError =
+      error === 'Not authenticated' ||
+      error === 'No authentication token found';
+
+    return (
+      <div style={{ textAlign: 'center', padding: '2rem' }}>
+        <Header as="h3" color="red">
+          Error Loading Students
+        </Header>
+        <p>{error}</p>
+        {isAuthError ? (
+          <>
+            <p>Your session may have expired. Please sign in again.</p>
+            <Link to="/signin">
+              <StyledButton>Sign In</StyledButton>
+            </Link>
+          </>
+        ) : (
+          <StyledButton onClick={() => dispatch(fetchStudents())}>
+            Retry
+          </StyledButton>
+        )}
+      </div>
+    );
   }
 
   if (studentsList.length === 0) {

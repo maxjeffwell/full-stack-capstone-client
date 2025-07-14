@@ -2,8 +2,6 @@ import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import Footer from './Footer';
-
 const StyledContainer = styled(Container)`
   &&& {
     margin-bottom: 20px;
@@ -59,7 +57,6 @@ const Landing = () => (
         all of educationELLy's current features
       </li>
     </StyledParagraph>
-    <Footer />
   </StyledContainer>
 );
 

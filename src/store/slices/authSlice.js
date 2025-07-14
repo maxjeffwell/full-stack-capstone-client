@@ -5,7 +5,7 @@ import authService from '../../utils/auth';
 
 // Initial state
 const initialState = {
-  authenticated: authService.getToken() || '',
+  authenticated: authService.isAuthenticated() ? authService.getToken() : '',
   errorMessage: '',
   loading: false,
 };

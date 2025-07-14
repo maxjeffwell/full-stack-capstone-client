@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { Form, Icon, Button, Grid } from 'semantic-ui-react';
+import { Form, Icon, Button, Grid, Message } from 'semantic-ui-react';
 
-import { createStudent } from '../store/actions';
+import { createStudent } from '../store/slices/studentsSlice';
 import { validationRules } from '../validators/hookFormValidators';
 import { LabeledFormInput } from './forms/FormInput';
 import { StyledForm } from './UpdateStudent';
@@ -12,6 +12,7 @@ import { StyledForm } from './UpdateStudent';
 const CreateStudent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [submitError, setSubmitError] = useState(null);
 
   const {
     control,
@@ -40,11 +41,24 @@ const CreateStudent = () => {
   }, [errors, setFocus]);
 
   const onSubmit = async formData => {
+    console.log('Creating student with data:', formData);
+    setSubmitError(null);
+
     try {
-      await dispatch(createStudent(formData)).unwrap();
+      const result = await dispatch(createStudent(formData)).unwrap();
+      console.log('Student created successfully:', result);
       navigate('/students');
     } catch (error) {
       console.error('Error creating student:', error);
+      console.error('Error details:', {
+        message: error.message || error,
+        response: error.response,
+        data: error.data,
+      });
+
+      // Set error message for display
+      setSubmitError(error.message || error || 'Failed to create student');
+
       // Error handling is done in the slice
       if (error === 'Not authenticated') {
         navigate('/signin');
@@ -68,6 +82,12 @@ const CreateStudent = () => {
       </Grid.Row>
       <Grid.Row style={{ marginTop: '10px', justifyContent: 'center' }}>
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
+          {submitError && (
+            <Message negative>
+              <Message.Header>Error Creating Student</Message.Header>
+              <p>{submitError}</p>
+            </Message>
+          )}
           <Form.Group>
             <LabeledFormInput
               control={control}
@@ -132,6 +152,30 @@ const CreateStudent = () => {
               }}
               labelPosition="left"
               placeholder="enter ELL Status"
+            />
+          </Form.Group>
+          <Form.Group>
+            <LabeledFormInput
+              control={control}
+              name="compositeLevel"
+              label={{
+                content: <Icon color="green" name="chart line" size="large" />,
+              }}
+              labelPosition="left"
+              placeholder="enter WIDA ACCESS composite level (optional)"
+            />
+          </Form.Group>
+          <Form.Group>
+            <LabeledFormInput
+              control={control}
+              name="designation"
+              label={{
+                content: (
+                  <Icon color="purple" name="file alternate" size="large" />
+                ),
+              }}
+              labelPosition="left"
+              placeholder="enter IEP/504/intervention plan (optional)"
             />
           </Form.Group>
           <Button

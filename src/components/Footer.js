@@ -2,42 +2,44 @@ import React from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
 
+const FooterWrapper = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: ${props => props.theme.white};
+  border-top: 2px solid ${props => props.theme.blue};
+  padding: 10px 0;
+  z-index: 100;
+`;
+
 const StyledHeader = styled(Header)`
   &&& {
-    display: grid;
-    grid-template-rows: 1fr auto;
-    height: auto;
-    margin-top: -50px;
-    bottom: -4em;
-    position: relative;
-    width: 100%;
-    min-width: 190px;
-    z-index: -1;
-    background: ${props => props.theme.white};
+    margin: 0;
+    background: transparent;
     color: ${props => props.theme.orange};
-    border: 2px solid ${props => props.theme.blue};
-    min-height: 60px;
-    padding: 15px 15px;
-    border-radius: 5px;
-    font-size: 1.5em;
+    font-size: 1.2em;
     text-align: center;
   }
 `;
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <Grid container relaxed>
-      <Grid.Row verticalAlign="middle">
-        <Grid.Column mobile={16}>
-          <StyledHeader as="h3" inverted>
-            <Header.Content>
-              Copyright &copy; 2019 educationELLy
-              <Header.Subheader></Header.Subheader>
-            </Header.Content>
-          </StyledHeader>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+    <FooterWrapper>
+      <Grid container>
+        <Grid.Row>
+          <Grid.Column width={16}>
+            <StyledHeader as="h4">
+              <Header.Content>
+                Copyright &copy; {currentYear} educationELLy
+              </Header.Content>
+            </StyledHeader>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </FooterWrapper>
   );
 };
 

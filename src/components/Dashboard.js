@@ -15,6 +15,8 @@ const StyledGrid = styled(Grid)`
   &&& div .ui.centered.grid {
     margin: auto;
   }
+  min-height: calc(100vh - 60px); /* Account for footer height */
+  padding-bottom: 60px; /* Prevent content from being hidden behind footer */
 `;
 
 const Dashboard = () => {
