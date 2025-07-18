@@ -22,6 +22,7 @@
     "redux": "^5.0.1",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.5",
+    "serve": "^14.2.4",
     "styled-components": "^6.1.13",
     "web-vitals": "^5.0.3",
     "webfontloader": "^1.6.28"
