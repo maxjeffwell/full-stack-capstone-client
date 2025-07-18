@@ -22,7 +22,7 @@ module.exports = function (app) {
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
         "font-src 'self' https://fonts.gstatic.com; " +
         "img-src 'self' data: https:; " +
-        "connect-src 'self' http://localhost:8080 ws://localhost:3000;"
+        "connect-src 'self' http://localhost:8080 ws://localhost:3000 https://educationelly-server-3147a4688b8b.herokuapp.com;"
     );
 
     next();
