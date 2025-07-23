@@ -6,7 +6,6 @@ import authRequired from './authRequired';
 import Landing from './Landing';
 import Students from './auth/Students';
 import SideBar from './Sidebar';
-import CreateStudent from './CreateStudent';
 import { Grid } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { selectIsSidebarToggled } from '../store/slices/toggleSlice';
@@ -36,7 +35,6 @@ const Dashboard = () => {
         <Route path="/students" element={<Students />} />
       </Routes>
       <SideBar />
-      <CreateStudent />
     </StyledGrid>
   );
 };
