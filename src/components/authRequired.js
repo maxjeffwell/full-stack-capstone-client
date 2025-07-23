@@ -9,15 +9,8 @@ const authRequired = ChildComponent => {
     const navigate = useNavigate();
     const auth = useSelector(state => state.auth.authenticated);
 
-    console.log('authRequired HOC - authenticated:', auth);
-    console.log(
-      'authRequired HOC - ChildComponent:',
-      ChildComponent.name || 'Anonymous'
-    );
-
     useEffect(() => {
       if (!auth) {
-        console.log('Not authenticated, redirecting to home');
         navigate('/');
       }
     }, [auth, navigate]);

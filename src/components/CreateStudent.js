@@ -41,12 +41,10 @@ const CreateStudent = () => {
   }, [errors, setFocus]);
 
   const onSubmit = async formData => {
-    console.log('Creating student with data:', formData);
     setSubmitError(null);
 
     try {
-      const result = await dispatch(createStudent(formData)).unwrap();
-      console.log('Student created successfully:', result);
+      await dispatch(createStudent(formData)).unwrap();
       navigate('/students');
     } catch (error) {
       console.error('Error creating student:', error);

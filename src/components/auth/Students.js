@@ -107,17 +107,16 @@ const Students = memo(() => {
   const error = useSelector(state => state.students.error);
 
   useEffect(() => {
-    console.log('Students component mounted, fetching students...');
     dispatch(fetchStudents())
       .unwrap()
-      .then(data => {
-        console.log('Students fetched successfully:', data);
+      .then(() => {
+        // Students fetched successfully
       })
       .catch(err => {
         console.error('Failed to fetch students:', err);
         // If authentication failed, provide option to re-login
         if (err === 'Not authenticated') {
-          console.log('Authentication failed - token may be expired');
+          // Authentication failed - token may be expired
         }
       });
   }, [dispatch]);
