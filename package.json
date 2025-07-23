@@ -1,6 +1,7 @@
 {
   "name": "educationelly-client",
   "version": "1.0.0",
+  "homepage": ".",
   "author": "Jeff Maxwell <maxjeffwell@gmail.com>",
   "license": "GNU GPLv3",
   "repository": {
