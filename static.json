@@ -1,6 +1,12 @@
 {
   "root": "build/",
+  "clean_urls": false,
   "routes": {
+    "/static/**": {
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      }
+    },
     "/**": "index.html"
   },
   "headers": {
