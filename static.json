@@ -2,14 +2,15 @@
   "root": "build/",
   "clean_urls": false,
   "routes": {
-    "/static/**": {
-      "headers": {
-        "cache-control": "public, max-age=31536000, immutable"
-      }
-    },
+    "/static/js/**": "static/js/$1",
+    "/static/css/**": "static/css/$1",
+    "/static/media/**": "static/media/$1",
     "/**": "index.html"
   },
   "headers": {
+    "/static/**": {
+      "cache-control": "public, max-age=31536000, immutable"
+    },
     "/**": {
       "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://educationelly-server-3147a4688b8b.herokuapp.com ws://localhost:3000 wss:;",
       "X-Content-Type-Options": "nosniff",
