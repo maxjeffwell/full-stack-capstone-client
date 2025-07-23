@@ -180,7 +180,7 @@ const Signin = () => {
 
         <StyledMessage info>
           DEMO ACCOUNT AVAILABLE
-          <p>Email: demo</p>
+          <p>Email: demo@example.com</p>
           <p>Password: demopassword</p>
         </StyledMessage>
 
