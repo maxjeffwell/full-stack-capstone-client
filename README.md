@@ -16,7 +16,7 @@
 
 ## 🚀 Live Demo
 
-**Demo URL**: [https://jmaxwell-fullstack-client.herokuapp.com/](https://jmaxwell-fullstack-client.herokuapp.com/)
+**Demo URL**: [https://educationelly-client-71a1b1901aaa.herokuapp.com/](https://educationelly-client-71a1b1901aaa.herokuapp.com/)
 
 **Demo Credentials**:
 
@@ -204,7 +204,7 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 - Email: [maxjeffwell@gmail.com](mailto:maxjeffwell@gmail.com)
 - GitHub: [@maxjeffwell](https://github.com/maxjeffwell)
-- Portfolio: [https://maxjeffwell.github.io](https://maxjeffwell.github.io)
+- Portfolio: [https://www.el-jefe.me](https://www.el-jefe.me)
 
 ---
 
