@@ -14,6 +14,38 @@
 - **Real-time Updates**: Redux state management for seamless data flow
 - **Teacher Collaboration**: Shared platform for ELL and mainstream teachers
 
+## 🔐 Authentication
+
+educationELLy uses a JWT (JSON Web Token) based authentication system for secure user access:
+
+### How It Works
+
+1. **User Registration/Login**: Users sign up or sign in through the authentication forms
+2. **Token Generation**: The backend generates a JWT token upon successful authentication
+3. **Token Storage**: The JWT token is stored in the browser's `localStorage` for persistence
+4. **Authenticated Requests**: The token is automatically included in all API requests via Axios interceptors
+5. **Protected Routes**: React Router uses Higher-Order Components (HOCs) to protect authenticated routes
+6. **Token Validation**: The backend validates the token for each protected API endpoint
+7. **Automatic Logout**: Users are logged out when the token expires or is invalid
+
+### Implementation Details
+
+- **Token Storage**: `localStorage.getItem('token')` - Persists across browser sessions
+- **Redux Integration**: Token state managed in Redux store (`src/reducers/auth.js`)
+- **API Configuration**: Axios interceptors in `src/config.js` automatically attach the token to request headers
+- **Route Protection**: `authRequired` HOC wraps protected components (`src/components/authRequired.js`)
+- **Token Lifecycle**:
+  - Set on successful login/signup (`src/actions/index.js`)
+  - Removed on logout
+  - Checked on app initialization (`src/index.js`)
+
+### Security Features
+
+- Passwords hashed with bcrypt before storage
+- Token expiration for enhanced security
+- Secure token transmission over HTTPS in production
+- No sensitive data stored in the JWT payload
+
 ## 🚀 Live Demo
 
 **Demo URL**: [https://educationelly-client-71a1b1901aaa.herokuapp.com/](https://educationelly-client-71a1b1901aaa.herokuapp.com/)
