@@ -34,6 +34,39 @@ const StyledMenu = styled(Menu)`
     color: mediumpurple;
     background-color: white;
   }
+
+  /* Prevent stacking on larger screens */
+  @media (min-width: 768px) {
+    &&&
+      .ui.menu:not(.secondary):not(.text):not(.tabular):not(.borderless)
+      > .dropdown.item:before,
+    &&&
+      .ui.menu:not(.secondary):not(.text):not(.tabular):not(.borderless)
+      > .item:before {
+      position: absolute;
+      content: '';
+      top: 0%;
+      right: 0px;
+      height: 100%;
+      width: 1px;
+      background: rgba(34, 36, 38, 0.1);
+    }
+
+    &&& .ui.stackable.menu {
+      flex-direction: row !important;
+    }
+
+    &&& .ui.stackable.menu .item {
+      width: auto !important;
+      display: inline-flex !important;
+    }
+
+    &&& .ui.stackable.menu .right.menu {
+      display: flex !important;
+      flex-direction: row !important;
+      margin-left: auto !important;
+    }
+  }
 `;
 
 const Header = memo(() => {
