@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Form, Icon, Button, Grid, Message } from 'semantic-ui-react';
 
 import { createStudent } from '../store/slices/studentsSlice';
+import { showModal, hideModal } from '../store/actions';
 import { validationRules } from '../validators/hookFormValidators';
 import { LabeledFormInput } from './forms/FormInput';
 import { StyledForm } from './UpdateStudent';
@@ -44,8 +45,89 @@ const CreateStudent = () => {
     setSubmitError(null);
 
     try {
-      await dispatch(createStudent(formData)).unwrap();
-      navigate('/students');
+      const result = await dispatch(createStudent(formData)).unwrap();
+
+      // Show success message
+      dispatch(
+        showModal({
+          modalType: 'SUCCESS_MODAL',
+          modalProps: {
+            open: true,
+            closeOnEscape: true,
+            closeOnDimmerClick: true,
+            children: (
+              <div
+                style={{
+                  padding: '2rem',
+                  textAlign: 'center',
+                  backgroundColor: 'white',
+                  borderRadius: '12px',
+                  fontFamily: 'Roboto, sans-serif',
+                  boxShadow: '0 10px 25px rgba(0, 0, 0, 0.15)',
+                  maxWidth: '400px',
+                  margin: '0 auto',
+                }}
+              >
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <i
+                    className="icon check circle"
+                    style={{
+                      fontSize: '3rem',
+                      color: '#27ae60',
+                      marginBottom: '1rem',
+                      display: 'block',
+                    }}
+                  />
+                  <h3
+                    style={{
+                      fontSize: '1.5rem',
+                      fontWeight: '600',
+                      color: '#2c3e50',
+                      margin: '0 0 0.5rem 0',
+                    }}
+                  >
+                    Student Created
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: '1rem',
+                      color: '#7f8c8d',
+                      lineHeight: '1.5',
+                      margin: '0',
+                    }}
+                  >
+                    {result.fullName || 'The student'} has been successfully
+                    added to the system.
+                  </p>
+                </div>
+                <button
+                  onClick={() => dispatch(hideModal())}
+                  style={{
+                    backgroundColor: '#27ae60',
+                    borderColor: '#27ae60',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '5px',
+                    padding: '0.75rem 1.5rem',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    fontFamily: 'Roboto, sans-serif',
+                  }}
+                >
+                  OK
+                </button>
+              </div>
+            ),
+          },
+        })
+      );
+
+      // Auto-close success modal after 2 seconds and navigate
+      setTimeout(() => {
+        dispatch(hideModal());
+        navigate('/students');
+      }, 2000);
     } catch (error) {
       console.error('Error creating student:', error);
       console.error('Error details:', {

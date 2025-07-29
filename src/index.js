@@ -108,18 +108,69 @@ measureWebVitals(metric => {
   // In production, you might want to send these to an analytics service
 });
 
-// Register service worker for caching and offline support
-if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('/sw.js')
-      .then(registration => {
-        // eslint-disable-next-line no-console
-        console.log('SW registered: ', registration);
-      })
-      .catch(registrationError => {
-        // eslint-disable-next-line no-console
-        console.log('SW registration failed: ', registrationError);
+// Debug environment
+console.log('🔧 NODE_ENV:', process.env.NODE_ENV);
+console.log('🔧 Development mode:', process.env.NODE_ENV === 'development');
+
+// Force service worker cleanup (regardless of environment for debugging)
+if ('serviceWorker' in navigator) {
+  // Check if we need to reload after cleanup
+  const needsReload = localStorage.getItem('sw-cleanup-done') !== 'true';
+
+  navigator.serviceWorker.getRegistrations().then(function (registrations) {
+    if (registrations.length > 0) {
+      console.log(
+        '🧹 Found',
+        registrations.length,
+        'service workers to unregister'
+      );
+      Promise.all(
+        registrations.map(registration => {
+          console.log('🧹 Unregistering SW:', registration.scope);
+          return registration.unregister();
+        })
+      ).then(() => {
+        if (needsReload) {
+          localStorage.setItem('sw-cleanup-done', 'true');
+          console.log('🧹 Service workers unregistered, reloading page...');
+          window.location.reload();
+        }
       });
+    }
   });
+
+  // Clear all caches
+  caches.keys().then(function (names) {
+    if (names.length > 0) {
+      Promise.all(
+        names.map(name => {
+          console.log('🧹 Deleting cache:', name);
+          return caches.delete(name);
+        })
+      ).then(() => {
+        console.log('🧹 All caches cleared');
+      });
+    }
+  });
+
+  // Clear localStorage flag after 5 seconds to allow future cleanups
+  setTimeout(() => {
+    localStorage.removeItem('sw-cleanup-done');
+  }, 5000);
 }
+
+// Service worker completely disabled for debugging
+// if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+//   window.addEventListener('load', () => {
+//     navigator.serviceWorker
+//       .register('/sw.js')
+//       .then(registration => {
+//         // eslint-disable-next-line no-console
+//         console.log('SW registered: ', registration);
+//       })
+//       .catch(registrationError => {
+//         // eslint-disable-next-line no-console
+//         console.log('SW registration failed: ', registrationError);
+//       });
+//   });
+// }

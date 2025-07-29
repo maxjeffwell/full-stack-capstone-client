@@ -181,7 +181,7 @@ const Students = memo(() => {
   }
 
   return (
-    <>
+    <div style={{ paddingBottom: '100px' }}>
       <Header as="h3">Student List ({studentsList.length} students)</Header>
       <p>
         This Student List contains the most current information about each
@@ -190,7 +190,7 @@ const Students = memo(() => {
       <Card.Group itemsPerRow={3} stackable>
         {renderedStudents}
       </Card.Group>
-    </>
+    </div>
   );
 });
 

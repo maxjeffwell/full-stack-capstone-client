@@ -3,7 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { showModal, hideModal, deleteStudent } from '../store/actions';
+import {
+  showModal,
+  hideModal,
+  deleteStudent,
+  fetchStudents,
+} from '../store/actions';
 
 const StyledConfirmButton = styled.button`
   cursor: pointer;
@@ -44,13 +49,13 @@ const StyledFancyButton = styled.button`
   }
 `;
 
-const FancyButton = React.forwardRef((props, ref) => (
+const FancyButton = React.forwardRef(({ icon, ...props }, ref) => (
   <StyledFancyButton {...props} ref={ref} />
 ));
 
 FancyButton.displayName = 'FancyButton';
 
-const ConfirmButton = React.forwardRef((props, ref) => (
+const ConfirmButton = React.forwardRef(({ icon, ...props }, ref) => (
   <StyledConfirmButton {...props} ref={ref} />
 ));
 
@@ -64,6 +69,7 @@ const DeleteStudent = ({ id }) => {
 
   const confirmDelete = () => {
     console.log('Delete button clicked, showing modal');
+    console.log('About to dispatch showModal action');
     dispatch(
       showModal({
         modalType: 'DELETE_STUDENT_MODAL',
@@ -163,7 +169,89 @@ const DeleteStudent = ({ id }) => {
     try {
       await dispatch(deleteStudent(studentId)).unwrap();
       dispatch(hideModal());
-      navigate('/students');
+      // Refresh the students list to ensure clean state
+      await dispatch(fetchStudents()).unwrap();
+
+      // Show success message
+      dispatch(
+        showModal({
+          modalType: 'SUCCESS_MODAL',
+          modalProps: {
+            open: true,
+            closeOnEscape: true,
+            closeOnDimmerClick: true,
+            children: (
+              <div
+                style={{
+                  padding: '2rem',
+                  textAlign: 'center',
+                  backgroundColor: 'white',
+                  borderRadius: '12px',
+                  fontFamily: 'Roboto, sans-serif',
+                  boxShadow: '0 10px 25px rgba(0, 0, 0, 0.15)',
+                  maxWidth: '400px',
+                  margin: '0 auto',
+                }}
+              >
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <i
+                    className="icon check circle"
+                    style={{
+                      fontSize: '3rem',
+                      color: '#27ae60',
+                      marginBottom: '1rem',
+                      display: 'block',
+                    }}
+                  />
+                  <h3
+                    style={{
+                      fontSize: '1.5rem',
+                      fontWeight: '600',
+                      color: '#2c3e50',
+                      margin: '0 0 0.5rem 0',
+                    }}
+                  >
+                    Student Deleted
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: '1rem',
+                      color: '#7f8c8d',
+                      lineHeight: '1.5',
+                      margin: '0',
+                    }}
+                  >
+                    The student has been successfully deleted.
+                  </p>
+                </div>
+                <button
+                  onClick={() => dispatch(hideModal())}
+                  style={{
+                    backgroundColor: '#27ae60',
+                    borderColor: '#27ae60',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '5px',
+                    padding: '0.75rem 1.5rem',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    fontFamily: 'Roboto, sans-serif',
+                  }}
+                >
+                  OK
+                </button>
+              </div>
+            ),
+          },
+        })
+      );
+
+      // Auto-close success modal after 2 seconds and navigate
+      setTimeout(() => {
+        dispatch(hideModal());
+        navigate('/students');
+      }, 2000);
     } catch (error) {
       console.error('Error deleting student:', error);
       dispatch(hideModal());

@@ -89,7 +89,7 @@ const App = () => {
             />
             <Route path="/students" element={<ProtectedStudents />} />
             <Route path="/signin" element={<Signin />} />
-            <Route path="/dashboard" element={<ProtectedDashboard />} />
+            <Route path="/dashboard/*" element={<ProtectedDashboard />} />
             <Route path="/signout" element={<Signout />} />
             <Route path="/students/new" element={<ProtectedCreateStudent />} />
           </Routes>

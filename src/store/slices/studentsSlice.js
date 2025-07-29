@@ -120,7 +120,8 @@ export const updateStudent = createAsyncThunk(
         `${API_BASE_URL}/students/${id}`,
         studentData
       );
-      return response.data;
+      // Ensure the returned data has an id field
+      return { ...response.data, id };
     } catch (error) {
       if (error.response?.status === 401) {
         authService.clearTokens();
