@@ -35,13 +35,13 @@ const CustomNavContainer = styled.div`
   }
 
   .nav-item {
-    font-size: 1.8em;
+    font-size: 1.6em;
     font-weight: 700;
     font-family: 'Roboto', 'sans-serif';
     color: ${props => props.theme.blue};
     text-align: center;
     white-space: nowrap;
-    padding: 0.8em 1em;
+    padding: 0.7em 0.8em;
     box-sizing: border-box;
     cursor: pointer;
     text-decoration: none;
@@ -50,6 +50,7 @@ const CustomNavContainer = styled.div`
     border: none;
     background: none;
     outline: none !important;
+    transition: all 0.2s ease;
 
     &:hover {
       box-shadow: inset 6.5em 0 0 0 var(--hover);
@@ -59,7 +60,8 @@ const CustomNavContainer = styled.div`
 
     &:focus,
     &:focus-visible,
-    &:active {
+    &:active,
+    &:focus-within {
       outline: none !important;
       box-shadow: none !important;
       background-color: transparent !important;
@@ -70,22 +72,29 @@ const CustomNavContainer = styled.div`
   /* Responsive font sizing */
   @media (max-width: 1200px) {
     .nav-item {
-      font-size: 1.5em;
-      padding: 0.7em 0.9em;
+      font-size: 1.4em;
+      padding: 0.6em 0.7em;
     }
   }
 
   @media (max-width: 1024px) {
     .nav-item {
-      font-size: 1.3em;
-      padding: 0.6em 0.8em;
+      font-size: 1.2em;
+      padding: 0.5em 0.6em;
     }
   }
 
   @media (max-width: 900px) {
     .nav-item {
-      font-size: 1.1em;
-      padding: 0.5em 0.6em;
+      font-size: 1em;
+      padding: 0.4em 0.5em;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .nav-item {
+      font-size: 0.9em;
+      padding: 0.3em 0.4em;
     }
   }
 
@@ -103,10 +112,13 @@ const CustomNavContainer = styled.div`
     }
 
     .nav-item {
-      font-size: 1em;
-      padding: 0.4em 0.5em;
+      font-size: 0.9em;
+      padding: 0.4em 0.3em;
       width: 100%;
       justify-content: center;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.2;
     }
   }
 

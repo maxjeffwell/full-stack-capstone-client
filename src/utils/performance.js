@@ -6,15 +6,32 @@ import React from 'react';
 export const measureWebVitals = onPerfEntry => {
   if (onPerfEntry && onPerfEntry instanceof Function) {
     import('web-vitals')
-      .then(({ onCLS, onFID, onFCP, onLCP, onTTFB }) => {
-        onCLS(onPerfEntry);
-        onFID(onPerfEntry);
-        onFCP(onPerfEntry);
-        onLCP(onPerfEntry);
-        onTTFB(onPerfEntry);
+      .then(webVitals => {
+        // Handle both named exports and default export patterns
+        const { onCLS, onFID, onFCP, onLCP, onTTFB } =
+          webVitals.default || webVitals;
+
+        if (onCLS && typeof onCLS === 'function') onCLS(onPerfEntry);
+        if (onFID && typeof onFID === 'function') onFID(onPerfEntry);
+        if (onFCP && typeof onFCP === 'function') onFCP(onPerfEntry);
+        if (onLCP && typeof onLCP === 'function') onLCP(onPerfEntry);
+        if (onTTFB && typeof onTTFB === 'function') onTTFB(onPerfEntry);
       })
       .catch(error => {
         console.warn('Failed to load web-vitals:', error);
+        // Fallback to basic performance measurement
+        if (window.performance && window.performance.getEntriesByType) {
+          const navigationEntries =
+            window.performance.getEntriesByType('navigation');
+          if (navigationEntries.length > 0) {
+            const navEntry = navigationEntries[0];
+            onPerfEntry({
+              name: 'basic-load-time',
+              value: navEntry.loadEventEnd - navEntry.loadEventStart,
+              id: `basic-${Date.now()}`,
+            });
+          }
+        }
       });
   }
 };
