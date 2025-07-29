@@ -17,8 +17,7 @@ const StyledCard = styled(Card)`
   }
   &&& .content {
     overflow: auto;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 15px !important;
   }
   &&& .content .header:not(.ui) {
     color: ${props => props.theme.blue};
@@ -31,8 +30,7 @@ const StyledCard = styled(Card)`
   &&& .extra {
     height: auto;
     width: auto;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 15px !important;
     justify-content: space-between;
     overflow: hidden;
     display: table;
