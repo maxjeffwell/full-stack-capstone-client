@@ -60,11 +60,36 @@ const StyledMenu = styled(Menu)`
   }
 
   &&& a.item:focus,
-  &&& a.item:focus-visible {
+  &&& a.item:focus-visible,
+  &&& .custom-nav-item:focus,
+  &&& .custom-nav-item:focus-visible {
     outline: none !important;
     box-shadow: none !important;
     background-color: transparent !important;
     color: ${props => props.theme.blue} !important;
+  }
+
+  &&& .custom-nav-item {
+    font-size: 1.8em;
+    font-weight: 700;
+    font-family: 'Roboto', 'sans-serif';
+    color: ${props => props.theme.blue};
+    text-align: center;
+    white-space: nowrap;
+    padding: 0.8em 1em;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    border: none;
+    background: none;
+  }
+
+  &&& .custom-nav-item:hover {
+    box-shadow: inset 6.5em 0 0 0 var(--hover);
+    background-color: ${props => props.theme.blue};
+    color: ${props => props.theme.white};
   }
 
   /* Prevent stacking on larger screens */
@@ -149,37 +174,37 @@ const Header = memo(() => {
         <StyledMenu stackable size="small" borderless>
           {logoItem}
           <Menu.Menu position="right">
-            <Menu.Item
-              as={Link}
-              name="Instructor Dashboard"
-              to="/dashboard"
-              onClick={e => handleMenuItemClick(e, '/dashboard')}
-            >
-              Instructor Dashboard
+            <Menu.Item>
+              <button
+                className="custom-nav-item"
+                onClick={e => handleMenuItemClick(e, '/dashboard')}
+              >
+                Instructor Dashboard
+              </button>
             </Menu.Item>
-            <Menu.Item
-              as={Link}
-              name="Student List"
-              to="/students"
-              onClick={e => handleMenuItemClick(e, '/students')}
-            >
-              Student List
+            <Menu.Item>
+              <button
+                className="custom-nav-item"
+                onClick={e => handleMenuItemClick(e, '/students')}
+              >
+                Student List
+              </button>
             </Menu.Item>
-            <Menu.Item
-              as={Link}
-              name="Add New Student"
-              to="/students/new"
-              onClick={e => handleMenuItemClick(e, '/students/new')}
-            >
-              Add New Student
+            <Menu.Item>
+              <button
+                className="custom-nav-item"
+                onClick={e => handleMenuItemClick(e, '/students/new')}
+              >
+                Add New Student
+              </button>
             </Menu.Item>
-            <Menu.Item
-              as={Link}
-              name="Log Out"
-              to="/signout"
-              onClick={e => handleMenuItemClick(e, '/signout')}
-            >
-              Log Out
+            <Menu.Item>
+              <button
+                className="custom-nav-item"
+                onClick={e => handleMenuItemClick(e, '/signout')}
+              >
+                Log Out
+              </button>
             </Menu.Item>
           </Menu.Menu>
         </StyledMenu>
@@ -190,21 +215,21 @@ const Header = memo(() => {
       <StyledMenu stackable size="small" borderless>
         {logoItem}
         <Menu.Menu position="right">
-          <Menu.Item
-            as={Link}
-            name="Register"
-            to="/signup"
-            onClick={e => handleMenuItemClick(e, '/signup')}
-          >
-            Register
+          <Menu.Item>
+            <button
+              className="custom-nav-item"
+              onClick={e => handleMenuItemClick(e, '/signup')}
+            >
+              Register
+            </button>
           </Menu.Item>
-          <Menu.Item
-            as={Link}
-            name="Log In"
-            to="/signin"
-            onClick={e => handleMenuItemClick(e, '/signin')}
-          >
-            Log In
+          <Menu.Item>
+            <button
+              className="custom-nav-item"
+              onClick={e => handleMenuItemClick(e, '/signin')}
+            >
+              Log In
+            </button>
           </Menu.Item>
         </Menu.Menu>
       </StyledMenu>
