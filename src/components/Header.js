@@ -14,14 +14,18 @@ const StyledMenu = styled(Menu)`
     border-radius: 5px;
     margin-top: 5px;
     margin-bottom: 30px;
+    overflow: hidden;
+    box-sizing: border-box;
   }
   &&& a.item {
-    font-size: 2em;
+    font-size: 1.8em;
     font-weight: 700;
     font-family: 'Roboto', 'sans-serif';
     color: ${props => props.theme.blue};
     text-align: center;
     white-space: nowrap;
+    padding: 0.8em 1em;
+    box-sizing: border-box;
   }
   &&& :hover:not([disabled]),
   :focus {
@@ -65,6 +69,12 @@ const StyledMenu = styled(Menu)`
       display: flex !important;
       flex-direction: row !important;
       margin-left: auto !important;
+      flex-wrap: wrap !important;
+    }
+
+    &&& .ui.stackable.menu .right.menu .item {
+      flex: 0 0 auto !important;
+      min-width: 0 !important;
     }
   }
 `;
