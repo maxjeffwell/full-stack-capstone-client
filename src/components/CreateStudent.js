@@ -180,6 +180,7 @@ const CreateStudent = () => {
             type="submit"
             disabled={!isDirty || isSubmitting}
             loading={isSubmitting}
+            style={{ marginTop: '20px' }}
           >
             Save Student
           </Button>
