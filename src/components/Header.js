@@ -27,6 +27,21 @@ const StyledMenu = styled(Menu)`
     padding: 0.8em 1em;
     box-sizing: border-box;
   }
+
+  /* Responsive font sizing */
+  @media (max-width: 1024px) {
+    &&& a.item {
+      font-size: 1.4em;
+      padding: 0.6em 0.8em;
+    }
+  }
+
+  @media (max-width: 900px) {
+    &&& a.item {
+      font-size: 1.2em;
+      padding: 0.5em 0.6em;
+    }
+  }
   &&& :hover:not([disabled]),
   :focus {
     box-shadow: inset 6.5em 0 0 0 var(--hover);
@@ -40,7 +55,7 @@ const StyledMenu = styled(Menu)`
   }
 
   /* Prevent stacking on larger screens */
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     &&&
       .ui.menu:not(.secondary):not(.text):not(.tabular):not(.borderless)
       > .dropdown.item:before,
