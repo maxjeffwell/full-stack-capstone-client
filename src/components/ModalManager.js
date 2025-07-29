@@ -34,7 +34,10 @@ const ModalManager = () => {
   const dispatch = useDispatch();
   const modal = useSelector(selectModal);
 
+  console.log('ModalManager - modal state:', modal);
+
   if (!modal) {
+    console.log('ModalManager - no modal to show');
     return null;
   }
 

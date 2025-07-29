@@ -19,7 +19,7 @@ export const store = configureStore({
         // Ignore these action types
         ignoredActions: ['auth/signin/fulfilled', 'auth/signup/fulfilled'],
         // Ignore these paths in the state
-        ignoredPaths: ['modals.modalProps'],
+        ignoredPaths: ['modals.modalProps', 'modals.modalProps.children'],
       },
     }),
 });
