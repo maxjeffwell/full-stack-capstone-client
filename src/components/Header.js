@@ -1,5 +1,5 @@
 import React, { memo, useMemo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Menu } from 'semantic-ui-react';
 import styled from 'styled-components';
@@ -109,20 +109,31 @@ const StyledMenu = styled(Menu)`
 
 const Header = memo(() => {
   const isAuthenticated = useSelector(selectAuth);
+  const history = useHistory();
 
-  const handleMenuItemClick = useCallback(e => {
-    // Remove focus to prevent persistent highlighting
-    const target = e.currentTarget || e.target;
-    setTimeout(() => {
+  const handleMenuItemClick = useCallback(
+    (e, to) => {
+      // Prevent default behavior that might cause highlighting
+      e.preventDefault();
+
+      // Remove focus to prevent persistent highlighting
+      const target = e.currentTarget || e.target;
       if (target && target.blur) {
         target.blur();
       }
-      // Also blur any focused element
+
+      // Also blur any focused element immediately
       if (document.activeElement && document.activeElement.blur) {
         document.activeElement.blur();
       }
-    }, 50);
-  }, []);
+
+      // Navigate using React Router
+      if (to) {
+        history.push(to);
+      }
+    },
+    [history]
+  );
 
   const navigation = useMemo(() => {
     const logoItem = (
@@ -142,7 +153,7 @@ const Header = memo(() => {
               as={Link}
               name="Instructor Dashboard"
               to="/dashboard"
-              onClick={handleMenuItemClick}
+              onClick={e => handleMenuItemClick(e, '/dashboard')}
             >
               Instructor Dashboard
             </Menu.Item>
@@ -150,7 +161,7 @@ const Header = memo(() => {
               as={Link}
               name="Student List"
               to="/students"
-              onClick={handleMenuItemClick}
+              onClick={e => handleMenuItemClick(e, '/students')}
             >
               Student List
             </Menu.Item>
@@ -158,7 +169,7 @@ const Header = memo(() => {
               as={Link}
               name="Add New Student"
               to="/students/new"
-              onClick={handleMenuItemClick}
+              onClick={e => handleMenuItemClick(e, '/students/new')}
             >
               Add New Student
             </Menu.Item>
@@ -166,7 +177,7 @@ const Header = memo(() => {
               as={Link}
               name="Log Out"
               to="/signout"
-              onClick={handleMenuItemClick}
+              onClick={e => handleMenuItemClick(e, '/signout')}
             >
               Log Out
             </Menu.Item>
@@ -183,7 +194,7 @@ const Header = memo(() => {
             as={Link}
             name="Register"
             to="/signup"
-            onClick={handleMenuItemClick}
+            onClick={e => handleMenuItemClick(e, '/signup')}
           >
             Register
           </Menu.Item>
@@ -191,7 +202,7 @@ const Header = memo(() => {
             as={Link}
             name="Log In"
             to="/signin"
-            onClick={handleMenuItemClick}
+            onClick={e => handleMenuItemClick(e, '/signin')}
           >
             Log In
           </Menu.Item>
