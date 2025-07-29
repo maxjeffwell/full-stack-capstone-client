@@ -203,8 +203,10 @@ const UpdateStudent = () => {
           </Button>
         </StyledForm>
       </Grid.Row>
-      <Grid.Row>
-        <DeleteStudent id={id} />
+      <Grid.Row centered>
+        <Grid.Column textAlign="center">
+          <DeleteStudent id={id} />
+        </Grid.Column>
       </Grid.Row>
     </Grid>
   );
