@@ -111,20 +111,20 @@ const StyledMessage = styled(Message)`
 
 const StyledHeader = styled(Header)`
   &&& {
-    font-family: 'Roboto', 'sans-serif';
-    font-size: 2em;
+    font-family: 'Roboto', 'Arimo', 'sans-serif';
+    font-size: 2.2em;
     font-weight: bold;
     color: ${props => props.theme.blue};
     background: ${props => props.theme.green};
     border: 4px solid ${props => props.theme.orange};
     width: 100%;
-    height: 50%;
     border-radius: 5px;
-    padding-top: 10px;
-    padding-bottom: 25px;
-    padding-right: 5px;
-    line-height: 1em;
+    padding: 15px 10px;
+    line-height: 1.1em;
     margin-bottom: 15px;
+    text-align: center;
+    text-transform: capitalize;
+    letter-spacing: 1px;
   }
 `;
 
