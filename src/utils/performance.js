@@ -6,12 +6,12 @@ import React from 'react';
 export const measureWebVitals = onPerfEntry => {
   if (onPerfEntry && onPerfEntry instanceof Function) {
     import('web-vitals')
-      .then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-        getCLS(onPerfEntry);
-        getFID(onPerfEntry);
-        getFCP(onPerfEntry);
-        getLCP(onPerfEntry);
-        getTTFB(onPerfEntry);
+      .then(({ onCLS, onFID, onFCP, onLCP, onTTFB }) => {
+        onCLS(onPerfEntry);
+        onFID(onPerfEntry);
+        onFCP(onPerfEntry);
+        onLCP(onPerfEntry);
+        onTTFB(onPerfEntry);
       })
       .catch(error => {
         console.warn('Failed to load web-vitals:', error);

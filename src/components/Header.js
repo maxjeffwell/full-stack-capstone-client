@@ -31,6 +31,7 @@ const CustomNavContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 0;
+    padding-right: 10px;
   }
 
   .nav-item {
@@ -91,9 +92,14 @@ const CustomNavContainer = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
 
+    .logo-section {
+      padding: 1em;
+    }
+
     .nav-section {
       flex-direction: column;
       width: 100%;
+      padding-right: 0;
     }
 
     .nav-item {
@@ -101,6 +107,19 @@ const CustomNavContainer = styled.div`
       padding: 0.4em 0.5em;
       width: 100%;
       justify-content: center;
+    }
+  }
+
+  /* Ensure logo is always visible and properly sized */
+  .logo-section img {
+    max-height: 60px;
+    width: auto;
+  }
+
+  @media (min-width: 769px) {
+    .logo-section {
+      min-width: 120px;
+      flex-shrink: 0;
     }
   }
 `;
