@@ -63,44 +63,95 @@ const DeleteStudent = ({ id }) => {
   const confirmButtonRef = useRef(null);
 
   const confirmDelete = () => {
+    console.log('Delete button clicked, showing modal');
     dispatch(
       showModal({
         modalType: 'DELETE_STUDENT_MODAL',
         modalProps: {
           open: true,
-          closeOnEscape: false,
-          closeOnDimmerClick: false,
+          closeOnEscape: true,
+          closeOnDimmerClick: true,
           children: (
             <div
               style={{
-                padding: 40,
+                padding: '2rem',
                 textAlign: 'center',
-                backgroundColor: 'lightgreen',
-                borderRadius: 5,
+                backgroundColor: 'white',
+                borderRadius: '12px',
                 fontFamily: 'Roboto, sans-serif',
+                boxShadow: '0 10px 25px rgba(0, 0, 0, 0.15)',
+                maxWidth: '400px',
+                margin: '0 auto',
               }}
             >
-              <p style={{ fontSize: 20, fontWeight: 900, lineHeight: 2 }}>
-                Are you sure you want to delete this student? This action cannot
-                be undone.
-              </p>
-              <ConfirmButton
-                ref={confirmButtonRef}
-                type="submit"
-                onClick={() => deleteConfirmed(id)}
+              <div style={{ marginBottom: '1.5rem' }}>
+                <i
+                  className="icon exclamation triangle"
+                  style={{
+                    fontSize: '3rem',
+                    color: '#f39c12',
+                    marginBottom: '1rem',
+                    display: 'block',
+                  }}
+                />
+                <h3
+                  style={{
+                    fontSize: '1.5rem',
+                    fontWeight: '600',
+                    color: '#2c3e50',
+                    margin: '0 0 0.5rem 0',
+                  }}
+                >
+                  Delete Student
+                </h3>
+                <p
+                  style={{
+                    fontSize: '1rem',
+                    color: '#7f8c8d',
+                    lineHeight: '1.5',
+                    margin: '0',
+                  }}
+                >
+                  Are you sure you want to delete this student? This action
+                  cannot be undone.
+                </p>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  gap: '1rem',
+                  justifyContent: 'center',
+                  flexWrap: 'wrap',
+                }}
               >
-                <i className="icon delete" />
-                Delete
-              </ConfirmButton>
-              <br />
-              <ConfirmButton
-                ref={confirmButtonRef}
-                type="button"
-                onClick={deleteCancelled}
-              >
-                <i className="icon cancel" />
-                Cancel
-              </ConfirmButton>
+                <ConfirmButton
+                  ref={confirmButtonRef}
+                  type="button"
+                  onClick={deleteCancelled}
+                  style={{
+                    backgroundColor: '#95a5a6',
+                    borderColor: '#95a5a6',
+                    color: 'white',
+                    minWidth: '100px',
+                  }}
+                >
+                  Cancel
+                </ConfirmButton>
+                <ConfirmButton
+                  ref={confirmButtonRef}
+                  type="submit"
+                  onClick={() => deleteConfirmed(id)}
+                  style={{
+                    backgroundColor: '#e74c3c',
+                    borderColor: '#e74c3c',
+                    color: 'white',
+                    minWidth: '100px',
+                  }}
+                >
+                  <i className="icon trash" style={{ marginRight: '0.5rem' }} />
+                  Delete
+                </ConfirmButton>
+              </div>
             </div>
           ),
         },
@@ -123,9 +174,19 @@ const DeleteStudent = ({ id }) => {
     dispatch(hideModal());
   };
 
+  const handleDeleteClick = e => {
+    e.preventDefault();
+    console.log('Delete button clicked');
+    confirmDelete();
+  };
+
   return (
     <>
-      <FancyButton ref={deleteButtonRef} type="button" onClick={confirmDelete}>
+      <FancyButton
+        ref={deleteButtonRef}
+        type="button"
+        onClick={handleDeleteClick}
+      >
         DELETE
       </FancyButton>
     </>
