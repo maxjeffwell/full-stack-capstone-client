@@ -35,13 +35,13 @@ const CustomNavContainer = styled.div`
   }
 
   .nav-item {
-    font-size: 1.6em;
+    font-size: 1.3em;
     font-weight: 700;
     font-family: 'Roboto', 'sans-serif';
     color: ${props => props.theme.blue};
     text-align: center;
     white-space: nowrap;
-    padding: 0.7em 0.8em;
+    padding: 0.6em 0.5em;
     box-sizing: border-box;
     cursor: pointer;
     text-decoration: none;
@@ -72,29 +72,36 @@ const CustomNavContainer = styled.div`
   /* Responsive font sizing */
   @media (max-width: 1200px) {
     .nav-item {
-      font-size: 1.4em;
-      padding: 0.6em 0.7em;
+      font-size: 1.1em;
+      padding: 0.5em 0.4em;
     }
   }
 
   @media (max-width: 1024px) {
     .nav-item {
-      font-size: 1.2em;
-      padding: 0.5em 0.6em;
+      font-size: 1em;
+      padding: 0.4em 0.3em;
     }
   }
 
   @media (max-width: 900px) {
     .nav-item {
-      font-size: 1em;
-      padding: 0.4em 0.5em;
+      font-size: 0.9em;
+      padding: 0.3em 0.2em;
     }
   }
 
   @media (max-width: 820px) {
     .nav-item {
-      font-size: 0.9em;
-      padding: 0.3em 0.4em;
+      font-size: 0.8em;
+      padding: 0.25em 0.15em;
+    }
+  }
+
+  @media (max-width: 790px) {
+    .nav-item {
+      font-size: 0.75em;
+      padding: 0.2em 0.1em;
     }
   }
 
