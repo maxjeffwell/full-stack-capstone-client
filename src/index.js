@@ -43,7 +43,7 @@ import {
 // Optimized font loading with fallback
 WebFont.load({
   google: {
-    families: ['Roboto: 400', 'sans-serif'],
+    families: ['Roboto:400', 'Arimo:400', 'sans-serif'],
   },
   timeout: 2000,
   loading: () => {
