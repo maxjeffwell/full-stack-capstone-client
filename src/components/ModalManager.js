@@ -1,60 +1,70 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal } from 'semantic-ui-react';
 
 import { hideModal } from '../store/actions';
 import { selectModal } from '../store/slices/modalSlice';
 
 const backdropStyle = {
-  filter: 'blur(20px)',
   position: 'fixed',
-  zIndex: '1040',
-  top: '0',
-  bottom: '0',
-  left: '0',
-  right: '0',
-  backgroundColor: 'blue',
-  opacity: '0.8',
-  boxShadow: '0px 0px 20px 20px rgba(255,255,255,1)',
-  textShadow: '0px 0px 10px rgba(51, 51, 51, 0.9)',
-  transform: 'scale(0.9)',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 9999,
 };
 
 const modalStyle = {
-  position: 'absolute',
-  textAlign: 'center',
-  width: 'auto',
-  zIndex: '1040',
-  left: '50%',
-  top: '25%',
-  transform: 'translate(-50%, -50%)',
+  backgroundColor: 'white',
+  borderRadius: '8px',
+  padding: '0',
+  maxWidth: '500px',
+  width: '90%',
+  maxHeight: '90vh',
+  overflow: 'auto',
 };
 
 const ModalManager = () => {
   const dispatch = useDispatch();
   const modal = useSelector(selectModal);
 
-  console.log('ModalManager - modal state:', modal);
+  const handleKeyDown = React.useCallback(
+    e => {
+      if (e.key === 'Escape' && modal?.modalProps?.closeOnEscape) {
+        dispatch(hideModal());
+      }
+    },
+    [dispatch, modal?.modalProps?.closeOnEscape]
+  );
+
+  React.useEffect(() => {
+    if (modal?.modalProps?.closeOnEscape) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [modal?.modalProps?.closeOnEscape, handleKeyDown]);
 
   if (!modal) {
-    console.log('ModalManager - no modal to show');
     return null;
   }
 
   const { modalProps } = modal;
 
+  const handleBackdropClick = e => {
+    if (e.target === e.currentTarget && modalProps.closeOnDimmerClick) {
+      dispatch(hideModal());
+    }
+  };
+
   return (
-    <>
-      <div style={backdropStyle} />
-      <Modal
-        open={true}
-        onClose={() => dispatch(hideModal())}
-        style={modalStyle}
-        {...modalProps}
-      >
+    <div style={backdropStyle} onClick={handleBackdropClick}>
+      <div style={modalStyle} onClick={e => e.stopPropagation()}>
         {modalProps.children}
-      </Modal>
-    </>
+      </div>
+    </div>
   );
 };
 
