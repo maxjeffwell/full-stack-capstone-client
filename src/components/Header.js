@@ -8,6 +8,103 @@ import { selectAuth } from '../store/slices/authSlice';
 import LazyImage from './LazyImage';
 import logo from '../logo/logo.png';
 
+const CustomNavContainer = styled.div`
+  border: 5px solid ${props => props.theme.orange};
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 30px;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  background: white;
+
+  .logo-section {
+    display: flex;
+    align-items: center;
+    padding: 0.5em;
+  }
+
+  .nav-section {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .nav-item {
+    font-size: 1.8em;
+    font-weight: 700;
+    font-family: 'Roboto', 'sans-serif';
+    color: ${props => props.theme.blue};
+    text-align: center;
+    white-space: nowrap;
+    padding: 0.8em 1em;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    border: none;
+    background: none;
+    outline: none !important;
+
+    &:hover {
+      box-shadow: inset 6.5em 0 0 0 var(--hover);
+      background-color: ${props => props.theme.blue};
+      color: ${props => props.theme.white};
+    }
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+      outline: none !important;
+      box-shadow: none !important;
+      background-color: transparent !important;
+      color: ${props => props.theme.blue} !important;
+    }
+  }
+
+  /* Responsive font sizing */
+  @media (max-width: 1200px) {
+    .nav-item {
+      font-size: 1.5em;
+      padding: 0.7em 0.9em;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .nav-item {
+      font-size: 1.3em;
+      padding: 0.6em 0.8em;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .nav-item {
+      font-size: 1.1em;
+      padding: 0.5em 0.6em;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    .nav-section {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .nav-item {
+      font-size: 1em;
+      padding: 0.4em 0.5em;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+`;
+
 const StyledMenu = styled(Menu)`
   &&& {
     border: 5px solid ${props => props.theme.orange};
@@ -29,17 +126,35 @@ const StyledMenu = styled(Menu)`
   }
 
   /* Responsive font sizing */
+  @media (max-width: 1200px) {
+    &&& a.item,
+    &&& .custom-nav-item {
+      font-size: 1.5em;
+      padding: 0.7em 0.9em;
+    }
+  }
+
   @media (max-width: 1024px) {
-    &&& a.item {
-      font-size: 1.4em;
+    &&& a.item,
+    &&& .custom-nav-item {
+      font-size: 1.3em;
       padding: 0.6em 0.8em;
     }
   }
 
   @media (max-width: 900px) {
-    &&& a.item {
-      font-size: 1.2em;
+    &&& a.item,
+    &&& .custom-nav-item {
+      font-size: 1.1em;
       padding: 0.5em 0.6em;
+    }
+  }
+
+  @media (max-width: 768px) {
+    &&& a.item,
+    &&& .custom-nav-item {
+      font-size: 1em;
+      padding: 0.4em 0.5em;
     }
   }
   &&& :hover:not([disabled]) {
@@ -161,78 +276,62 @@ const Header = memo(() => {
   );
 
   const navigation = useMemo(() => {
-    const logoItem = (
-      <Menu.Menu position="left" key="logo">
-        <Menu.Item as="header">
-          <LazyImage src={logo} alt="educationELLy logo" />
-        </Menu.Item>
-      </Menu.Menu>
-    );
-
     if (isAuthenticated) {
       return (
-        <StyledMenu stackable size="small" borderless>
-          {logoItem}
-          <Menu.Menu position="right">
-            <Menu.Item>
-              <button
-                className="custom-nav-item"
-                onClick={e => handleMenuItemClick(e, '/dashboard')}
-              >
-                Instructor Dashboard
-              </button>
-            </Menu.Item>
-            <Menu.Item>
-              <button
-                className="custom-nav-item"
-                onClick={e => handleMenuItemClick(e, '/students')}
-              >
-                Student List
-              </button>
-            </Menu.Item>
-            <Menu.Item>
-              <button
-                className="custom-nav-item"
-                onClick={e => handleMenuItemClick(e, '/students/new')}
-              >
-                Add New Student
-              </button>
-            </Menu.Item>
-            <Menu.Item>
-              <button
-                className="custom-nav-item"
-                onClick={e => handleMenuItemClick(e, '/signout')}
-              >
-                Log Out
-              </button>
-            </Menu.Item>
-          </Menu.Menu>
-        </StyledMenu>
+        <CustomNavContainer>
+          <div className="logo-section">
+            <LazyImage src={logo} alt="educationELLy logo" />
+          </div>
+          <div className="nav-section">
+            <button
+              className="nav-item"
+              onClick={e => handleMenuItemClick(e, '/dashboard')}
+            >
+              Instructor Dashboard
+            </button>
+            <button
+              className="nav-item"
+              onClick={e => handleMenuItemClick(e, '/students')}
+            >
+              Student List
+            </button>
+            <button
+              className="nav-item"
+              onClick={e => handleMenuItemClick(e, '/students/new')}
+            >
+              Add New Student
+            </button>
+            <button
+              className="nav-item"
+              onClick={e => handleMenuItemClick(e, '/signout')}
+            >
+              Log Out
+            </button>
+          </div>
+        </CustomNavContainer>
       );
     }
 
     return (
-      <StyledMenu stackable size="small" borderless>
-        {logoItem}
-        <Menu.Menu position="right">
-          <Menu.Item>
-            <button
-              className="custom-nav-item"
-              onClick={e => handleMenuItemClick(e, '/signup')}
-            >
-              Register
-            </button>
-          </Menu.Item>
-          <Menu.Item>
-            <button
-              className="custom-nav-item"
-              onClick={e => handleMenuItemClick(e, '/signin')}
-            >
-              Log In
-            </button>
-          </Menu.Item>
-        </Menu.Menu>
-      </StyledMenu>
+      <CustomNavContainer>
+        <div className="logo-section">
+          <LazyImage src={logo} alt="educationELLy logo" />
+        </div>
+        <div className="nav-section">
+          <button
+            className="nav-item"
+            onClick={e => handleMenuItemClick(e, '/signup')}
+          >
+            Register
+          </button>
+          <button
+            className="nav-item"
+            onClick={e => handleMenuItemClick(e, '/signin')}
+          >
+            Log In
+          </button>
+        </div>
+      </CustomNavContainer>
     );
   }, [isAuthenticated, handleMenuItemClick]);
 
