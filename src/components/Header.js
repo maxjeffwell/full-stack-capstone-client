@@ -1,5 +1,5 @@
 import React, { memo, useMemo, useCallback } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Menu } from 'semantic-ui-react';
 import styled from 'styled-components';
@@ -109,7 +109,7 @@ const StyledMenu = styled(Menu)`
 
 const Header = memo(() => {
   const isAuthenticated = useSelector(selectAuth);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleMenuItemClick = useCallback(
     (e, to) => {
@@ -129,10 +129,10 @@ const Header = memo(() => {
 
       // Navigate using React Router
       if (to) {
-        history.push(to);
+        navigate(to);
       }
     },
-    [history]
+    [navigate]
   );
 
   const navigation = useMemo(() => {
