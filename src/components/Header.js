@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Menu } from 'semantic-ui-react';
@@ -42,16 +42,18 @@ const StyledMenu = styled(Menu)`
       padding: 0.5em 0.6em;
     }
   }
-  &&& :hover:not([disabled]),
-  :focus {
+  &&& :hover:not([disabled]) {
     box-shadow: inset 6.5em 0 0 0 var(--hover);
     background-color: ${props => props.theme.blue};
     color: ${props => props.theme.white};
   }
-  &&& :active:not([disabled]),
-  :focus {
+  &&& :active:not([disabled]) {
     color: mediumpurple;
     background-color: white;
+  }
+  &&& :focus {
+    outline: none;
+    box-shadow: none;
   }
 
   /* Prevent stacking on larger screens */
@@ -97,6 +99,15 @@ const StyledMenu = styled(Menu)`
 const Header = memo(() => {
   const isAuthenticated = useSelector(selectAuth);
 
+  const handleMenuItemClick = useCallback(e => {
+    // Remove focus to prevent persistent highlighting
+    setTimeout(() => {
+      if (e.target) {
+        e.target.blur();
+      }
+    }, 100);
+  }, []);
+
   const navigation = useMemo(() => {
     const logoItem = (
       <Menu.Menu position="left" key="logo">
@@ -111,16 +122,36 @@ const Header = memo(() => {
         <StyledMenu stackable size="small" borderless>
           {logoItem}
           <Menu.Menu position="right">
-            <Menu.Item as={Link} name="Instructor Dashboard" to="/dashboard">
+            <Menu.Item
+              as={Link}
+              name="Instructor Dashboard"
+              to="/dashboard"
+              onClick={handleMenuItemClick}
+            >
               Instructor Dashboard
             </Menu.Item>
-            <Menu.Item as={Link} name="Student List" to="/students">
+            <Menu.Item
+              as={Link}
+              name="Student List"
+              to="/students"
+              onClick={handleMenuItemClick}
+            >
               Student List
             </Menu.Item>
-            <Menu.Item as={Link} name="Add New Student" to="/students/new">
+            <Menu.Item
+              as={Link}
+              name="Add New Student"
+              to="/students/new"
+              onClick={handleMenuItemClick}
+            >
               Add New Student
             </Menu.Item>
-            <Menu.Item as={Link} name="Log Out" to="/signout">
+            <Menu.Item
+              as={Link}
+              name="Log Out"
+              to="/signout"
+              onClick={handleMenuItemClick}
+            >
               Log Out
             </Menu.Item>
           </Menu.Menu>
@@ -132,16 +163,26 @@ const Header = memo(() => {
       <StyledMenu stackable size="small" borderless>
         {logoItem}
         <Menu.Menu position="right">
-          <Menu.Item as={Link} name="Register" to="/signup">
+          <Menu.Item
+            as={Link}
+            name="Register"
+            to="/signup"
+            onClick={handleMenuItemClick}
+          >
             Register
           </Menu.Item>
-          <Menu.Item as={Link} name="Log In" to="/signin">
+          <Menu.Item
+            as={Link}
+            name="Log In"
+            to="/signin"
+            onClick={handleMenuItemClick}
+          >
             Log In
           </Menu.Item>
         </Menu.Menu>
       </StyledMenu>
     );
-  }, [isAuthenticated]);
+  }, [isAuthenticated, handleMenuItemClick]);
 
   return navigation;
 });
