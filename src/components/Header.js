@@ -51,9 +51,20 @@ const StyledMenu = styled(Menu)`
     color: mediumpurple;
     background-color: white;
   }
-  &&& :focus {
-    outline: none;
-    box-shadow: none;
+  &&& :focus,
+  &&& :focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    color: ${props => props.theme.blue} !important;
+  }
+
+  &&& a.item:focus,
+  &&& a.item:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    color: ${props => props.theme.blue} !important;
   }
 
   /* Prevent stacking on larger screens */
@@ -101,11 +112,16 @@ const Header = memo(() => {
 
   const handleMenuItemClick = useCallback(e => {
     // Remove focus to prevent persistent highlighting
+    const target = e.currentTarget || e.target;
     setTimeout(() => {
-      if (e.target) {
-        e.target.blur();
+      if (target && target.blur) {
+        target.blur();
       }
-    }, 100);
+      // Also blur any focused element
+      if (document.activeElement && document.activeElement.blur) {
+        document.activeElement.blur();
+      }
+    }, 50);
   }, []);
 
   const navigation = useMemo(() => {
