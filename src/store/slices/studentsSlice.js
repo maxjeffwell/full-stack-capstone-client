@@ -25,35 +25,20 @@ const initialState = studentsAdapter.getInitialState({
 export const fetchStudents = createAsyncThunk(
   'students/fetchAll',
   async (_, { dispatch, getState, rejectWithValue }) => {
-    console.log('fetchStudents thunk called');
-
     // Check both authService and Redux state
     const token = authService.getToken();
     const reduxAuth = getState().auth.authenticated;
 
-    console.log('Auth check:', {
-      hasToken: !!token,
-      isAuthenticated: authService.isAuthenticated(),
-      reduxAuth: !!reduxAuth,
-    });
-
     // If we have a token, try to use it regardless of validation
     if (!token && !reduxAuth) {
-      console.log('Not authenticated - no token found');
       dispatch(setError('No authentication token found'));
       return rejectWithValue('Not authenticated');
     }
 
-    // Log that we're proceeding with the request
-    console.log('Proceeding with API request despite validation issues');
-
     try {
-      console.log('Making API request to:', `${API_BASE_URL}/students`);
       const response = await axios.get(`${API_BASE_URL}/students`);
-      console.log('API response:', response.data);
       return response.data;
     } catch (error) {
-      console.error('API request failed:', error);
       if (error.response?.status === 401) {
         authService.clearTokens();
         dispatch(setError('Session expired. Please log in again.'));
@@ -93,35 +78,22 @@ export const fetchStudent = createAsyncThunk(
 export const createStudent = createAsyncThunk(
   'students/create',
   async (studentData, { dispatch, getState, rejectWithValue }) => {
-    console.log('createStudent thunk called with:', studentData);
-
     // Check authentication similar to fetchStudents
     const token = authService.getToken();
     const reduxAuth = getState().auth.authenticated;
 
-    console.log('Create student auth check:', {
-      hasToken: !!token,
-      reduxAuth: !!reduxAuth,
-    });
-
     if (!token && !reduxAuth) {
-      console.log('Not authenticated - no token found');
       dispatch(setError('No authentication token found'));
       return rejectWithValue('Not authenticated');
     }
 
     try {
-      console.log('Making POST request to:', `${API_BASE_URL}/students`);
       const response = await axios.post(
         `${API_BASE_URL}/students`,
         studentData
       );
-      console.log('Create student response:', response.data);
       return response.data;
     } catch (error) {
-      console.error('Create student failed:', error);
-      console.error('Error response:', error.response);
-
       if (error.response?.status === 401) {
         authService.clearTokens();
         dispatch(setError('Session expired. Please log in again.'));
