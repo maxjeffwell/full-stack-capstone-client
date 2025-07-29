@@ -1,25 +1,24 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import { createGlobalStyle } from 'styled-components';
 
 import Header from './Header';
 import Footer from './Footer';
-import LoadingSpinner from './LoadingSpinner';
 import ErrorBoundary from './ErrorBoundary';
 import ModalManager from './ModalManager';
 import authRequired from './authRequired';
 import SessionManagerWrapper from './SessionManagerWrapper';
 
-// Lazy load components for code splitting
-const Landing = React.lazy(() => import('./Landing'));
-const Register = React.lazy(() => import('./auth/Register'));
-const Students = React.lazy(() => import('./auth/Students'));
-const Signin = React.lazy(() => import('./auth/Signin'));
-const Dashboard = React.lazy(() => import('./Dashboard'));
-const Signout = React.lazy(() => import('./auth/Signout'));
-const CreateStudent = React.lazy(() => import('./CreateStudent'));
-const UpdateStudent = React.lazy(() => import('./UpdateStudent'));
+// Temporarily disable lazy loading for debugging
+import Landing from './Landing';
+import Register from './auth/Register';
+import Students from './auth/Students';
+import Signin from './auth/Signin';
+import Dashboard from './Dashboard';
+import Signout from './auth/Signout';
+import CreateStudent from './CreateStudent';
+import UpdateStudent from './UpdateStudent';
 
 // Create protected components
 const ProtectedStudents = authRequired(Students);
@@ -81,24 +80,19 @@ const App = () => {
         <GlobalStyle />
         <ErrorBoundary>
           <Header />
-          <Suspense fallback={<LoadingSpinner message="Loading page..." />}>
-            <Routes>
-              <Route path="/" element={<Landing />} />
-              <Route path="/signup" element={<Register />} />
-              <Route
-                path="/students/:id/update"
-                element={<ProtectedUpdateStudent />}
-              />
-              <Route path="/students" element={<ProtectedStudents />} />
-              <Route path="/signin" element={<Signin />} />
-              <Route path="/dashboard" element={<ProtectedDashboard />} />
-              <Route path="/signout" element={<Signout />} />
-              <Route
-                path="/students/new"
-                element={<ProtectedCreateStudent />}
-              />
-            </Routes>
-          </Suspense>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/signup" element={<Register />} />
+            <Route
+              path="/students/:id/update"
+              element={<ProtectedUpdateStudent />}
+            />
+            <Route path="/students" element={<ProtectedStudents />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/dashboard" element={<ProtectedDashboard />} />
+            <Route path="/signout" element={<Signout />} />
+            <Route path="/students/new" element={<ProtectedCreateStudent />} />
+          </Routes>
           <ModalManager />
           <SessionManagerWrapper />
           <Footer />
