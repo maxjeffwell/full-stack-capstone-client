@@ -1,5 +1,5 @@
 // This file is automatically loaded by Create React App and allows us to configure the development server
-const { createProxyMiddleware } = require('http-proxy-middleware');
+// const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
   // Add security headers in development

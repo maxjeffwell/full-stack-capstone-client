@@ -2,17 +2,7 @@
   "root": "build/",
   "clean_urls": false,
   "routes": {
-    "/static/js/**": "static/js/$1",
-    "/static/css/**": "static/css/$1",
-    "/static/media/**": "static/media/$1",
-    "/": "index.html",
-    "/signin": "index.html",
-    "/signup": "index.html",
-    "/dashboard": "index.html",
-    "/students": "index.html",
-    "/students/new": "index.html",
-    "/students/*/update": "index.html",
-    "/signout": "index.html"
+    "/**": "index.html"
   },
   "headers": {
     "/static/**": {

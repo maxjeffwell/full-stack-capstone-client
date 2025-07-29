@@ -52,10 +52,6 @@ export const signin = (formProps, callback) => async dispatch => {
 };
 
 export const fetchStudents = () => async dispatch => {
-  console.log('fetchStudents called');
-  console.log('isAuthenticated:', authService.isAuthenticated());
-  console.log('API_BASE_URL:', API_BASE_URL);
-
   // Auth interceptor handles token automatically
   if (!authService.isAuthenticated()) {
     dispatch({ type: AUTH_ERROR, payload: 'No authentication token found' });
@@ -63,9 +59,7 @@ export const fetchStudents = () => async dispatch => {
   }
 
   try {
-    console.log('Making request to:', `${API_BASE_URL}/students`);
     const res = await axios.get(`${API_BASE_URL}/students`);
-    console.log('Response received:', res.data);
     dispatch({ type: FETCH_STUDENTS, payload: res.data });
   } catch (e) {
     if (e.response && e.response.status === 401) {

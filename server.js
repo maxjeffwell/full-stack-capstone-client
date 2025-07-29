@@ -17,12 +17,8 @@ app.use(
 // app.use('/api', require('./routes/api'));
 
 // The "catchall" handler: send back React's index.html file for any non-static routes
-// This should come AFTER static file serving
+// Express static middleware will handle static files first, so this only catches non-static routes
 app.get('*', (req, res) => {
-  // Don't serve index.html for static file requests that failed
-  if (req.path.startsWith('/static/')) {
-    return res.status(404).send('File not found');
-  }
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
