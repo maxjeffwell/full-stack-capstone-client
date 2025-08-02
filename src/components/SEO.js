@@ -6,14 +6,14 @@ const SEO = ({
   title = 'educationELLy: Where All Teachers Are Language Teachers',
   description = 'A comprehensive platform helping mainstream teachers engage with English Language Learning (ELL) students through integrated curriculum development, student tracking, and language proficiency assessment tools.',
   keywords = 'ELL, English Language Learning, education, teachers, language instruction, student tracking, proficiency assessment, mainstream integration, curriculum development',
-  canonicalUrl = 'https://educationelly.com',
-  ogImage = 'https://educationelly.com/og-image.png',
+  canonicalUrl = 'https://educationelly-client-71a1b1901aaa.herokuapp.com',
+  ogImage = 'https://educationelly-client-71a1b1901aaa.herokuapp.com/og-image.png',
   ogType = 'website',
   twitterCard = 'summary_large_image',
   noIndex = false,
   structuredData = null,
 }) => {
-  const siteUrl = 'https://educationelly.com';
+  const siteUrl = 'https://educationelly-client-71a1b1901aaa.herokuapp.com';
   const fullUrl = canonicalUrl.startsWith('http')
     ? canonicalUrl
     : `${siteUrl}${canonicalUrl}`;
