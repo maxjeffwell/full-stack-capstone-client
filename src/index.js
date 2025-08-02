@@ -10,6 +10,7 @@ import { createRoot } from 'react-dom/client';
 
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
+import { HelmetProvider } from 'react-helmet-async';
 import WebFont from 'webfontloader';
 
 // Import only the Semantic UI components we actually use
@@ -80,11 +81,13 @@ const root = createRoot(container);
 // anytime redux store state changes the provider component informs all of its children components
 
 root.render(
-  <ThemeProvider theme={theme}>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </ThemeProvider>
+  <HelmetProvider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ThemeProvider>
+  </HelmetProvider>
 );
 
 // Performance monitoring (development only)

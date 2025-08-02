@@ -12,6 +12,7 @@ import {
 } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import SEO from '../SEO';
 
 import * as actions from '../../store/actions';
 import {
@@ -170,82 +171,90 @@ const Register = () => {
   }
 
   return (
-    <Grid centered style={{ height: '100%' }} verticalAlign="middle">
-      <Grid.Column textAlign="center" style={{ maxWidth: 450 }}>
-        <StyledMessage info>
-          DEMO ACCOUNT AVAILABLE
-          <p>
-            If you prefer not to register at this time, an account for demo
-            purposes is available on the login page.
-          </p>
-        </StyledMessage>
+    <>
+      <SEO
+        title="Register - educationELLy"
+        description="Create your educationELLy account to start managing English Language Learning students, tracking proficiency, and organizing your teaching workflows."
+        keywords="ELL registration, teacher signup, education platform registration, create account"
+        canonicalUrl="/signup"
+      />
+      <Grid centered style={{ height: '100%' }} verticalAlign="middle">
+        <Grid.Column textAlign="center" style={{ maxWidth: 450 }}>
+          <StyledMessage info>
+            DEMO ACCOUNT AVAILABLE
+            <p>
+              If you prefer not to register at this time, an account for demo
+              purposes is available on the login page.
+            </p>
+          </StyledMessage>
 
-        <StyledSegment stacked>
-          <StyledHeader as="h1">registration</StyledHeader>
+          <StyledSegment stacked>
+            <StyledHeader as="h1">registration</StyledHeader>
 
-          <StyledForm onSubmit={handleSubmit(onSubmit)}>
-            <LabeledFormInput
-              name="email"
-              control={control}
-              rules={combineRules(
-                validationRules.email,
-                validationRules.isTrimmed
+            <StyledForm onSubmit={handleSubmit(onSubmit)}>
+              <LabeledFormInput
+                name="email"
+                control={control}
+                rules={combineRules(
+                  validationRules.email,
+                  validationRules.isTrimmed
+                )}
+                label={{
+                  content: (
+                    <Icon color="orange" name="user outline" size="large" />
+                  ),
+                }}
+                labelPosition="left"
+                placeholder="Email"
+              />
+
+              <LabeledFormInput
+                name="password"
+                control={control}
+                rules={combineRules(
+                  validationRules.password(7, 42),
+                  validationRules.isTrimmed
+                )}
+                type="password"
+                label={{
+                  content: <Icon color="orange" name="lock" size="large" />,
+                }}
+                labelPosition="left"
+                placeholder="Password"
+              />
+
+              <LabeledFormInput
+                name="passwordConfirmation"
+                control={control}
+                rules={validationRules.passwordConfirmation}
+                type="password"
+                label={{
+                  content: <Icon color="orange" name="lock" size="large" />,
+                }}
+                labelPosition="left"
+                placeholder="Confirm Password"
+              />
+
+              <Form.Field
+                control={Button}
+                primary
+                type="submit"
+                disabled={!isDirty || isSubmitting}
+                loading={isSubmitting}
+              >
+                Register
+              </Form.Field>
+
+              {errorMessage && (
+                <StyledErrorMessage className="form-error" aria-live="polite">
+                  {errorMessage}
+                </StyledErrorMessage>
               )}
-              label={{
-                content: (
-                  <Icon color="orange" name="user outline" size="large" />
-                ),
-              }}
-              labelPosition="left"
-              placeholder="Email"
-            />
-
-            <LabeledFormInput
-              name="password"
-              control={control}
-              rules={combineRules(
-                validationRules.password(7, 42),
-                validationRules.isTrimmed
-              )}
-              type="password"
-              label={{
-                content: <Icon color="orange" name="lock" size="large" />,
-              }}
-              labelPosition="left"
-              placeholder="Password"
-            />
-
-            <LabeledFormInput
-              name="passwordConfirmation"
-              control={control}
-              rules={validationRules.passwordConfirmation}
-              type="password"
-              label={{
-                content: <Icon color="orange" name="lock" size="large" />,
-              }}
-              labelPosition="left"
-              placeholder="Confirm Password"
-            />
-
-            <Form.Field
-              control={Button}
-              primary
-              type="submit"
-              disabled={!isDirty || isSubmitting}
-              loading={isSubmitting}
-            >
-              Register
-            </Form.Field>
-
-            {errorMessage && (
-              <StyledErrorMessage className="form-error" aria-live="polite">
-                {errorMessage}
-              </StyledErrorMessage>
-            )}
-          </StyledForm>
-        </StyledSegment>
-      </Grid.Column>
-    </Grid>
+            </StyledForm>
+          </StyledSegment>
+        </Grid.Column>
+      </Grid>
+    </>
   );
 };
 

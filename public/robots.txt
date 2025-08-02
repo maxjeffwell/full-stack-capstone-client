@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard*
+Disallow: /students*
+Disallow: /signin
+Disallow: /signout
+
+# Allow specific pages
+Allow: /
+Allow: /signup
+
+# Point to sitemap
+Sitemap: https://educationelly.com/sitemap.xml
