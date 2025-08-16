@@ -62,13 +62,25 @@ Password: demopassword
 <details>
 <summary>View Application Screenshots</summary>
 
-### Mobile Views
+![Landing Page](screenshots/Screen%20Shot%202025-08-16%20at%2006.00.43.png)
 
-- [Mobile Landing](https://gyazo.com/9d94bf0e1eda5b7f2aa34806d781101e)
-- [Mobile Login](https://gyazo.com/752835350a1245d984441da9bc1b18bf)
-- [Mobile Registration](https://gyazo.com/7f1a30a7ac45cd2838a6a863df2f707f)
-- [Mobile Student Card](https://gyazo.com/f424c97ceed872696aed619f4b8af006)
-- [Mobile Update Student](https://gyazo.com/53e57d7b52365af84cbeab01ec67e934)
+![Sign In](screenshots/Screen%20Shot%202025-08-16%20at%2006.01.48.png)
+
+![Sign Up](screenshots/Screen%20Shot%202025-08-16%20at%2006.01.59.png)
+
+![Dashboard](screenshots/Screen%20Shot%202025-08-16%20at%2006.02.39.png)
+
+![Student List](screenshots/Screen%20Shot%202025-08-16%20at%2006.02.53.png)
+
+![Create Student](screenshots/Screen%20Shot%202025-08-16%20at%2006.03.11.png)
+
+![Student Details](screenshots/Screen%20Shot%202025-08-16%20at%2006.03.32.png)
+
+![Update Student](screenshots/Screen%20Shot%202025-08-16%20at%2006.03.38.png)
+
+![Delete Confirmation](screenshots/Screen%20Shot%202025-08-16%20at%2006.03.48.png)
+
+![Mobile Navigation](screenshots/Screen%20Shot%202025-08-16%20at%2006.04.00.png)
 
 </details>
 
