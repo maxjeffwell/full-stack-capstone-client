@@ -59,30 +59,102 @@ Password: demopassword
 
 ## 📸 Screenshots
 
-<details>
-<summary>View Application Screenshots</summary>
+### Welcome & Authentication
 
-![Landing Page](screenshots/Screen%20Shot%202025-08-16%20at%2006.00.43.png)
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/Screen%20Shot%202025-08-16%20at%2006.00.43.png" alt="educationELLy Landing Page" width="400">
+      <br>
+      <sub><b>Landing Page</b></sub>
+      <br>
+      <sub>Welcome page showcasing the platform's mission to bridge ELL and mainstream education</sub>
+    </td>
+    <td align="center">
+      <img src="screenshots/Screen%20Shot%202025-08-16%20at%2006.01.48.png" alt="educationELLy Sign In" width="400">
+      <br>
+      <sub><b>Sign In</b></sub>
+      <br>
+      <sub>Secure JWT-based authentication with clean, accessible form design</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">
+      <img src="screenshots/Screen%20Shot%202025-08-16%20at%2006.01.59.png" alt="educationELLy User Registration" width="400">
+      <br>
+      <sub><b>User Registration</b></sub>
+      <br>
+      <sub>New teacher registration with form validation and user-friendly interface</sub>
+    </td>
+  </tr>
+</table>
 
-![Sign In](screenshots/Screen%20Shot%202025-08-16%20at%2006.01.48.png)
+### Dashboard & Navigation
 
-![Sign Up](screenshots/Screen%20Shot%202025-08-16%20at%2006.01.59.png)
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/Screen%20Shot%202025-08-16%20at%2006.02.39.png" alt="educationELLy Main Dashboard" width="400">
+      <br>
+      <sub><b>Main Dashboard</b></sub>
+      <br>
+      <sub>Central hub providing quick access to key features and student overview</sub>
+    </td>
+    <td align="center">
+      <img src="screenshots/Screen%20Shot%202025-08-16%20at%2006.04.00.png" alt="educationELLy Mobile Navigation" width="400">
+      <br>
+      <sub><b>Mobile Navigation</b></sub>
+      <br>
+      <sub>Responsive sidebar navigation optimized for mobile devices</sub>
+    </td>
+  </tr>
+</table>
 
-![Dashboard](screenshots/Screen%20Shot%202025-08-16%20at%2006.02.39.png)
+### Student Management
 
-![Student List](screenshots/Screen%20Shot%202025-08-16%20at%2006.02.53.png)
-
-![Create Student](screenshots/Screen%20Shot%202025-08-16%20at%2006.03.11.png)
-
-![Student Details](screenshots/Screen%20Shot%202025-08-16%20at%2006.03.32.png)
-
-![Update Student](screenshots/Screen%20Shot%202025-08-16%20at%2006.03.38.png)
-
-![Delete Confirmation](screenshots/Screen%20Shot%202025-08-16%20at%2006.03.48.png)
-
-![Mobile Navigation](screenshots/Screen%20Shot%202025-08-16%20at%2006.04.00.png)
-
-</details>
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/Screen%20Shot%202025-08-16%20at%2006.02.53.png" alt="educationELLy Student Directory" width="400">
+      <br>
+      <sub><b>Student Directory</b></sub>
+      <br>
+      <sub>Comprehensive list view of all ELL students with key information at a glance</sub>
+    </td>
+    <td align="center">
+      <img src="screenshots/Screen%20Shot%202025-08-16%20at%2006.03.11.png" alt="educationELLy Add New Student" width="400">
+      <br>
+      <sub><b>Add New Student</b></sub>
+      <br>
+      <sub>Intuitive form for creating new student profiles with ELL-specific fields</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="screenshots/Screen%20Shot%202025-08-16%20at%2006.03.32.png" alt="educationELLy Student Profile" width="400">
+      <br>
+      <sub><b>Student Profile View</b></sub>
+      <br>
+      <sub>Detailed display showing proficiency levels, contact details, and academic data</sub>
+    </td>
+    <td align="center">
+      <img src="screenshots/Screen%20Shot%202025-08-16%20at%2006.03.38.png" alt="educationELLy Edit Student" width="400">
+      <br>
+      <sub><b>Edit Student Information</b></sub>
+      <br>
+      <sub>User-friendly interface for modifying student profiles and tracking progress</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">
+      <img src="screenshots/Screen%20Shot%202025-08-16%20at%2006.03.48.png" alt="educationELLy Delete Confirmation" width="400">
+      <br>
+      <sub><b>Delete Confirmation</b></sub>
+      <br>
+      <sub>Safety confirmation modal preventing accidental deletion of student records</sub>
+    </td>
+  </tr>
+</table>
 
 ## 🛠️ Technology Stack
 
