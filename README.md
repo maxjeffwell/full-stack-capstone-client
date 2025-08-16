@@ -234,7 +234,7 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 **Jeff Maxwell**
 
-- Email: [maxjeffwell@gmail.com](mailto:maxjeffwell@gmail.com)
+- Email: [jeff@el-jefe.me](mailto:jeff@el-jefe.me)
 - GitHub: [@maxjeffwell](https://github.com/maxjeffwell)
 - Portfolio: [https://www.el-jefe.me](https://www.el-jefe.me)
 
