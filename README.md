@@ -62,17 +62,6 @@ Password: demopassword
 <details>
 <summary>View Application Screenshots</summary>
 
-### Desktop Views
-
-- [Landing Page](https://gyazo.com/e98b1d2276640f2cb0a54adee95896c2)
-- [Login Page](https://gyazo.com/2d67665682bed2ed50fad959e1b6f26f)
-- [Registration Page](https://gyazo.com/ed654f3e775d938c17018d9bb540ffa1)
-- [Instructor Dashboard](https://gyazo.com/9edd9b0e825a85b5b4c6f30a1e277f70)
-- [Student List](https://gyazo.com/3bedb6168f8df87c6777ef2285418882)
-- [Update Student](https://gyazo.com/489ca40991dbdb5227b7a4814448d1a9)
-- [Create Student](https://gyazo.com/504eb28443de1f891f0a3d267649b4c7)
-- [Delete Confirmation](https://gyazo.com/6559db4cf59b06e47d00c81b04192ec2)
-
 ### Mobile Views
 
 - [Mobile Landing](https://gyazo.com/9d94bf0e1eda5b7f2aa34806d781101e)
